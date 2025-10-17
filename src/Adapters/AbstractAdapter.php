@@ -1,7 +1,8 @@
 <?php
 
 namespace Mamarmite\UIDEndpoint\Adapters;
-use \Mamarmite\UIDEndpoint\Adapters\SchemaAdapterInterface;
+
+use Mamarmite\UIDEndpoint\Adapters\SchemaAdapterInterface;
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');

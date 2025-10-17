@@ -23,6 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $MAMARMITE_UID_ENDPOINT_BASE_PATH = \plugin_dir_path( __FILE__ );
 
+
+/*
 require_once \plugin_dir_path( __FILE__ ) . 'src/rewrite.php';
 
 require_once \plugin_dir_path( __FILE__ ) . 'src/Renderers/DefaultRenderer.php';
@@ -31,8 +33,9 @@ require_once \plugin_dir_path( __FILE__ ) . 'src/Renderers/DefaultRenderer.php';
 require_once \plugin_dir_path( __FILE__ ) . 'src/Renderers/DefaultRenderer.php';
 require_once \plugin_dir_path( __FILE__ ) . 'src/Renderers/BaseEndpointRenderer.php';
 require_once \plugin_dir_path( __FILE__ ) . 'src/Handlers/BaseUIDHandler.php';
-require_once \plugin_dir_path( __FILE__ ) . 'src/Handlers/Entity.php';
+require_once \plugin_dir_path( __FILE__ ) . 'src/Handlers/Entity.php';*/
 
+require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 /**
  * @todo : Add default field value from ACF and/or Objects in the adapter pattern.

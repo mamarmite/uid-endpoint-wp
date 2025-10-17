@@ -1,7 +1,7 @@
 {
-  "name": "mamarmite/uidendpoint",
-  "description": "Description of your project",
-  "type": "library",
+  "name": "mamarmite/uid-endpoint",
+  "description": "Ajout d'un endpoint et d'identifiant unique pour les données structurées dans Wordpress. ",
+  "type": "project",
   "authors": [
     {
       "name": "Marc-André Martin",
