@@ -1,0 +1,95 @@
+{
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "@id": "https://topo.art/r/e1",
+  "additionalType": "http://kg.artsdata.ca/resource/ExhibitionEvent",
+  "Name": "4 heures | Michel Huneault et Johann Mazé",
+  "alternateName": "Film d’observation non linéaire",
+  "eventSchedule": {
+    "@type": "Schedule",
+    "startDate": "2023-05-26",
+    "endDate": "2023-07-30",
+    "repeatFrequency": "P1W",
+    "byDay": [
+      "http://schema.org/Monday",
+      "http://schema.org/Tuesday",
+      "http://schema.org/Wednesday",
+      "http://schema.org/Thursday",
+      "http://schema.org/Friday",
+      "http://schema.org/Saturday"
+    ],
+    "startTime": "10:00:00",
+    "endTime": "17:00:00",
+    "scheduleTimezone": "America/Montreal"
+  },
+  "location": [
+    {
+      "@type": "Place",
+      "@id": "https://topo.art/r/p1",
+      "name": "La Vitrine",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Montréal",
+        "addressRegion": "QC",
+        "postalCode": "H2T 3B2",
+        "streetAddress": "5445 avenue de Gaspé",
+        "addressCountry": "CA"
+      },
+      "sameAs": [
+        "http://kg.artsdata.ca/resource/K2-5987",
+        "http://www.wikidata.org/entity/Q135649429"
+      ]
+    },
+    {
+      "@type": "VirtualLocation",
+      "url": "https://topo.art/4heures//"
+    }
+  ],
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+  "description": "Invité par TOPO et un partenaire du Pays Basque, Bitamine Faktoria, en juin 2022, Michel Huneault a effectué une résidence de création lors de laquelle il a développé avec son collègue Johann Mazé une nouvelle œuvre autour de la vie à la frontière entre la France et l’Espagne. Les deux versions de l’œuvre, en vitrine et en ligne, présentent une succession d’un peu plus de 200 plans séquences de 1 à 2 minutes chacun, associant un court extrait vidéo à une bande sonore asynchrone. L’expérience non linéaire, lente et contemplative, offre une réflexion nuancée sur les réalités transfrontalières.",
+  "url": "https://topo.art/programmation/4-heures-michel-huneault-et-johann-maze/",
+  "image": "https://topo.art/chantier/wp-content/uploads/2023/10/rivierekayak.png",
+  "keywords": "Frontière, Pays Basque, arts numérique",
+  "organizer": [
+    {
+      "@type": "Organization",
+      "@id": "https://topo.art/r/o1",
+      "name": "TOPO",
+      "url": "https://topo.art/",
+      "sameAs": [
+        "https://www.facebook.com/topomtl/",
+        "http://kg.artsdata.ca/resource/K2-5986",
+        "http://www.wikidata.org/entity/Q107051816"
+      ]
+    }
+  ],
+  "performer": [],
+  "workFeatured": [
+    {
+      "@type": "CreativeWork",
+      "@id": "https://topo.art/r/c1",
+      "additionalType": "http://www.wikidata.org/entity/Q11424",
+      "name": "4 heures",
+      "url": "https://topo.art/4heures/",
+      "creator": [
+        {
+          "@type": "Person",
+          "@id": "https://topo.art/r/a1",
+          "name": "Michel Huneault",
+          "url": "http://michelhuneault.com/",
+          "sameAs": [
+            "https://www.facebook.com/michel.huneault",
+            "http://www.wikidata.org/entity/Q24705892"
+          ]
+        },
+        {
+          "@type": "Person",
+          "name": "Johann Mazé",
+          "sameAs": "https://johannmaze.bandcamp.com/"
+        }
+      ]
+    }
+  ],
+  "isAccessibleForFree": "true"
+}

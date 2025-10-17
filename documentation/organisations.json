@@ -1,0 +1,15 @@
+{//https://culturecreates.github.io/artsdata-data-model/classes/organization.html
+  "organizations": [
+    {
+      "@type": "Organization",
+      "name": "TOPO",
+      "url": "https://topo.art/",
+      "additionalType": "Pas sur si on l'ajoute",
+      "sameAs": [
+        "https://www.facebook.com/topomtl/",
+        "http://kg.artsdata.ca/resource/K2-5986",
+        "http://www.wikidata.org/entity/Q107051816"
+      ]
+    }
+  ]
+}

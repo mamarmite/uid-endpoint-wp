@@ -1,0 +1,68 @@
+{
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "additionalType": "http://kg.artsdata.ca/resource/VisualArtsEvent",
+  "Name": "Vernissage 4 heures | Michel Huneault et Johann Mazé",
+  "alternateName": "Film d’observation non linéaire",
+  "startDate": "2023-05-25T17:00:00-04:00",
+  "endDate": "2023-05-25T19:00:00-04:00",
+  "location": {
+    "@type": "Place",
+    "name": "La Vitrine",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Montréal",
+      "addressRegion": "QC",
+      "postalCode": "H2T 3B2",
+      "streetAddress": "5445 avenue de Gaspé",
+      "addressCountry": "CA"
+    },
+    "sameAs": [
+      "http://kg.artsdata.ca/resource/K2-5987",
+      "http://www.wikidata.org/entity/Q135649429"
+    ]
+  },
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "description": "Invité par TOPO et un partenaire du Pays Basque, Bitamine Faktoria, en juin 2022, Michel Huneault a effectué une résidence de création lors de laquelle il a développé avec son collègue Johann Mazé une nouvelle œuvre autour de la vie à la frontière entre la France et l’Espagne. Les deux versions de l’œuvre, en vitrine et en ligne, présentent une succession d’un peu plus de 200 plans séquences de 1 à 2 minutes chacun, associant un court extrait vidéo à une bande sonore asynchrone. L’expérience non linéaire, lente et contemplative, offre une réflexion nuancée sur les réalités transfrontalières.",
+  "url": "https://topo.art/programmation/4-heures-michel-huneault-et-johann-maze/",
+  "image": "https://topo.art/chantier/wp-content/uploads/2023/10/rivierekayak.png",
+  "keywords": "Frontière, Pays Basque, arts numérique",
+  "organizer": [
+    {
+      "@type": "Organization",
+      "name": "TOPO",
+      "url": "https://topo.art/",
+      "sameAs": [
+        "https://www.facebook.com/topomtl/",
+        "http://kg.artsdata.ca/resource/K2-5986",
+        "http://www.wikidata.org/entity/Q107051816"
+      ]
+    }
+  ],
+  "workFeatured": [
+    {
+      "@type": "CreativeWork",
+      "additionalType": "http://www.wikidata.org/entity/Q11424",
+      "name": "4 heures",
+      "url": "https://topo.art/4heures/",
+      "creator": [
+        {
+          "@type": "Person",
+          "name": "Michel Huneault",
+          "url": "http://michelhuneault.com/",
+          "sameAs": [
+            "https://www.facebook.com/michel.huneault",
+            "http://www.wikidata.org/entity/Q24705892"
+          ]
+        },
+        {
+          "@type": "Person",
+          "name": "Johann Mazé",
+          "sameAs": "https://johannmaze.bandcamp.com/"
+        }
+      ]
+    }
+  ],
+  "isAccessibleForFree": "true"
+}

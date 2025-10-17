@@ -1,0 +1,36 @@
+//https://culturecreates.github.io/artsdata-data-model/event-types.html
+Event:Event
+EventSeries:Event Series
+Class:Classes
+TalkEvent:Talk
+PerformingArtsEvent:Performance
+RehearsalEvent:Public Rehearsal
+CircusPerformance:Circus Performance
+ComedyPerformance:Comedy Performance
+DancePerformance:Dance Performance
+MusicalTheatrePerformance:Musical Theatre Performance
+OperaPerformance:Opera Performance
+MusicPerformance:Concert
+SpokenWordPerformance:Spoken Word Performance
+TheatrePerformance:Theatre Performance
+StorytellingPerformance:Storytelling Performance
+VarietyPerformance:Variety Performance
+PerformanceArt:Performance Art
+Festival:Festival
+ChildrensEvent:Children's Event
+ExhibitionEvent:Exhibition
+ResidencyEvent:Residency
+ScreeningEvent:Screening
+SocialEvent:Social Event
+WorkshopEvent:Workshop
+MasterclassEvent:Masterclass
+PostshowTalk:Postshow Talk
+PreshowTalk:Preshow Talk
+PowWow:Powwow
+Competition:Competition
+Convention:Convention
+SocialDance:Social Dance
+AwardsEvent:Awards Event
+LiveFilmConcert:Live Film Concert
+FestivalSeries:Festival Series
+SaleEvent:Sale

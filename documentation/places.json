@@ -1,0 +1,24 @@
+{
+  "places": [
+    {
+      "@type": "Place",
+      "name": "La Vitrine",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Montréal",
+        "addressRegion": "QC",
+        "postalCode": "H2T 3B2",
+        "streetAddress": "5445 avenue de Gaspé",
+        "addressCountry": "CA"
+      },
+      "sameAs": [
+        "http://kg.artsdata.ca/resource/K2-5987",
+        "http://www.wikidata.org/entity/Q135649429"
+      ]
+    },
+    {
+      "@type": "VirtualLocation",
+      "url": "https://topo.art/4heures//"
+    }
+  ]
+}

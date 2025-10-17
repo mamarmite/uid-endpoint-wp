@@ -1,0 +1,9 @@
+//https://schema.org/EventStatusType
+//https://schema.org/StatusEnumeration
+
+
+EventCancelled
+EventMovedOnline
+EventPostponed
+EventRescheduled
+EventScheduled

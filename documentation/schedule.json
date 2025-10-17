@@ -1,0 +1,17 @@
+{
+  "@type": "Schedule",
+  "startDate": "2023-05-26",
+  "endDate": "2023-07-30",
+  "repeatFrequency": "P1W",
+  "byDay": [
+    "http://schema.org/Monday",
+    "http://schema.org/Tuesday",
+    "http://schema.org/Wednesday",
+    "http://schema.org/Thursday",
+    "http://schema.org/Friday",
+    "http://schema.org/Saturday"
+  ],
+  "startTime": "10:00:00",
+  "endTime": "17:00:00",
+  "scheduleTimezone": "America/Montreal"
+}

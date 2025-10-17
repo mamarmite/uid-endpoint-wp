@@ -1,0 +1,30 @@
+{
+  "@type": "CreativeWork",
+  "@id": "https://topo.art/r/c882",
+  "additionalType": "http://www.wikidata.org/entity/Q11424",
+  "name": "4 heures",
+  "alternateName ": "4h",
+  "description": "",
+  "url": "https://topo.art/4heures/",
+  "image": "",
+  "disambiguatingDescription ": "",
+  "mainEntityOfPage": "",
+  "creator": [
+    {
+      "@type": "Person",
+      "@id": "https://topo.art/r/a8467",
+      "name": "Michel Huneault",
+      "url": "http://michelhuneault.com/",
+      "sameAs": [
+        "https://www.facebook.com/michel.huneault",
+        "http://www.wikidata.org/entity/Q24705892"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://topo.art/r/a8469",
+      "name": "Johann Mazé",
+      "sameAs": "https://johannmaze.bandcamp.com/"
+    }
+  ]
+}

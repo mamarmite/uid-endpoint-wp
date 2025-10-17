@@ -1,0 +1,34 @@
+//https://culturecreates.github.io/artsdata-data-model/classes/person.html
+{
+  "creator": [
+    {
+      "@type": "Person",
+      "additionalType": "",
+      "name": "Michel Huneault",
+      "alternateName": "Michel Huneault",
+      "image": "",
+      "url": "http://michelhuneault.com/",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "isnb",
+        "value":  "889647468"
+      },
+      //https://kg.artsdata.ca/en/entity?uri=http%3A%2F%2Fschema.org%2FdisambiguatingDescription ??
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Montréal",
+        "addressRegion": "QC",
+        "postalCode": "H2T 3B2",
+        "streetAddress": "5445 avenue de Gaspé",
+        "addressCountry": "CA"
+      },
+      "sameAs": [
+        "https://www.facebook.com/michel.huneault",
+        "http://www.wikidata.org/entity/Q24705892"
+      ],
+      "hasOccupation": {
+
+      }
+    }
+  ]
+}
