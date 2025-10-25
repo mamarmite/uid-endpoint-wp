@@ -25,7 +25,6 @@ class AdapterFactory
      *
      * @param string $postType
      * @return SchemaAdapterInterface
-     * @throws \Exception
      */
     public static function create(\WP_Post $post): SchemaAdapterInterface
     {

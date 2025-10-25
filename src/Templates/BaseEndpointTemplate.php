@@ -10,16 +10,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class BaseEndpointTemplate extends AbstractTemplate
 {
-    function __contruct(\WP_Post $post)
+    /**
+     * @param \WP_Post|null $post
+     */
+    function __construct(?\WP_Post $post)
     {
+        parent::__construct($post);
+    }
+
+    public function render_head():void {
 
     }
 
-    public function render_head() {
-        return "";
-    }
-
-    public function render_content() {
+    public function render_content():void {
         ?>
         <h1><?php echo \get_bloginfo('name'); ?> Unique identifiers base endpoint</h1>
         <section>
@@ -35,8 +38,8 @@ class BaseEndpointTemplate extends AbstractTemplate
         <?php
     }
 
-    public function render_footer() {
-        return "";
+    public function render_footer():void {
+
     }
 }
 ?>

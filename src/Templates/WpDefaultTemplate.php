@@ -11,7 +11,7 @@ class WpDefaultTemplate extends AbstractTemplate
 {
     function __contruct(\WP_Post $post)
     {
-        parent::__contruct($post);
+        parent::__construct($post);
     }
 
     public function render_head()
@@ -19,10 +19,10 @@ class WpDefaultTemplate extends AbstractTemplate
         return "";
     }
 
-    public function render($post) {
+    public function render():void {
         // Load the appropriate template
         $template = \locate_template(array(
-            'single-' . $post->post_type . '.php',
+            'single-' . $this->post->post_type . '.php',
             'single.php',
             'index.php'
         ));
@@ -33,13 +33,12 @@ class WpDefaultTemplate extends AbstractTemplate
         }
     }
 
-    public function render_content() {
+    public function render_content():void {
         //handling by wp template.
     }
 
-    public function render_footer()
+    public function render_footer():void
     {
-        return "";
     }
 }
 

@@ -12,7 +12,9 @@ class AbstractBridge
     protected array $to;
 
     function __construct() {
-        $this->to = array_flip($this->from);
+        if (!empty($this->from)) {
+            $this->to = array_flip($this->from);
+        }
     }
 
     public function to($from) {

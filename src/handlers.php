@@ -32,13 +32,12 @@ function handle_entity_endpoint_request(): void
         // BASE endpoint
         if ($r_id === '__base_endpoint__') {
             //render target entity
-            $baseTemplate = new BaseEndpointTemplate();
-            $baseTemplate->render(null);
+            $baseTemplate = new BaseEndpointTemplate(null);
+            $baseTemplate->render();
             exit;
         } else {
             global $post;
             $post = \get_post($r_id);
-
 
             if ($post && $post->post_status === 'publish') {
                 // Set up the global post data

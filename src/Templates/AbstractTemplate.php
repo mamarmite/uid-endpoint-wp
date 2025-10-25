@@ -14,20 +14,27 @@ abstract class AbstractTemplate
     public \WP_Post $post;
     public SchemaAdapterInterface $entity;
 
-    function __contruct(\WP_Post $post)
+    /**
+     * @param \WP_Post $post
+     * @return void
+     */
+    function __construct(?\WP_Post $post)
     {
-        $this->post = $post;
-        $this->entity = $this->get_adapter($post);
+        if ($post !== null) {
+            $this->post = $post;
+            $this->entity = AdapterFactory::create($this->post);
+        }
+
     }
 
     abstract function render_content();
     abstract function render_head();
     abstract function render_footer();
 
-    public function render(\WP_Post $post)
+    public function render():void
     {
         ?>
-        <html>
+        <html lang="fr">
             <head>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -37,7 +44,7 @@ abstract class AbstractTemplate
             </head>
             <body>
                 <main>
-                    <?php $this->render_content($this->post); ?>
+                    <?php $this->render_content(); ?>
                 </main>
                 <footer>
                     <?php echo MAMARMITE_UID_DOMAIN ."/".  MAMARMITE_UID_BASE_ENDPOINT; ?>
@@ -48,12 +55,18 @@ abstract class AbstractTemplate
         <?php
     }
 
-    public function get_adapter():SchemaAdapterInterface {
-        return AdapterFactory::create($this->post);
+    public function get_adapter():?SchemaAdapterInterface {
+        if ($this->post !== null) {
+            return AdapterFactory::create($this->post);
+        }
+        return null;
     }
 
     public function create_schema():array {
-        return AdapterFactory::transfrom($this->post);
+        if ($this->post !== null) {
+            return AdapterFactory::transfrom($this->post);
+        }
+        return [];
     }
 }
 
