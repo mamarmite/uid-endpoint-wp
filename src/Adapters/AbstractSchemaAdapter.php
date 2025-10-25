@@ -2,7 +2,7 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
-use Mamarmite\UIDEndpoint\Adapters\SchemaAdapterInterface;
+use Mamarmite\UIDEndpoint\UID;
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');
@@ -15,7 +15,22 @@ if (!defined('ABSPATH')) {
 abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
 {
     protected string $schemaType;
+    protected string $prefix = "";
     protected string $context = 'http://schema.org';
+
+    public $uid;
+    public \WP_Post $post;
+    public \WP_Post_Type $post_type;
+
+    function __construct(string $postType, \WP_Post $post = null) {
+        $this->post = $post;
+        $this->post_type = get_post_type_object($post->post_type);
+        $this->uid = new UID($post);
+    }
+
+    public function transform(): array {
+        return [];
+    }
 
     /**
      * Get ACF field value with fallback
@@ -44,7 +59,7 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
     {
         return [
             '@type' => $this->schemaType,
-            '@id' => $this->getField($post->ID, 'schema_id', get_permalink($post->ID) . '#' . strtolower($this->schemaType)),
+            '@id' => $this->uid->full(),
             'name' => $post->post_title,
         ];
     }

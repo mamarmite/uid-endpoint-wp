@@ -1,12 +1,6 @@
 <?php
 namespace Mamarmite\UIDEndpoint\Adapters;
 
-use Mamarmite\UIDEndpoint\Adapters\ArtistAdapter;
-use Mamarmite\UIDEndpoint\Adapters\EventAdapter;
-use Mamarmite\UIDEndpoint\Adapters\OrganizationAdapter;
-use Mamarmite\UIDEndpoint\Adapters\PlaceAdapter;
-use Mamarmite\UIDEndpoint\Adapters\CreativeWorkAdapter;
-
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');
@@ -20,7 +14,7 @@ class AdapterFactory
 {
     protected static array $adapters = [
         'organization' => OrganizationAdapter::class,
-        'artist' => ArtistAdapter::class,
+        'artiste' => ArtistAdapter::class,
         'place' => PlaceAdapter::class,
         'event' => EventAdapter::class,
         'creative_work' => CreativeWorkAdapter::class,
@@ -33,16 +27,17 @@ class AdapterFactory
      * @return SchemaAdapterInterface
      * @throws \Exception
      */
-    public static function create(string $postType): SchemaAdapterInterface
+    public static function create(\WP_Post $post): SchemaAdapterInterface
     {
-        $postType = strtolower($postType);
-
-        if (!isset(self::$adapters[$postType])) {
-            throw new \Exception("No adapter found for post type: {$postType}");
-        }
-
+        $postType = strtolower($post->post_type);
         $adapterClass = self::$adapters[$postType];
-        return new $adapterClass();
+        return new $adapterClass($postType, $post);
+    }
+
+    public static function transfrom(\WP_Post $post): array
+    {
+        $schemaAdapter = self::create($post);
+        return $schemaAdapter->transform();
     }
 
     /**

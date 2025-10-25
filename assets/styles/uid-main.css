@@ -1,0 +1,33 @@
+:root {
+  --light: #FAFAFA;
+  --light-border: #F5F5F5;
+  --dark: #AFAFAF;
+  --default-border-radius: 0.5rem;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-size: 14px;
+}
+
+main, footer {
+  padding: 2rem;
+}
+
+.schema-container {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--light-border);
+  border-radius: var(--default-border-radius);
+  background-color: var(--light);
+}
+
+.schema-type {
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--light-border);
+  border-radius: var(--default-border-radius);
+  background-color: var(--light);
+}

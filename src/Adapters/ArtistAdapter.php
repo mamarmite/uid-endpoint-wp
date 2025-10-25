@@ -2,7 +2,7 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
-use Mamarmite\UIDEndpoint\Adapters\AbstractSchemaAdapter;
+use \Mamarmite\UIDEndpoint\Adapters\AbstractSchemaAdapter;
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');
@@ -15,37 +15,46 @@ if (!defined('ABSPATH')) {
 class ArtistAdapter extends AbstractSchemaAdapter
 {
     protected string $schemaType = 'Person';
+    protected string $prefix = "a";//artist-agent
 
-    public function transform(\WP_Post $post): array
+    function __construct(string $postType, \WP_Post $post = null)
     {
-        $schema = $this->buildBaseSchema($post);
+        parent::__construct($postType, $post);
+    }
 
-        $this->addIfNotEmpty($schema, 'alternateName', $this->getField($post->ID, 'alternate_name'));
-        $this->addIfNotEmpty($schema, 'url', $this->getField($post->ID, 'url', get_permalink($post->ID)));
-        $this->addIfNotEmpty($schema, 'image', $this->getField($post->ID, 'image'));
-        $this->addIfNotEmpty($schema, 'additionalType', $this->getField($post->ID, 'additional_type'));
-        $this->addIfNotEmpty($schema, 'disambiguatingDescription', $this->getField($post->ID, 'disambiguating_description'));
+
+    public function transform(): array
+    {
+        parent::transform();
+        $schema = $this->buildBaseSchema($this->post);
+
+        $this->addIfNotEmpty($schema, 'alternateName', $this->getField($this->post->ID, 'alternate_name'));
+        $this->addIfNotEmpty($schema, 'url', $this->getField($this->post->ID, 'url', get_permalink($this->post->ID)));
+        $this->addIfNotEmpty($schema, 'image', $this->getField($this->post->ID, 'image'));
+        $this->addIfNotEmpty($schema, 'additionalType', $this->getField($this->post->ID, 'additionalType'));
+        $this->addIfNotEmpty($schema, 'inLanguage', $this->getField($this->post->ID, 'inLanguage'));
+        $this->addIfNotEmpty($schema, 'disambiguatingDescription', $this->getField($this->post->ID, 'disambiguatingDescription'));
 
         // Address
-        $address = $this->buildAddress($post->ID);
+        $address = $this->buildAddress($this->post->ID);
         if ($address) {
             $schema['address'] = $address;
         }
 
         // Identifier
-        $identifier = $this->buildIdentifier($post->ID);
+        $identifier = $this->buildIdentifier($this->post->ID);
         if ($identifier) {
             $schema['identifier'] = $identifier;
         }
 
         // Occupation
-        $occupation = $this->buildOccupation($post->ID);
+        $occupation = $this->buildOccupation($this->post->ID);
         if (!empty($occupation)) {
             $schema['hasOccupation'] = $occupation;
         }
 
         // SameAs
-        $sameAs = $this->buildSameAs($post->ID);
+        $sameAs = $this->buildSameAs($this->post->ID);
         if (!empty($sameAs)) {
             $schema['sameAs'] = $sameAs;
         }

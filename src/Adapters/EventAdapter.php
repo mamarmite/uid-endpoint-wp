@@ -14,41 +14,47 @@ if (!defined('ABSPATH')) {
 class EventAdapter extends AbstractSchemaAdapter
 {
     protected string $schemaType = 'Event';
+    protected string $prefix = "e";
 
-    public function transform(\WP_Post $post): array
+    function __construct(string $postType, \WP_Post $post = null)
     {
-        $schema = $this->buildBaseSchema($post);
+        parent::__construct($postType, $post);
+    }
 
-        $this->addIfNotEmpty($schema, 'alternateName', $this->getField($post->ID, 'alternate_name'));
-        $this->addIfNotEmpty($schema, 'description', $this->getField($post->ID, 'description', $post->post_content));
-        $this->addIfNotEmpty($schema, 'url', $this->getField($post->ID, 'url', get_permalink($post->ID)));
-        $this->addIfNotEmpty($schema, 'image', $this->getField($post->ID, 'image'));
-        $this->addIfNotEmpty($schema, 'additionalType', $this->getField($post->ID, 'additional_type'));
-        $this->addIfNotEmpty($schema, 'keywords', $this->getField($post->ID, 'keywords'));
-        $this->addIfNotEmpty($schema, 'eventStatus', $this->getField($post->ID, 'event_status', 'https://schema.org/EventScheduled'));
-        $this->addIfNotEmpty($schema, 'eventAttendanceMode', $this->getField($post->ID, 'event_attendance_mode'));
-        $this->addIfNotEmpty($schema, 'isAccessibleForFree', $this->getField($post->ID, 'is_accessible_for_free'));
+    public function transform(): array
+    {
+        $schema = $this->buildBaseSchema($this->post);
+
+        $this->addIfNotEmpty($schema, 'alternateName', $this->getField($this->post->ID, 'alternate_name'));
+        $this->addIfNotEmpty($schema, 'description', $this->getField($this->post->ID, 'description', $this->post->post_content));
+        $this->addIfNotEmpty($schema, 'url', $this->getField($this->post->ID, 'url', get_permalink($this->post->ID)));
+        $this->addIfNotEmpty($schema, 'image', $this->getField($this->post->ID, 'image'));
+        $this->addIfNotEmpty($schema, 'additionalType', $this->getField($this->post->ID, 'additional_type'));
+        $this->addIfNotEmpty($schema, 'keywords', $this->getField($this->post->ID, 'keywords'));
+        $this->addIfNotEmpty($schema, 'eventStatus', $this->getField($this->post->ID, 'event_status', 'https://schema.org/EventScheduled'));
+        $this->addIfNotEmpty($schema, 'eventAttendanceMode', $this->getField($this->post->ID, 'event_attendance_mode'));
+        $this->addIfNotEmpty($schema, 'isAccessibleForFree', $this->getField($this->post->ID, 'is_accessible_for_free'));
 
         // Event Schedule
-        $schedule = $this->buildEventSchedule($post->ID);
+        $schedule = $this->buildEventSchedule($this->post->ID);
         if ($schedule) {
             $schema['eventSchedule'] = $schedule;
         }
 
         // Location
-        $location = $this->buildLocation($post->ID);
+        $location = $this->buildLocation($this->post->ID);
         if (!empty($location)) {
             $schema['location'] = $location;
         }
 
         // Organizer
-        $organizer = $this->buildOrganizer($post->ID);
+        $organizer = $this->buildOrganizer($this->post->ID);
         if (!empty($organizer)) {
             $schema['organizer'] = $organizer;
         }
 
         // Work Featured
-        $workFeatured = $this->buildWorkFeatured($post->ID);
+        $workFeatured = $this->buildWorkFeatured($this->post->ID);
         if (!empty($workFeatured)) {
             $schema['workFeatured'] = $workFeatured;
         }

@@ -13,21 +13,27 @@ if (!defined('ABSPATH')) {
 class CreativeWorkAdapter extends AbstractSchemaAdapter
 {
     protected string $schemaType = 'CreativeWork';
+    protected string $prefix = "c";
 
-    public function transform(\WP_Post $post): array
+    function __construct(string $postType, \WP_Post $post = null)
     {
-        $schema = $this->buildBaseSchema($post);
+        parent::__construct($postType, $post);
+    }
 
-        $this->addIfNotEmpty($schema, 'alternateName', $this->getField($post->ID, 'alternate_name'));
-        $this->addIfNotEmpty($schema, 'description', $this->getField($post->ID, 'description', $post->post_content));
-        $this->addIfNotEmpty($schema, 'url', $this->getField($post->ID, 'url', get_permalink($post->ID)));
-        $this->addIfNotEmpty($schema, 'image', $this->getField($post->ID, 'image'));
-        $this->addIfNotEmpty($schema, 'additionalType', $this->getField($post->ID, 'additional_type'));
-        $this->addIfNotEmpty($schema, 'disambiguatingDescription', $this->getField($post->ID, 'disambiguating_description'));
-        $this->addIfNotEmpty($schema, 'mainEntityOfPage', $this->getField($post->ID, 'main_entity_of_page'));
+    public function transform(): array
+    {
+        $schema = $this->buildBaseSchema($this->post);
+
+        $this->addIfNotEmpty($schema, 'alternateName', $this->getField($this->post->ID, 'alternate_name'));
+        $this->addIfNotEmpty($schema, 'description', $this->getField($this->post->ID, 'description', $this->post->post_content));
+        $this->addIfNotEmpty($schema, 'url', $this->getField($this->post->ID, 'url', get_permalink($this->post->ID)));
+        $this->addIfNotEmpty($schema, 'image', $this->getField($this->post->ID, 'image'));
+        $this->addIfNotEmpty($schema, 'additionalType', $this->getField($this->post->ID, 'additional_type'));
+        $this->addIfNotEmpty($schema, 'disambiguatingDescription', $this->getField($this->post->ID, 'disambiguating_description'));
+        $this->addIfNotEmpty($schema, 'mainEntityOfPage', $this->getField($this->post->ID, 'main_entity_of_page'));
 
         // Creators
-        $creators = $this->buildCreators($post->ID);
+        $creators = $this->buildCreators($this->post->ID);
         if (!empty($creators)) {
             $schema['creator'] = $creators;
         }
@@ -44,7 +50,7 @@ class CreativeWorkAdapter extends AbstractSchemaAdapter
             foreach ($creatorIds as $creatorId) {
                 $creator = get_post($creatorId);
                 if ($creator) {
-                    $artistAdapter = new ArtistAdapter();
+                    $artistAdapter = new ArtistAdapter($creator);
                     $creators[] = $artistAdapter->transform($creator);
                 }
             }

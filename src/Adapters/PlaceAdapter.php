@@ -13,19 +13,25 @@ if (!defined('ABSPATH')) {
 class PlaceAdapter extends AbstractSchemaAdapter
 {
     protected string $schemaType = 'Place';
+    protected string $prefix = "p";
 
-    public function transform(\WP_Post $post): array
+    function __construct(string $postType, \WP_Post $post = null)
     {
-        $schema = $this->buildBaseSchema($post);
+        parent::__construct($postType, $post);
+    }
+
+    public function transform(): array
+    {
+        $schema = $this->buildBaseSchema($this->post);
 
         // Address
-        $address = $this->buildAddress($post->ID);
+        $address = $this->buildAddress($this->post->ID);
         if ($address) {
             $schema['address'] = $address;
         }
 
         // SameAs
-        $sameAs = $this->buildSameAs($post->ID);
+        $sameAs = $this->buildSameAs($this->post->ID);
         if (!empty($sameAs)) {
             $schema['sameAs'] = $sameAs;
         }

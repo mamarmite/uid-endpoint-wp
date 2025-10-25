@@ -14,14 +14,14 @@ function add_uid_endpoint()
 {
     // Handle /r/
     \add_rewrite_rule(
-        '^r/?$',
+        '^'.MAMARMITE_UID_BASE_ENDPOINT.'/?$',
         'index.php?r_id=__base_endpoint__', // Use a special value to detect empty case
         'top'
     );
 
     // target entity by r_id (@id).
     \add_rewrite_rule(
-        '^r/([^/]+)/?$',
+        '^'.MAMARMITE_UID_BASE_ENDPOINT.'/([^/]+)/?$',
         'index.php?r_id=$matches[1]',
         'top'
     );

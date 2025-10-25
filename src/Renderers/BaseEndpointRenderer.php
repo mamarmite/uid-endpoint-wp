@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function render_base_endpoint_template() {
 
-    \load_template(\plugin_dir_path( __FILE__ )."../templates/BaseEndpointTemplate.php");
+    $baseTemplate = new BaseEndpointTemplate();
+    $baseTemplate->render(null);
     exit;
 }

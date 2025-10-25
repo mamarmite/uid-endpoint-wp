@@ -14,10 +14,9 @@ interface SchemaAdapterInterface
     /**
      * Transform WordPress post data to schema.org format
      *
-     * @param \WP_Post $post The WordPress post object
      * @return array The schema.org formatted data
      */
-    public function transform(\WP_Post $post): array;
+    public function transform(): array;
 
     /**
      * Get the schema.org type
