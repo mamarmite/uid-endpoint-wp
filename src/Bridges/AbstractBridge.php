@@ -23,4 +23,13 @@ class AbstractBridge
     public function from($to) {
         return $this->from[$to];
     }
+
+    /**
+     * Check if the value is support in the from or the to array.
+     * @param $value
+     * @return bool
+     */
+    public function is_supported($value) {
+        return in_array($value, $this->to) || in_array($value, $this->from);
+    }
 }

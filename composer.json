@@ -14,7 +14,8 @@
   "autoload": {
     "files": [
       "src/handlers.php",
-      "src/rewrite.php"
+      "src/rewrite.php",
+      "src/filters.php"
     ],
     "psr-4": {
       "Mamarmite\\UIDEndpoint\\": "src/"

@@ -14,8 +14,12 @@ class PostTypeToPrefixBridge extends AbstractBridge
         'organization' => "o",
         'artiste' => "a",
         'place' => "p",
+
         'event' => "e",
+        'programmations' => "e",
+
         'creative_work' => "c",
+        'production' => "c",
     ];
 
     protected array $to = [];
