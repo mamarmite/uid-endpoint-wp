@@ -18,7 +18,11 @@ class DefaultTemplate extends AbstractTemplate
     }
 
     public function render_head():void {
-       ?><?php
+        ?>
+        <script type="application/ld+json" class="unique-id-endpoint">
+            <?php echo json_encode($this->entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
+        </script>
+        <?php
     }
 
     public function render_content():void {
@@ -28,9 +32,35 @@ class DefaultTemplate extends AbstractTemplate
         <h1><?php echo \get_the_title(); ?></h1>
         <section>
             <div class="schema-container">
-                <pre><code><?php echo json_encode($this->entity->transform(), JSON_PRETTY_PRINT); ?></code></pre>
+                <div><button onclick="copyCodeHandler(this)">🗐</button></div>
+                <pre><code id="schemaJsonLd"><?php echo json_encode($this->entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?></code></pre>
             </div>
         </section>
+        <script>
+            async function copyCodeHandler(button) {
+                const codeElement = document.getElementById('schemaJsonLd');
+                const text = codeElement.textContent;
+                const originalText = button.textContent;
+
+                try {
+                    await navigator.clipboard.writeText(text);
+
+                    button.textContent = 'Copié!';
+                    button.classList.add('copied');
+
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                    button.textContent = 'Error';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
+                }
+            }
+        </script>
         <?php
     }
 

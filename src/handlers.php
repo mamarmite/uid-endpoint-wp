@@ -36,10 +36,15 @@ function handle_entity_endpoint_request(): void
             $baseTemplate->render();
             exit;
         } else {
-            global $post;
-            $post = \get_post($r_id);
 
-            if ($post && $post->post_status === 'publish') {
+            $uid = UID::parse($r_id);
+
+            if (count($uid) === 2 && isset($uid["post_id"])) {
+                global $post;//only set the global when the uid parse is positive.
+                $post = \get_post($uid["post_id"]);
+            }
+
+            if ($post && UID::validate_uid($post, $uid) && $post->post_status === 'publish') {
                 // Set up the global post data
                 global $wp_query;
                 $wp_query->is_single = true;

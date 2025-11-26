@@ -23,7 +23,7 @@ interface SchemaAdapterInterface
      *
      * @return string
      */
-    public function getSchemaType(): string;
+    public function get_schema_type(): string;
 
     /**
      * Validate the schema data

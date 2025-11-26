@@ -18,7 +18,7 @@ class AdapterFactory
         'place' => PlaceAdapter::class,
 
         'event' => EventAdapter::class,
-        'programmations' => EventAdapter::class,
+        'programmation' => EventAdapter::class,
 
         'creative_work' => CreativeWorkAdapter::class,
         'production' => CreativeWorkAdapter::class,
@@ -35,7 +35,7 @@ class AdapterFactory
         $postType = strtolower($post->post_type);
         if (self::is_supported($post)) {
             $adapterClass = self::$adapters[$postType];
-            return new $adapterClass($postType, $post);
+            return new $adapterClass($post);
         }
         return null;
     }

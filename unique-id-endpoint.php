@@ -3,7 +3,7 @@
  * Plugin Name: Unique ID endpoint
  * Description: Add unique id (UID) endpoint to a wordpress installation.
  * Plugin URI: https://mamarmite.com
- * Version: 0.0.1
+ * Version: 0.0.2
  * Author: Marc-André Martin
  * Author URI: https://mamarmite.com
  * Requires PHP: 8.1
@@ -23,21 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define("MAMARMITE_UID_ENDPOINT_BASE_PATH", \plugin_dir_path( __FILE__ ) );
 define("MAMARMITE_UID_ENDPOINT_BASE_URL", \plugin_dir_url( __FILE__ ) );
+define("MAMARMITE_UID_ADD_PROTOCOLE", true);
+define("MAMARMITE_UID_PROTOCOLE", "http://");//make that dynamic with wp url ?
 define("MAMARMITE_UID_DOMAIN", "topo.art");
 define("MAMARMITE_UID_BASE_ENDPOINT", "r");
 
 require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
-/*
-require_once \plugin_dir_path( __FILE__ ) . 'src/Templates/BaseEndpointTemplate.php';
-require_once \plugin_dir_path( __FILE__ ) . 'src/Templates/DefaultTemplate.php';
-require_once \plugin_dir_path( __FILE__ ) . 'src/Renderers/DefaultRenderer.php';
-require_once \plugin_dir_path( __FILE__ ) . 'src/Handlers/BaseUIDHandler.php';
-require_once \plugin_dir_path( __FILE__ ) . 'src/Handlers/Entity.php';
-
-require_once \plugin_dir_path( __FILE__ ) . 'src/handlers.php';
-require_once \plugin_dir_path( __FILE__ ) . 'src/rewrite.php';*/
-
-/**
- * @todo : Add default field value from ACF and/or Objects in the adapter pattern.
- * @todo : Loop through object to
- */

@@ -13,23 +13,29 @@ if (!defined('ABSPATH')) {
 class OrganizationAdapter extends AbstractSchemaAdapter
 {
     protected string $schemaType = 'Organization';
+    protected string $schemaGroupKey = 'group_schema_organisation';
     protected string $prefix = "o";
 
-    function __construct(string $postType, \WP_Post $post = null)
+    function __construct(\WP_Post $post)
     {
-        parent::__construct($postType, $post);
+        parent::__construct($post);
     }
 
     public function transform(): array
     {
-        $schema = $this->buildBaseSchema($this->post);
+        $schema = $this->build_base_schema($this->post);
 
-        $this->addIfNotEmpty($schema, 'url', $this->getField($this->post->ID, 'url', get_permalink($this->post->ID)));
-        $this->addIfNotEmpty($schema, 'additionalType', $this->getField($this->post->ID, 'additional_type'));
+        $this->add_if_not_empty($schema, 'url', get_permalink($this->post->ID));
+        $this->add_if_not_empty($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
 
-        $sameAs = $this->buildSameAs($this->post->ID);
+        $sameAs = $this->build_same_as($this->post->ID);
         if (!empty($sameAs)) {
             $schema['sameAs'] = $sameAs;
+        }
+        $image = $this->build_image();
+
+        if (!empty($image)) {
+            $schema['image'] = $image;
         }
 
         return $schema;

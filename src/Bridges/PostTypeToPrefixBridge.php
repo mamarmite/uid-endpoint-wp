@@ -16,7 +16,7 @@ class PostTypeToPrefixBridge extends AbstractBridge
         'place' => "p",
 
         'event' => "e",
-        'programmations' => "e",
+        'programmation' => "e",
 
         'creative_work' => "c",
         'production' => "c",
