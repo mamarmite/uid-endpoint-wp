@@ -14,7 +14,13 @@ Le répertoire contenant les [schémas de travail et générés par ce plugin](h
 - [ ] `UID` sous forme d'url.
 - [ ] Ajout de la gestion des `id`, `uid` et `url` dans les données brute (BD).
 - [ ] Ajout du endpoint `/jsonld` pour avoir un accès au jsonld brute avant l'`UID` via une redirection 303.
+- [ ] Internationalisation des textes
 
 # Contributeur
 - [Marc-André Martin - Mamarmite](https://github.com/mamarmite) (développement du plugin pour Wordpress.)
 - [CAPACOA](https://capacoa.ca) (schemas et structure des données)
+
+# Défis du mandat
+
+- Ajouter les UID à des données déjà existante dans un système.
+- Ajouter des ENDPOINT pour le json+ld pratique pour l'utilisateur, les robots et le RObot moisonneur d'Artsdata.
