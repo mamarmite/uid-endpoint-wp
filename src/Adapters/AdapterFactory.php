@@ -35,6 +35,7 @@ class AdapterFactory
         $postType = strtolower($post->post_type);
         if (self::is_supported($post)) {
             $adapterClass = self::$adapters[$postType];
+            echo "Creating".$adapterClass;
             return new $adapterClass($post);
         }
         return null;

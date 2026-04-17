@@ -33,6 +33,7 @@ abstract class AbstractTemplate
 
     public function render():void
     {
+        echo "rendering";
         ?>
         <html lang="fr">
             <head>
