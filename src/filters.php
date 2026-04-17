@@ -13,7 +13,7 @@ function render_uid_side_of_permalink($return, $post_id, $new_title, $new_slug, 
 
     if ($is_supported) {
         $entity = AdapterFactory::create($post);
-        $uid = '<strong style="margin-left:1rem;">UID : </strong><a href="'.get_home_url().$entity->uid->relative().'" title="'.$entity->uid->full().'" target="_blank">'.$entity->uid->full().'</a>';
+        $uid = '<strong style="margin-left:1rem;">UID : </strong><a href="'.get_home_url().$entity->uid->full().'" title="'.$entity->uid->full().'" target="_blank">'.$entity->uid->full().'</a>';
         return $return . $uid;
     }
     if (!$is_supported) {
@@ -27,10 +27,10 @@ function render_uid_side_of_permalink($return, $post_id, $new_title, $new_slug, 
 
 function render_uid_single_post_edit($post) {
     $is_supported = AdapterFactory::is_supported($post);
-
     if ($is_supported) {
         $entity = AdapterFactory::create($post);
-        $uid = '<strong>UID : </strong><a href="'.get_home_url().$entity->uid->relative().'" title="'.$entity->uid->full().'" target="_blank">'.$entity->uid->full().'</a>';
+        $url = get_home_url()."/r/preview?uid=".$entity->uid->full();
+        $uid = '<strong>UID : </strong><a href="'.$url.'" title="'.$url.'" target="_blank">'.$url.'</a>';
 
         echo '<div style="padding: 0 10px; margin-top:5px; min-height: 25px;">'.$uid.'</div>';
     }

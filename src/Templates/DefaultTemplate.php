@@ -20,7 +20,7 @@ class DefaultTemplate extends AbstractTemplate
     public function render_head():void {
         ?>
         <script type="application/ld+json" class="unique-id-endpoint">
-            <?php /*echo json_encode($this->entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);*/ ?>
+            <?php echo json_encode($this->entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
         </script>
         <?php
     }

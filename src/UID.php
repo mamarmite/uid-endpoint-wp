@@ -11,12 +11,13 @@ if (!defined('ABSPATH')) {
 
 class UID {
 
-    static $_pattern_v0 = '/^([aepco])([1-9][0-9]*)$/';
-    static $_pattern = '/^([t])([1-9][0-9]*)$/';
-    protected $_post_id;
-    protected $_post_type;
+    static string $_pattern_v0 = '/^([aepco])([1-9][0-9]*)$/';
+    //static $_pattern = '/^(t)([1-9][0-9]*)$/';
+    static string $_pattern = '#^http://topo\.art/r/t([1-9]\d*)$#';
+    protected int $_post_id;
+    protected string $_post_type;
 
-    public $_uid_prefix;
+    public string $_uid_prefix;
 
     protected AbstractBridge $_bridge;
     static string $bridge_class = StaticPrefixBridge::class;
@@ -32,11 +33,11 @@ class UID {
         $this->_uid_prefix = $this->_bridge->from($post->post_type);
     }
 
-    function full() {
+    public function full() {
         return (MAMARMITE_UID_ADD_PROTOCOLE ? MAMARMITE_UID_PROTOCOLE : "").MAMARMITE_UID_DOMAIN.'/'.MAMARMITE_UID_BASE_ENDPOINT.'/'.$this->_uid_prefix.$this->_post_id;
     }
 
-    function relative($prepend_slash = true) {
+    public function relative($prepend_slash = true) {
         return ($prepend_slash ? "/" : "").MAMARMITE_UID_BASE_ENDPOINT.'/'.$this->_uid_prefix.$this->_post_id;
     }
 

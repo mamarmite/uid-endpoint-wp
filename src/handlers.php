@@ -9,26 +9,17 @@ if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
 
-function handle_test_request() {
-    global $wp_query;
-
-    $r_id = \get_query_var('r_id');
-
-    if (!empty($r_id)) {
-        die();
-    }
-}
 
 // Handle the custom endpoint request
 function handle_entity_endpoint_request(): void
 {
     global $wp_query;
-
-    $r_id = \get_query_var('r_id');
+    // GET the plugin base URI queryvars
+    $r_id = \sanitize_text_field(\get_query_var('r_id'));
 
     if (!empty($r_id)) {
         // BASE endpoint
-        if ($r_id === '__uids_base_endpoint__') {
+        if ($r_id === MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT) {
             //render target entity
             $baseTemplate = new BaseEndpointTemplate(null);
             $baseTemplate->render();

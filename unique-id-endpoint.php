@@ -27,5 +27,11 @@ define("MAMARMITE_UID_ADD_PROTOCOLE", true);
 define("MAMARMITE_UID_PROTOCOLE", "http://");//make that dynamic with wp url ?
 define("MAMARMITE_UID_DOMAIN", "topo.art");
 define("MAMARMITE_UID_BASE_ENDPOINT", "r");
+define("MAMARMITE_UID_QUERY_VAR", "r_uid");
+define("MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT", "__uids_base_endpoint__");
 
 require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+
+//preview = pour voir le json comme humain
+//jsonld = pour avoir le retour en entête json
+//base? avec le redirect 303 qui mène vers le jsonld.

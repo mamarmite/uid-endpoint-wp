@@ -11,9 +11,11 @@ $MAIN_INDEX_ROOT_VALUE = "__uids_base_endpoint__";
 
 class AbstractRoute {
 
+    public $name;
     public $endpoint;
     public $query_var_base_endpoint;
     public $query_var_base_endpoint_value;
+    public $query_var_base_endpoint_value_type;
 
 
     public $regex;
@@ -23,10 +25,12 @@ class AbstractRoute {
     public $_query_vars = [];
 
     public function __construct($endpointParams) {
+        $this->name = $endpointParams->name ?? "AbstractRouteName";
         $this->endpoint = $endpointParams->endpoint;
 
-        $this->query_var_base_endpoint = $endpointParams->query_var_base_endpoint;
-        $this->query_var_base_endpoint_value = $endpointParams->query_var_base_endpoint_value;
+        $this->query_var_base_endpoint = $endpointParams->queryVarBaseEndpoint;
+        $this->query_var_base_endpoint_value = $endpointParams->queryVarBaseEndpointValue;
+        $this->query_var_base_endpoint_value_type = $endpointParams->queryVarBaseEndpointValueType;
 
         $this->regex = $endpointParams->regex;
         $this->query = $endpointParams->query;
@@ -60,5 +64,9 @@ class AbstractRoute {
             $vars = array_merge($this->_query_vars, $vars);
         }
         return $vars;
+    }
+
+    public function on_resolve_handler($context=[]) {
+        echo "resolving this handler ".$this->name;
     }
 }

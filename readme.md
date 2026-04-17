@@ -15,6 +15,7 @@ Le répertoire contenant les [schémas de travail et générés par ce plugin](h
 - [ ] Ajout de la gestion des `id`, `uid` et `url` dans les données brute (BD).
 - [ ] Ajout du endpoint `/jsonld` pour avoir un accès au jsonld brute avant l'`UID` via une redirection 303.
 - [ ] Internationalisation des textes
+- [ ] Centraliser l'utilisation des date pour gérer les timezones à un endroits (BD > Schema > User)
 
 # Contributeur
 - [Marc-André Martin - Mamarmite](https://github.com/mamarmite) (développement du plugin pour Wordpress.)
