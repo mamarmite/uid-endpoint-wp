@@ -15,7 +15,7 @@ function add_uid_endpoint()
     // Handle /r/
     \add_rewrite_rule(
         '^'.MAMARMITE_UID_BASE_ENDPOINT.'/?$',
-        'index.php?r_id=__base_endpoint__', // Use a special value to detect empty case
+        'index.php?r_id=__uids_base_endpoint__', // Use a special value to detect empty case
         'top'
     );
 

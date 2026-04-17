@@ -15,7 +15,6 @@ function handle_test_request() {
     $r_id = \get_query_var('r_id');
 
     if (!empty($r_id)) {
-
         die();
     }
 }
@@ -28,9 +27,8 @@ function handle_entity_endpoint_request(): void
     $r_id = \get_query_var('r_id');
 
     if (!empty($r_id)) {
-
         // BASE endpoint
-        if ($r_id === '__base_endpoint__') {
+        if ($r_id === '__uids_base_endpoint__') {
             //render target entity
             $baseTemplate = new BaseEndpointTemplate(null);
             $baseTemplate->render();
