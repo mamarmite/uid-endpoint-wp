@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 
 class StaticPrefixBridge extends AbstractBridge
 {
-    protected $_prefix = "t";
+    protected $_prefix = "http://topo.art/r/t";
     protected array $from = [];
     protected array $to = [];
 

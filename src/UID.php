@@ -13,7 +13,7 @@ class UID {
 
     static string $_pattern_v0 = '/^([aepco])([1-9][0-9]*)$/';
     //static $_pattern = '/^(t)([1-9][0-9]*)$/';
-    static string $_pattern = '#^http://topo\.art/r/t([1-9]\d*)$#';
+    static string $_pattern = '#^(http://topo\.art/r/t)([1-9]\d*)$#';
     protected int $_post_id;
     protected string $_post_type;
 
@@ -43,13 +43,18 @@ class UID {
 
     public static function validate_uid(\WP_Post $post, array $parsed_uid): bool {
         $bridge = new UID::$bridge_class();
-        return $parsed_uid["prefix"] === $bridge->from($post->post_type);
+        if (array_key_exists("prefix", $parsed_uid)) {
+            return $parsed_uid["prefix"] === $bridge->from($post->post_type);
+        }
+        trigger_error("The uid need to be parsed to validate it", E_USER_WARNING);
+        return false;
     }
 
     public static function parse(string $uid):array {
 
         if (preg_match(self::$_pattern, $uid, $matches)) {
             return [
+                'full' => $matches[0],
                 'prefix' => $matches[1],
                 'post_id' => $matches[2]
             ];
