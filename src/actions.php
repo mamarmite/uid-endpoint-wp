@@ -15,15 +15,17 @@ if (!defined('ABSPATH')) {
 function print_schema_jsonld_head()
 {
     global $post;
-    $is_supported = AdapterFactory::is_supported($post);
-    if ($is_supported) {
-        $entity = AdapterFactory::create($post);
-        if ($entity) {
-            ?>
-            <script type="application/ld+json" class="unique-id-endpoint">
+    if ($post) {
+        $is_supported = AdapterFactory::is_supported($post);
+        if ($is_supported) {
+            $entity = AdapterFactory::create($post);
+            if ($entity) {
+                ?>
+                <script type="application/ld+json" class="unique-id-endpoint">
                 <?php echo json_encode($entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
             </script>
-            <?php
+                <?php
+            }
         }
     }
 }
