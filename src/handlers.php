@@ -14,9 +14,9 @@ if (!defined('ABSPATH')) {
 function handle_entity_endpoint_request(): void
 {
     global $wp_query;
-    // GET the plugin base URI queryvars
-    $r_id = \sanitize_text_field(\get_query_var('r_id'));
 
+    // INDEX
+    $r_id = \sanitize_text_field(\get_query_var('r_id'));
     if (!empty($r_id)) {
         // BASE endpoint
         if ($r_id === MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT) {
@@ -24,10 +24,13 @@ function handle_entity_endpoint_request(): void
             $baseTemplate = new BaseEndpointTemplate(null);
             $baseTemplate->render();
             exit;
+        }  else {
+            load_404_template();
         }
     }
-    $preview_id = \sanitize_text_field(\get_query_var('uid'));
 
+    // PREVIEW
+    $preview_id = \sanitize_text_field(\get_query_var('uid'));
     if (!empty($preview_id)) {
 
         $uid = UID::parse($preview_id);
@@ -59,17 +62,21 @@ function handle_entity_endpoint_request(): void
             $defaultTemplate->render();
             exit;
         } else {
-            // Post not found, show 404
-            global $wp_query;
-            $wp_query->set_404();
-            \status_header(404);
-
-            $template = \locate_template(array('404.php', 'index.php'));
-            if ($template) {
-                \load_template($template);
-                exit;
-            }
+            load_404_template();
         }
+    }
+}
+
+function load_404_template() {
+    // Post not found, show 404
+    global $wp_query;
+    $wp_query->set_404();
+    \status_header(404);
+
+    $template = \locate_template(array('404.php', 'index.php'));
+    if ($template) {
+        \load_template($template);
+        exit;
     }
 }
 \add_action('template_redirect', __NAMESPACE__.'\\handle_entity_endpoint_request');

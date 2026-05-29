@@ -34,7 +34,7 @@ class UID {
     }
 
     public function full() {
-        return (MAMARMITE_UID_ADD_PROTOCOLE ? MAMARMITE_UID_PROTOCOLE : "").MAMARMITE_UID_DOMAIN.'/'.MAMARMITE_UID_BASE_ENDPOINT.'/'.$this->_uid_prefix.$this->_post_id;
+        return $this->_uid_prefix.$this->_post_id;//Prefix contained already le domaine (MAMARMITE_UID_ADD_PROTOCOLE ? MAMARMITE_UID_PROTOCOLE : "")..MAMARMITE_UID_DOMAIN.'/'.MAMARMITE_UID_BASE_ENDPOINT.'/'
     }
 
     public function relative($prepend_slash = true) {
