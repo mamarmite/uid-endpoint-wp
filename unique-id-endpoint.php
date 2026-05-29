@@ -27,11 +27,15 @@ define("MAMARMITE_UID_ADD_PROTOCOLE", true);
 define("MAMARMITE_UID_PROTOCOLE", "http://");//make that dynamic with wp url ?
 define("MAMARMITE_UID_DOMAIN", "topo.art");
 define("MAMARMITE_UID_BASE_ENDPOINT", "r");
-define("MAMARMITE_PREVIEW_ENDPOINT", "preview");
-define("MAMARMITE_LDJSON_ENDPOINT", "ldjson");
-define("MAMARMITE_UID_QUERY_VAR", "r_uid");
-define("MAMARMITE_PREVIEW_QUERY_VAR", "r_uid_preview");
-define("MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT", "__uids_base_endpoint__");
+
+define("MAMARMITE_UID_PLUGIN_BASE_ENDPOINT", "uid");
+define("MAMARMITE_UID_PLUGIN_PREVIEW_ENDPOINT", "preview");
+define("MAMARMITE_UID_PLUGIN_LDJSON_ENDPOINT", "ldjson");
+
+define("MAMARMITE_UID_QUERY_VAR", "uid");
+
+define("MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT", "__uid_endpoint_index__");
+define("MAMARMITE_UID_PREVIEW_QUERYVARS_ENDPOINT", "__uid_endpoint_preview__");
 
 require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 

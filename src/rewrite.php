@@ -12,18 +12,17 @@ if (!defined('ABSPATH')) {
  */
 function add_uid_endpoint()
 {
-    //puid/
     // Handle /r/index
     \add_rewrite_rule(
-        '^'.MAMARMITE_UID_BASE_ENDPOINT.'/?$',
-        'index.php?r_id='.MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT, // Use a special value to detect empty case
+        '^'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'?$',
+        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT, // Use a special value to detect empty case
         'top'
     );
 
     // target entity by r_id (@id).
     \add_rewrite_rule(
-        '^'.MAMARMITE_UID_BASE_ENDPOINT.'/'.MAMARMITE_PREVIEW_ENDPOINT.'/([^/]+)/?$',
-        'index.php?uid=$matches[1]',
+        '^'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/'.MAMARMITE_UID_PLUGIN_PREVIEW_ENDPOINT.'?$',//'?([^/]+)/$'
+        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_PREVIEW_QUERYVARS_ENDPOINT,//.'&'.MAMARMITE_UID_QUERY_VAR.'=$matches[1]'
         'top'
     );
 }
@@ -35,10 +34,11 @@ function add_uid_endpoint()
  * @return mixed
  */
 function add_entity_id_query_vars($vars) {
+    $vars[] = 'uid_plugin_endpoint';
     $vars[] = 'r_id';
     $vars[] = 'uid';
-    $vars[] = 'r_preview';
-    $vars[] = 'r_data';
+    //$vars[] = 'r_preview';
+    //$vars[] = 'r_data';
     return $vars;
 }
 \add_filter('query_vars',  __NAMESPACE__.'\\add_entity_id_query_vars');
