@@ -26,7 +26,7 @@ class EventAdapter extends AbstractSchemaAdapter
     public function transform(): array
     {
         $schema = $this->build_base_schema($this->post);
-
+        $date_format = "Y-m-d";
         $start_date_str = $this->get_field($this->post->ID, 'start_date');
         $end_date_str = $this->get_field($this->post->ID, 'end_date');
         $timezone_string = $this->get_field($this->post->ID, 'timezone');
@@ -43,12 +43,12 @@ class EventAdapter extends AbstractSchemaAdapter
         if (!empty($start_date_str)) {
             $start_date = new \DateTimeImmutable($start_date_str, $timezone);
             $start_date_utc = $start_date->setTimezone(new \DateTimeZone('UTC'));
-            $this->add_if_not_empty($schema, 'startTime', $start_date_utc->format("c"));
+            $this->add_if_not_empty($schema, 'startDate', $start_date_utc->format("c"));
         }
         if (!empty($end_date_str)) {
             $end_date = new \DateTimeImmutable($end_date_str, $timezone);
             $end_date_utc = $end_date->setTimezone(new \DateTimeZone('UTC'));
-            $this->add_if_not_empty($schema, 'endTime', $end_date_utc->format("c"));
+            $this->add_if_not_empty($schema, 'endDate', $end_date_utc->format("c"));
         }
 
         $this->add_if_not_empty($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
@@ -161,12 +161,22 @@ class EventAdapter extends AbstractSchemaAdapter
         $locations = [];
 
         // Physical location
-        $placeId = $this->get_field($post_id, 'location');
-        if ($placeId) {
-            $place = get_post($placeId);
-            if ($place) {
-                $placeAdapter = new PlaceAdapter($place);
-                $locations[] = $placeAdapter->transform();
+        $placeIds = $this->get_field($post_id, 'location');
+        if ($placeIds) {
+            if (is_array($placeIds)) {
+                foreach ($placeIds as $placeId) {
+                    $place = get_post($placeId);
+                    if ($place) {
+                        $placeAdapter = new PlaceAdapter($place);
+                        $locations[] = $placeAdapter->transform();
+                    }
+                }
+            } else {
+                $place = get_post($placeIds);
+                if ($place) {
+                    $placeAdapter = new PlaceAdapter($place);
+                    $locations[] = $placeAdapter->transform();
+                }
             }
         }
 
