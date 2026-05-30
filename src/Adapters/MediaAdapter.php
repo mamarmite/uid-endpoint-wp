@@ -9,25 +9,48 @@ if (!defined('ABSPATH')) {
 /**
  * Class MediaAdapter
  */
-class MediaAdapter implements SchemaAdapterInterface
+class MediaAdapter extends AbstractSchemaAdapter
 {
-    protected string $schemaType = 'Image';
+    protected string $schemaType = 'mediaObject';
     protected string $prefix = "";
     public \WP_Post $post;
     public \WP_Post_Type $post_type;
 
-    function __construct(\WP_Post $post) {
+    public $default_usage_info_url = "https://kg.artsdata.ca/doc/image-policy";
+
+    function __construct(\WP_Post $post, $schema_allow_list=[]) {
+        $this->default_allow_list = [
+            "url" => true,
+            "usageInfo" => true,
+            "disambiguatingDescription" => true,
+            "description" => true,
+            "sdDatePublished" => true,
+            "inLanguage" => true,
+        ];
+        parent::__construct($post, $schema_allow_list);
         $this->post = $post;
         $this->post_type = get_post_type_object($post->post_type);
+
     }
 
     public function transform(): array
     {
         $schema = $this->build_base_schema($this->post);
-        $this->add_if_not_empty($schema, 'title', $this->post->post_title);
-        $this->add_if_not_empty($schema, 'description', $this->post->post_content);
-        $this->add_if_not_empty($schema, 'caption', $this->post->post_content);
-        $this->add_if_not_empty($schema, 'alt_text', $this->post->post_content);
+        $has_post_thumbnail = \has_post_thumbnail($this->post);
+        if($has_post_thumbnail) {
+            $featured_image_id = \get_post_thumbnail_id($this->post->ID);
+            $featured_image_src = \wp_get_attachment_image_src($featured_image_id, 'original');
+            $featured_image = get_post($featured_image_id);
+
+            $media_date_published = new \DateTimeImmutable($featured_image->post_date_gmt);
+
+            $this->add_to_schema($schema, 'url', $featured_image_src[0]);
+            $this->add_to_schema($schema, 'usageInfo', $this->default_usage_info_url);
+            $this->add_to_schema($schema, 'disambiguatingDescription', $this->post->post_content);
+            $this->add_to_schema($schema, 'description', $this->post->post_content);
+            $this->add_to_schema($schema, 'sdDatePublished', $media_date_published->format('c'));
+            $this->add_to_schema($schema, 'inLanguage', $this->current_language);
+        }
         //'about' => $post->description,
         return $schema;
     }
@@ -40,46 +63,9 @@ class MediaAdapter implements SchemaAdapterInterface
      */
     protected function build_base_schema(\WP_Post $post): array
     {
-        //media https://developer.wordpress.org/rest-api/reference/media/
-        //title
-        //caption
-        //alt_text
-        //description
-
-
-        $has_post_thumbnail = \has_post_thumbnail($post);
-        if($has_post_thumbnail){
-            $thumb = \wp_get_attachment_image_src( \get_post_thumbnail_id($post->ID), 'large' );
-            $picture = $thumb['0'];
-        }
-        var_dump($has_post_thumbnail, $thumb);
         return [
             '@type' => $this->schemaType,
-            'contentUrl' => get_the_permalink($post->ID),
         ];
     }
 
-    /**
-     * Add optional field if it exists
-     *
-     * @param array $schema
-     * @param string $key
-     * @param mixed $value
-     * @return void
-     */
-    protected function add_if_not_empty(array &$schema, string $key, $value): void
-    {
-        if (!empty($value)) {
-            $schema[$key] = $value;
-        }
-    }
-
-    public function get_schema_type(): string {
-        return $this->schemaType;
-    }
-
-    public function validate(array $data): bool
-    {
-        return isset($data['@type']) && isset($data['name']);
-    }
 }

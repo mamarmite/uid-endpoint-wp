@@ -16,26 +16,41 @@ class OrganizationAdapter extends AbstractSchemaAdapter
     protected string $schemaGroupKey = 'group_schema_organisation';
     protected string $prefix = "o";
 
-    function __construct(\WP_Post $post)
+    function __construct(\WP_Post $post, $schema_allow_list=[])
     {
-        parent::__construct($post);
+        $this->default_allow_list = [
+            "alternateName" => true,
+            "description" => true,
+            "url" => true,
+            "inLanguage" => true,
+            "additionalType" => true,
+            "sameAs" => true,
+            "image" => true
+        ];
+        parent::__construct($post, $schema_allow_list);
     }
 
     public function transform(): array
     {
         $schema = $this->build_base_schema($this->post);
 
-        $this->add_if_not_empty($schema, 'url', get_permalink($this->post->ID));
-        $this->add_if_not_empty($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
+        $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
+        $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
 
-        $sameAs = $this->build_same_as($this->post->ID);
-        if (!empty($sameAs)) {
-            $schema['sameAs'] = $sameAs;
+        //sameAs
+        if (array_key_exists('sameAs', $this->allow_list)) {
+            $sameAs = $this->build_same_as($this->post->ID);
+            if (!empty($sameAs)) {
+                $schema['sameAs'] = $sameAs;
+            }
         }
-        $image = $this->build_image();
 
-        if (!empty($image)) {
-            $schema['image'] = $image;
+        //MediaObject
+        if (array_key_exists('image', $this->allow_list)) {
+            $image = $this->build_image();
+            if (!empty($image)) {
+                $schema['image'] = $image;
+            }
         }
 
         return $schema;

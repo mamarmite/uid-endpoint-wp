@@ -19,14 +19,24 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
     protected string $prefix = "";
     protected string $context = 'http://schema.org';
 
+    protected array $default_allow_list = [];
+    protected array $allow_list;
+
+    protected string $current_language;
+
     public $uid;
     public \WP_Post $post;
     public \WP_Post_Type $post_type;
 
-    function __construct(\WP_Post $post) {
+    function __construct(\WP_Post $post, $schema_allow_list=[]) {
         $this->post = $post;
         $this->post_type = get_post_type_object($post->post_type);
         $this->uid = new UID($post);
+
+        $current_language = preg_split('/_/', get_locale());
+        $this->current_language = $current_language ? $current_language[0] : get_locale();
+
+        $this->allow_list = !empty($schema_allow_list) ? $schema_allow_list : $this->default_allow_list ;
     }
 
     public function transform(): array {
@@ -157,9 +167,9 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
      * @param mixed $value
      * @return void
      */
-    protected function add_if_not_empty(array &$schema, string $key, $value): void
+    protected function add_to_schema(array &$schema, string $key, $value): void
     {
-        if (!empty($value)) {
+        if (!empty($value) && array_key_exists($key, $this->allow_list)) {
             $schema[$key] = $value;
         }
     }
@@ -182,12 +192,12 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
 
         $address = [];//'@type' => 'PostalAddress',
 
-        $this->add_if_not_empty($address, '@type', $this->get_field($post_id, $field_prefix . '_type'));
-        $this->add_if_not_empty($address, 'streetAddress', $street);
-        $this->add_if_not_empty($address, 'addressLocality', $locality);
-        $this->add_if_not_empty($address, 'addressRegion', $this->get_field($post_id, $field_prefix . '_address_region'));
-        $this->add_if_not_empty($address, 'postalCode', $this->get_field($post_id, $field_prefix . '_postal_code'));
-        $this->add_if_not_empty($address, 'addressCountry', $this->get_field($post_id, $field_prefix . '_address_country'));
+        $this->add_to_schema($address, '@type', $this->get_field($post_id, $field_prefix . '_type'));
+        $this->add_to_schema($address, 'streetAddress', $street);
+        $this->add_to_schema($address, 'addressLocality', $locality);
+        $this->add_to_schema($address, 'addressRegion', $this->get_field($post_id, $field_prefix . '_address_region'));
+        $this->add_to_schema($address, 'postalCode', $this->get_field($post_id, $field_prefix . '_postal_code'));
+        $this->add_to_schema($address, 'addressCountry', $this->get_field($post_id, $field_prefix . '_address_country'));
 
         return $address;
     }
@@ -197,29 +207,13 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
      *
      * @return array
      */
-    protected function build_image(): array
+    protected function build_image($allow_list=[]): array
     {
         $img = [];
         $has_post_thumbnail = \has_post_thumbnail($this->post);
         if($has_post_thumbnail){
-            $featured_image_id = \get_post_thumbnail_id($this->post->ID);
-            $featured_image_src = \wp_get_attachment_image_src( $featured_image_id, 'original' );
-            $featured_image = get_post( $featured_image_id );
-            //$metas = \wp_get_attachment_metadata($featured_image_id);
-            $img['@type'] = "mediaObject";
-            $img['url'] = $featured_image_src[0];
-            $img['usageInfo'] = "https://kg.artsdata.ca/doc/image-policy";
-            $img['disambiguatingDescription'] = $featured_image->post_content;
-            $img['description'] = $featured_image->post_content;
-            $media_date_published = new \DateTimeImmutable($featured_image->post_date_gmt);
-            $img['sdDatePublished'] = $media_date_published->format('c');
-            //$img['title'] = $featured_image->post_title;
-            //$img['caption'] = $featured_image->post_excerpt;
-            //$img['alt_text'] = $featured_image->post_content;
-            //description
-            //$img['mimetype'] = $featured_image->post_mime_type;
-            //$img['width'] = $featured_image_src[1];
-            //$img['height'] = $featured_image_src[2];
+            $mediaAdapter = new MediaAdapter($this->post, $allow_list);
+            $img = $mediaAdapter->transform();
         }
         return $img;
     }
@@ -257,5 +251,36 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
     public function validate(array $data): bool
     {
         return isset($data['@type']) && isset($data['name']);
+    }
+
+    public function override_allow_list($allow_list): array {
+        $this->allow_list = $allow_list;
+        return $this->allow_list;
+    }
+
+    public function remove_from_allow_list(array $deny_list): array {
+        return $this->diff_allow_list($this->allow_list, $deny_list);
+    }
+
+    private function diff_allow_list(array $allow, array $deny): array {
+        foreach ($deny as $key => $deny_value) {
+            if (!array_key_exists($key, $allow)) {
+                continue;
+            }
+
+            if (is_array($deny_value) && is_array($allow[$key])) {
+                // both are subtrees → recurse
+                $allow[$key] = $this->diff_allow_list($allow[$key], $deny_value);
+
+                // prune the parent
+                if (empty($allow[$key])) {
+                    unset($allow[$key]);
+                }
+            } else {
+                // deny is a leaf (true) → remove the whole entry
+                unset($allow[$key]);
+            }
+        }
+        return $allow;
     }
 }

@@ -16,35 +16,57 @@ class CreativeWorkAdapter extends AbstractSchemaAdapter
     protected string $schemaGroupKey = 'group_schema_creative_work';
     protected string $prefix = "c";
 
-    function __construct(\WP_Post $post)
+    function __construct(\WP_Post $post, $schema_allow_list=[])
     {
-        parent::__construct($post);
+        $this->default_allow_list = [
+            "alternateName" => true,
+            "description" => true,
+            "url" => true,
+            "inLanguage" => true,
+            "additionalType" => true,
+            "disambiguatingDescription" => true,
+            "mainEntityOfPage" => true,
+            "creator" => [
+                "alternateName" => true,
+                //"url" => true,
+                //"additionalType" => true,
+                "sameAs" => true,
+            ],
+            "image" => [//all except the usageInfo
+                "url" => true,
+                "disambiguatingDescription" => true,
+                "sdDatePublished" => true,
+            ]
+        ];
+        parent::__construct($post, $schema_allow_list);
     }
 
     public function transform(): array
     {
         $schema = $this->build_base_schema($this->post);
 
-        $this->add_if_not_empty($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
-        $this->add_if_not_empty($schema, 'description', $this->get_field($this->post->ID, 'description', $this->post->post_content));
-        $this->add_if_not_empty($schema, 'url', get_permalink($this->post->ID));
-        $this->add_if_not_empty($schema, 'image', $this->get_field($this->post->ID, 'image'));
-        $this->add_if_not_empty($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
-        $this->add_if_not_empty($schema, 'disambiguatingDescription', $this->get_field($this->post->ID, 'disambiguating_description'));
-        $this->add_if_not_empty($schema, 'mainEntityOfPage', $this->get_field($this->post->ID, 'main_entity_of_page'));
-
+        $this->add_to_schema($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
+        $this->add_to_schema($schema, 'description', $this->get_field($this->post->ID, 'description', $this->post->post_content));
+        $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
+        $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
+        $this->add_to_schema($schema, 'inLanguage', $this->current_language);
+        $this->add_to_schema($schema, 'disambiguatingDescription', $this->get_field($this->post->ID, 'disambiguating_description'));
+        $this->add_to_schema($schema, 'mainEntityOfPage', $this->get_field($this->post->ID, 'main_entity_of_page'));
 
         // Creators
-        $creators = $this->build_creators($this->post->ID);
-        if (!empty($creators)) {
-            $schema['creator'] = $creators;
+        if (array_key_exists('creator', $this->allow_list)) {
+            $creators = $this->build_creators($this->post->ID);
+            if (!empty($creators)) {
+                $schema['creator'] = $creators;
+            }
         }
 
-
-        $image = $this->build_image();
-
-        if (!empty($image)) {
-            $schema['image'] = $image;
+        //MediaObject
+        if (array_key_exists('image', $this->allow_list)) {
+            $image = $this->build_image($this->allow_list['image']);
+            if (!empty($image)) {
+                $schema['image'] = $image;
+            }
         }
 
         return $schema;
@@ -58,7 +80,8 @@ class CreativeWorkAdapter extends AbstractSchemaAdapter
         if (is_array($creatorPosts)) {
             foreach ($creatorPosts as $creator) {
                 if ($creator) {
-                    $artistAdapter = new ArtistAdapter($creator);
+                    $override_allow_list = is_array($this->allow_list["creator"]) ? $this->allow_list["creator"] : [];
+                    $artistAdapter = new ArtistAdapter($creator, $override_allow_list);
                     $creators[] = $artistAdapter->transform();
                 }
             }

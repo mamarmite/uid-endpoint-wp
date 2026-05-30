@@ -16,9 +16,19 @@ class PlaceAdapter extends AbstractSchemaAdapter
     protected string $schemaGroupKey = 'group_schema_place';
     protected string $prefix = "p";
 
-    function __construct(\WP_Post $post)
+    function __construct(\WP_Post $post, $schema_allow_list=[])
     {
-        parent::__construct($post);
+        $this->default_allow_list = [
+            "alternateName" => true,
+            "description" => true,
+            "url" => true,
+            "inLanguage" => true,
+            "additionalType" => true,
+            "address" => true,
+            "sameAs" => true,
+            "image" => true
+        ];
+        parent::__construct($post, $schema_allow_list);
     }
 
     public function transform(): array

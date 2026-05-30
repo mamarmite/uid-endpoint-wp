@@ -21,9 +21,21 @@ class ArtistAdapter extends AbstractSchemaAdapter
 
     protected string $schema_type_label = 'Artiste';
 
-    function __construct(\WP_Post $post)
+    function __construct(\WP_Post $post, $schema_allow_list=[])
     {
-        parent::__construct($post);
+        $this->default_allow_list = [
+            "alternateName" => true,
+            "url" => true,
+            "additionalType" => true,
+            "inLanguage" => true,
+            "disambiguatingDescription" => true,
+            "mainEntityOfPage" => true,
+            "sameAs" => true,
+            "hasOccupation" => true,
+            "address" => true,
+            "image" => true
+        ];
+        parent::__construct($post, $schema_allow_list);
     }
 
 
@@ -32,42 +44,50 @@ class ArtistAdapter extends AbstractSchemaAdapter
         parent::transform();
         $schema = $this->build_base_schema($this->post);
 
-        $this->add_if_not_empty($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
-        $this->add_if_not_empty($schema, 'url', get_permalink($this->post->ID));
-        $this->add_if_not_empty($schema, 'image', $this->get_field($this->post->ID, 'image'));
-        $this->add_if_not_empty($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
-        $this->add_if_not_empty($schema, 'inLanguage', $this->get_field($this->post->ID, 'in_language'));
-        $this->add_if_not_empty($schema, 'disambiguatingDescription', $this->disambiguatingDescription($this->post->ID));
-        //$this->add_if_not_empty($schema, 'disambiguatingDescription', $this->get_field($this->post->ID, 'disambiguatingDescription'));
+        $this->add_to_schema($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
+        $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
+        //$this->add_to_schema($schema, 'image', $this->get_field($this->post->ID, 'image'));
+        $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
+        $this->add_to_schema($schema, 'inLanguage', $this->current_language);
+        $this->add_to_schema($schema, 'disambiguatingDescription', $this->disambiguatingDescription($this->post->ID));
 
         // Address
-        $address = $this->build_address($this->post->ID);
-        if ($address) {
-            $schema['address'] = $address;
+        if (array_key_exists('address', $this->allow_list)){
+            $address = $this->build_address($this->post->ID);
+            if ($address) {
+                $schema['address'] = $address;
+            }
         }
 
         // Identifier
-        $identifier = $this->build_identifier($this->post->ID);
-        if ($identifier) {
-            $schema['identifier'] = $identifier;
+        if (array_key_exists('identifier', $this->allow_list)) {
+            $identifier = $this->build_identifier($this->post->ID);
+            if ($identifier) {
+                $schema['identifier'] = $identifier;
+            }
         }
-
         // Occupation
-        $occupation = $this->build_occupation($this->post->ID);
-        if (!empty($occupation)) {
-            $schema['hasOccupation'] = $occupation;
+        if (array_key_exists('hasOccupation', $this->allow_list)) {
+            $occupation = $this->build_occupation($this->post->ID);
+            if (!empty($occupation)) {
+                $schema['hasOccupation'] = $occupation;
+            }
         }
 
         // SameAs
-        $sameAs = $this->build_same_as($this->post->ID);
-        if (!empty($sameAs)) {
-            $schema['sameAs'] = $sameAs;
+        if (array_key_exists('sameAs', $this->allow_list)) {
+            $sameAs = $this->build_same_as($this->post->ID);
+            if (!empty($sameAs)) {
+                $schema['sameAs'] = $sameAs;
+            }
         }
 
-        $image = $this->build_image();
-
-        if (!empty($image)) {
-            $schema['image'] = $image;
+        //Media Object
+        if (array_key_exists('image', $this->allow_list)) {
+            $image = $this->build_image();
+            if (!empty($image)) {
+                $schema['image'] = $image;
+            }
         }
 
         return $schema;

@@ -18,9 +18,37 @@ class EventAdapter extends AbstractSchemaAdapter
     protected string $schemaGroupKey = 'group_schema_event';
     protected string $prefix = "e";
 
-    function __construct(\WP_Post $post)
+    function __construct(\WP_Post $post, $schema_allow_list=[])
     {
-        parent::__construct($post);
+        $this->default_allow_list = [
+            "startDate" => true,
+            "endDate" => true,
+            "alternateName" => true,
+            "description" => true,
+            "url" => true,
+            "keywords" => true,
+            "eventStatus" => true,
+            "inLanguage" => true,
+            "eventAttendanceMode" => true,
+            "isAccessibleForFree" => true,
+            "mainEntityOfPage" => true,
+            "eventSchedule" => [
+                "all"
+            ],
+            "location" => [
+                "all"
+            ],
+            "organizer" => [
+                "all"
+            ],
+            "workFeatured" => [
+                "all"
+            ],
+            "image" => [
+                "all"
+            ]
+        ];
+        parent::__construct($post, $schema_allow_list);
     }
 
     public function transform(): array
@@ -43,23 +71,24 @@ class EventAdapter extends AbstractSchemaAdapter
         if (!empty($start_date_str)) {
             $start_date = new \DateTimeImmutable($start_date_str, $timezone);
             $start_date_utc = $start_date->setTimezone(new \DateTimeZone('UTC'));
-            $this->add_if_not_empty($schema, 'startDate', $start_date_utc->format("c"));
+            $this->add_to_schema($schema, 'startDate', $start_date_utc->format("c"));
         }
         if (!empty($end_date_str)) {
             $end_date = new \DateTimeImmutable($end_date_str, $timezone);
             $end_date_utc = $end_date->setTimezone(new \DateTimeZone('UTC'));
-            $this->add_if_not_empty($schema, 'endDate', $end_date_utc->format("c"));
+            $this->add_to_schema($schema, 'endDate', $end_date_utc->format("c"));
         }
 
-        $this->add_if_not_empty($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
-        $this->add_if_not_empty($schema, 'description', $this->get_field($this->post->ID, 'description', \get_the_excerpt($this->post->ID)));
-        $this->add_if_not_empty($schema, 'url', get_permalink($this->post->ID));
-        $this->add_if_not_empty($schema, 'image', $this->get_field($this->post->ID, 'image'));
-        $this->add_if_not_empty($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
-        $this->add_if_not_empty($schema, 'keywords', $this->get_field($this->post->ID, 'keywords'));
-        $this->add_if_not_empty($schema, 'eventStatus', $this->get_field($this->post->ID, 'event_status', 'https://schema.org/EventScheduled'));
-        $this->add_if_not_empty($schema, 'eventAttendanceMode', $this->get_field($this->post->ID, 'event_attendance_mode'));
-        $this->add_if_not_empty($schema, 'isAccessibleForFree', $this->get_field($this->post->ID, 'is_accessible_for_free'));
+        $this->add_to_schema($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
+        $this->add_to_schema($schema, 'description', $this->get_field($this->post->ID, 'description', \get_the_excerpt($this->post->ID)));
+        $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
+        //$this->add_to_schema($schema, 'image', $this->get_field($this->post->ID, 'image'));
+        $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
+        $this->add_to_schema($schema, 'keywords', $this->get_field($this->post->ID, 'keywords'));
+        $this->add_to_schema($schema, 'eventStatus', $this->get_field($this->post->ID, 'event_status', 'https://schema.org/EventScheduled'));
+        $this->add_to_schema($schema, 'inLanguage', $this->current_language);
+        $this->add_to_schema($schema, 'eventAttendanceMode', $this->get_field($this->post->ID, 'event_attendance_mode'));
+        $this->add_to_schema($schema, 'isAccessibleForFree', $this->get_field($this->post->ID, 'is_accessible_for_free'));
 
         // Event Schedule
         $schedule = $this->build_event_schedule($this->post->ID);
@@ -85,8 +114,8 @@ class EventAdapter extends AbstractSchemaAdapter
             $schema['workFeatured'] = $workFeatured;
         }
 
+        //MediaObject
         $image = $this->build_image();
-
         if (!empty($image)) {
             $schema['image'] = $image;
         }
@@ -111,15 +140,8 @@ class EventAdapter extends AbstractSchemaAdapter
             }
 
             $start_date_obj = new \DateTime($start_date);
-            //set time
-            //set timezone
-
             $end_date_obj = new \DateTime($end_date);
-
-            //set time
-            //set timezone
             $date_delta = $end_date_obj->diff($start_date_obj);
-
 
             $schedule = [
                 '@type' => 'Schedule',
@@ -137,12 +159,12 @@ class EventAdapter extends AbstractSchemaAdapter
 
             $date_interval = 0;
 
-            $this->add_if_not_empty($schedule, 'startTime', $start_time);
-            $this->add_if_not_empty($schedule, 'endTime', $end_time);
-            $this->add_if_not_empty($schedule, 'repeatFrequency', $this->interval_to_ISO8601($date_delta));
-            $this->add_if_not_empty($schedule, 'startTime', $this->get_field($post_id, $schedule_prefix.'start_time'));
-            $this->add_if_not_empty($schedule, 'endTime', $this->get_field($post_id, $schedule_prefix.'end_time'));
-            $this->add_if_not_empty($schedule, 'scheduleTimezone', $this->get_field($post_id, $schedule_prefix.'schedule_timezone'));
+            $this->add_to_schema($schedule, 'startTime', $start_time);
+            $this->add_to_schema($schedule, 'endTime', $end_time);
+            $this->add_to_schema($schedule, 'repeatFrequency', $this->interval_to_ISO8601($date_delta));
+            $this->add_to_schema($schedule, 'startTime', $this->get_field($post_id, $schedule_prefix.'start_time'));
+            $this->add_to_schema($schedule, 'endTime', $this->get_field($post_id, $schedule_prefix.'end_time'));
+            $this->add_to_schema($schedule, 'scheduleTimezone', $this->get_field($post_id, $schedule_prefix.'schedule_timezone'));
 
             $byDay = $this->get_field($post_id, $schedule_prefix.'by_day', []);
             if (!empty($byDay) && is_array($byDay)) {
