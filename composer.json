@@ -16,7 +16,6 @@
     "files": [
       "src/handlers.php",
       "src/rewrite.php",
-      "src/filters.php",
       "src/actions.php",
       "src/routes.php"
     ],
