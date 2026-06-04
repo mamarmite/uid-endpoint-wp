@@ -46,6 +46,14 @@ class EventAdapter extends AbstractSchemaAdapter
             ],
             "image" => [
                 "all"
+            ],
+            "performer" => [
+                "alternateName" => true,
+                "sameAs" => true,
+            ],
+            "contributor" => [
+                "alternateName" => true,
+                "sameAs" => true,
             ]
         ];
         parent::__construct($post, $schema_allow_list);
@@ -106,6 +114,18 @@ class EventAdapter extends AbstractSchemaAdapter
         $organizer = $this->build_organizer($this->post->ID);
         if (!empty($organizer)) {
             $schema['organizer'] = $organizer;
+        }
+
+        // Performer
+        $performers = $this->build_artist($this->post->ID, "performer");
+        if (!empty($performers)) {
+            $schema['performer'] = $performers;
+        }
+
+        // contributor
+        $contributors = $this->build_artist($this->post->ID, "contributor");
+        if (!empty($contributors)) {
+            $schema['contributor'] = $contributors;
         }
 
         // Work Featured
@@ -221,6 +241,23 @@ class EventAdapter extends AbstractSchemaAdapter
         }
 
         return $organizers;
+    }
+
+    protected function build_artist(int $post_id, $field_name="performer"): array
+    {
+        $return = [];
+        $artists = $this->get_field($post_id, $field_name, []);
+
+        if (is_array($artists)) {
+            foreach ($artists as $artist) {
+                if ($artist) {
+                    $override_allow_list = is_array($this->allow_list[$field_name]) ? $this->allow_list[$field_name] : [];
+                    $artistAdapter = new ArtistAdapter($artist, $override_allow_list);
+                    $return[] = $artistAdapter->transform();
+                }
+            }
+        }
+        return $return;
     }
 
     protected function build_work_featured(int $post_id): array
