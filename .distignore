@@ -1,0 +1,11 @@
+.git
+.github
+.gitignore
+.distignore
+.editorconfig
+composer.json
+composer.lock
+phpunit.xml
+node_modules
+documentation
+README.md
