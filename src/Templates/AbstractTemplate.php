@@ -46,6 +46,11 @@ abstract class AbstractTemplate
                 <title>/<?php echo MAMARMITE_UID_BASE_ENDPOINT; ?>/ <?php echo \get_the_title() . ' | ' . \get_bloginfo('name'); ?></title>
                 <link href="<?php echo MAMARMITE_UID_ENDPOINT_BASE_URL."assets/styles/"; ?>uid-main.css" rel="stylesheet" />
                 <?php $this->render_head(); ?>
+                <style>
+                    a.btn {
+                        padding: 0.5em 0.8em;
+                    }
+                </style>
             </head>
             <body>
                 <main>

@@ -19,8 +19,10 @@ function print_schema_jsonld_head()
         $is_supported = AdapterFactory::is_supported($post);
         if ($is_supported) {
             $entity = AdapterFactory::create($post);
+            $json_endpoint_url = get_home_url().'/'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/'.MAMARMITE_UID_PLUGIN_LDJSON_ENDPOINT.'?uid='.$entity->uid->full();
             if ($entity) {
                 ?>
+                <link rel="canonical-jsonld" href="<?php echo $json_endpoint_url; ?>" type="json" />
                 <script type="application/ld+json" class="unique-id-endpoint">
                     <?php echo \wp_json_encode($entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
                 </script>
@@ -29,7 +31,6 @@ function print_schema_jsonld_head()
         }
     }
 }
-
 \add_action('wp_head', __NAMESPACE__ . '\\print_schema_jsonld_head');
 
 
@@ -44,7 +45,7 @@ function render_uid_single_post_edit($post) {
     $is_supported = AdapterFactory::is_supported($post);
     if ($is_supported) {
         $entity = AdapterFactory::create($post);
-        $url = get_home_url().'/'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/preview?uid='.$entity->uid->full();
+        $url = get_home_url().'/'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/'.MAMARMITE_UID_PLUGIN_PREVIEW_ENDPOINT.'?uid='.$entity->uid->full();
         $uid = '<strong>UID : </strong><a href="'.$url.'" title="'.$url.'" target="_blank">'.$url.'</a>';
         echo '<div style="padding: 0 10px; margin-top:5px; min-height: 25px;">'.$uid.'</div>';
     }

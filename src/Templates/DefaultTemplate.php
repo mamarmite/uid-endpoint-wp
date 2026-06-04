@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) {
 
 class DefaultTemplate extends AbstractTemplate
 {
+
+    public $json_endpoint_url;
     /**
      * @param \WP_Post $post
      * @return void
@@ -15,10 +17,12 @@ class DefaultTemplate extends AbstractTemplate
     function __construct(?\WP_Post $post)
     {
         parent::__construct($post);
+        $this->json_endpoint_url = \get_home_url().'/'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/'.MAMARMITE_UID_PLUGIN_LDJSON_ENDPOINT.'?uid='.$this->entity->uid->full();
     }
 
     public function render_head():void {
         ?>
+        <link rel="canonical-jsonld" href="<?php echo $this->json_endpoint_url; ?>" type="json" />
         <script type="application/ld+json" class="unique-id-endpoint">
             <?php echo \wp_json_encode($this->entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
         </script>
@@ -32,7 +36,10 @@ class DefaultTemplate extends AbstractTemplate
         <h1><?php echo \get_the_title(); ?></h1>
         <section>
             <div class="schema-container">
-                <div><button onclick="copyCodeHandler(this)">🗐</button></div>
+                <div>
+                    <button onclick="copyCodeHandler(this)">Copier</button>
+                    <a href="<?php echo $this->json_endpoint_url; ?>" class="btn" title="json">json</a>
+                </div>
                 <pre><code id="schemaJsonLd"><?php echo json_encode($this->entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?></code></pre>
             </div>
         </section>
