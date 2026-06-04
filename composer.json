@@ -1,7 +1,7 @@
 {
   "name": "mamarmite/uid-endpoint",
   "description": "Ajout d'un endpoint et d'identifiant unique pour les données structurées dans Wordpress. ",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "project",
   "authors": [
     {
