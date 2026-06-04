@@ -4,6 +4,7 @@ namespace Mamarmite\UIDEndpoint;
 
 use Mamarmite\UIDEndpoint\Templates\DefaultTemplate;
 use Mamarmite\UIDEndpoint\Templates\BaseEndpointTemplate;
+use Mamarmite\UIDEndpoint\Templates\JsonTemplate;
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');
@@ -35,38 +36,68 @@ function handle_entity_endpoint_request(): void
             if (!empty($uid_to_preview)) {
 
                 $uid = UID::parse($uid_to_preview);
+                global $post;
+                global $wp_query;
+                $valid_post = prepare_post_from_query($uid, $post, $wp_query);
 
-                if (count($uid) === 3 && isset($uid["post_id"])) {
-                    global $post;
-                    //only set the global when the uid parse is positive.
-                    $post = \get_post($uid["post_id"]);
+                if ($valid_post) {
+                    //render target entity
+                    $defaultTemplate = new DefaultTemplate($valid_post);
+                    $defaultTemplate->render();
+                    exit;
                 }
+            }
+        }
 
-                if ($post && UID::validate_uid($post, $uid) && $post->post_status === 'publish') {
-                    // Set up the global post data
-                    global $wp_query;
-                    $wp_query->is_single = true;
-                    $wp_query->is_singular = true;
-                    $wp_query->is_404 = false;
-                    $wp_query->found_posts = 1;
-                    $wp_query->post_count = 1;
-                    $wp_query->posts = array($post);
-                    $wp_query->post = $post;
-                    $wp_query->queried_object = $post;
-                    $wp_query->queried_object_id = $post->ID;
+        // LDJSON
+        if ($plugin_endpoint === MAMARMITE_UID_LDJSON_QUERYVARS_ENDPOINT) {
 
-                    // Set up post data for template functions
-                    \setup_postdata($post);
+            $uid_to_preview = \sanitize_text_field(\get_query_var('uid'));
+
+            if (!empty($uid_to_preview)) {
+
+                $uid = UID::parse($uid_to_preview);
+                global $post;
+                global $wp_query;
+                $valid_post = prepare_post_from_query($uid, $post, $wp_query);
+
+                //\prepare_post_from_query($uid, $post, $wp_query);
+                if ($valid_post) {
 
                     //render target entity
-                    $defaultTemplate = new DefaultTemplate($post);
-                    $defaultTemplate->render();
+                    $json_template = new JsonTemplate($post);
+                    $json_template->change_headers();
+                    $json_template->render();
                     exit;
                 }
             }
         }
         load_404_template();
     }
+}
+
+function prepare_post_from_query( $uid, &$post, &$query ) {
+    if (count($uid) === 3 && isset($uid["post_id"])) {
+        $post = \get_post($uid["post_id"]);
+    }
+
+    if ($post && UID::validate_uid($post, $uid) && $post->post_status === 'publish') {
+        $query->is_single = true;
+        $query->is_singular = true;
+        $query->is_404 = false;
+        $query->found_posts = 1;
+        $query->post_count = 1;
+        $query->posts = array($post);
+        $query->post = $post;
+        $query->queried_object = $post;
+        $query->queried_object_id = $post->ID;
+
+        // Set up post data for template functions
+        \setup_postdata($post);
+        return $post;
+    }
+
+    return null;
 }
 
 function load_404_template() {

@@ -36,6 +36,7 @@ define("MAMARMITE_UID_QUERY_VAR", "uid");
 
 define("MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT", "__uid_endpoint_index__");
 define("MAMARMITE_UID_PREVIEW_QUERYVARS_ENDPOINT", "__uid_endpoint_preview__");
+define("MAMARMITE_UID_LDJSON_QUERYVARS_ENDPOINT", "__uid_endpoint_json__");
 
 require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 

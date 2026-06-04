@@ -31,6 +31,11 @@ abstract class AbstractTemplate
     abstract function render_head();
     abstract function render_footer();
 
+    public function change_headers() {
+        //keep it default almost always.
+        //not abstract because it's not need
+    }
+
     public function render():void
     {
         ?>
