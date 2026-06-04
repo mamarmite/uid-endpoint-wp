@@ -35,6 +35,8 @@ class PlaceAdapter extends AbstractSchemaAdapter
     {
         $schema = $this->build_base_schema($this->post);
 
+        $this->add_to_schema($schema, 'description', \get_the_excerpt($this->post->ID));
+
         // Address
         $address = $this->build_address($this->post->ID);
         if ($address) {

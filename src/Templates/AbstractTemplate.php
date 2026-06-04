@@ -50,6 +50,10 @@ abstract class AbstractTemplate
                     a.btn {
                         padding: 0.5em 0.8em;
                     }
+                    pre {
+                        white-space: pre-wrap;
+                        overflow-wrap: break-word;
+                    }
                 </style>
             </head>
             <body>

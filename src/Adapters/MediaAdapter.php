@@ -46,8 +46,8 @@ class MediaAdapter extends AbstractSchemaAdapter
 
             $this->add_to_schema($schema, 'url', $featured_image_src[0]);
             $this->add_to_schema($schema, 'usageInfo', $this->default_usage_info_url);
-            $this->add_to_schema($schema, 'disambiguatingDescription', $this->post->post_content);
-            $this->add_to_schema($schema, 'description', $this->post->post_content);
+            //$this->add_to_schema($schema, 'disambiguatingDescription', \get_the_excerpt($featured_image_id));
+            $this->add_to_schema($schema, 'description', \get_the_excerpt($featured_image_id));
             $this->add_to_schema($schema, 'sdDatePublished', $media_date_published->format('c'));
             $this->add_to_schema($schema, 'inLanguage', $this->current_language);
         }

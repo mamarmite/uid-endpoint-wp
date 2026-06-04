@@ -269,7 +269,7 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
             }
 
             if (is_array($deny_value) && is_array($allow[$key])) {
-                // both are subtrees → recurse
+                // both are subtrees = recurse
                 $allow[$key] = $this->diff_allow_list($allow[$key], $deny_value);
 
                 // prune the parent

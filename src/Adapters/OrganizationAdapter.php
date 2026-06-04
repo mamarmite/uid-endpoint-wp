@@ -35,6 +35,7 @@ class OrganizationAdapter extends AbstractSchemaAdapter
         $schema = $this->build_base_schema($this->post);
 
         $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
+        $this->add_to_schema($schema, 'description', \get_the_excerpt($this->post->ID));
         $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
 
         //sameAs

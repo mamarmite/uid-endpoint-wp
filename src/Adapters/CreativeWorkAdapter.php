@@ -46,7 +46,7 @@ class CreativeWorkAdapter extends AbstractSchemaAdapter
         $schema = $this->build_base_schema($this->post);
 
         $this->add_to_schema($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
-        $this->add_to_schema($schema, 'description', $this->get_field($this->post->ID, 'description', $this->post->post_content));
+        $this->add_to_schema($schema, 'description', $this->get_field($this->post->ID, 'description', \get_the_excerpt($this->post->ID)));
         $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
         $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
         $this->add_to_schema($schema, 'inLanguage', $this->current_language);
