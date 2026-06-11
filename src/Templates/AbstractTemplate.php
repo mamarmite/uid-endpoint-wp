@@ -52,10 +52,12 @@ abstract class AbstractTemplate
                 <main>
                     <?php $this->render_content(); ?>
                 </main>
+                <section>
+                    <?php $this->render_footer(); ?>
+                </section>
                 <footer>
-                    <?php echo MAMARMITE_UID_PREFIX; ?>&Nopf;
+                    <?php echo MAMARMITE_UID_PLUGIN_NAME; ?> &mdash; <?php echo \get_bloginfo('name'); ?> <code><?php echo MAMARMITE_UID_PREFIX; ?>&Nopf;</code>
                 </footer>
-                <?php $this->render_footer(); ?>
             </body>
         </html>
         <?php

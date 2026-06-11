@@ -1,6 +1,7 @@
 <?php
 namespace Mamarmite\UIDEndpoint;
 
+use Mamarmite\UIDEndpoint\Templates\ArchiveTemplate;
 use Mamarmite\UIDEndpoint\Templates\DefaultTemplate;
 use Mamarmite\UIDEndpoint\Templates\BaseEndpointTemplate;
 use Mamarmite\UIDEndpoint\Templates\JsonTemplate;
@@ -30,8 +31,8 @@ function handle_entity_endpoint_request(): void
         // Index endpoint
         if ($plugin_endpoint === MAMARMITE_UID_LIST_QUERYVARS_ENDPOINT) {
             //render target entity
-            $baseTemplate = new BaseEndpointTemplate(null);
-            $baseTemplate->render();
+            $archiveTemplate = new ArchiveTemplate(null);
+            $archiveTemplate->render();
             exit;
         }
 

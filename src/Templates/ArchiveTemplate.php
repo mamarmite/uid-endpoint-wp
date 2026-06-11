@@ -22,16 +22,13 @@ class ArchiveTemplate extends AbstractTemplate
     }
 
     public function render_content():void {
+        //ajotuer le type ?
+        $type = "Tous";
         ?>
-        <h1><?php echo \get_bloginfo('name'); ?> &mdash; Base du plugiciels UID</h1>
+        <h1>Liste <code class="schema-type"><?php echo $type; ?></code></h1>
         <section>
-            <h2>Entitées supportées et structurées pour l'ontologie d'Artsdata</h2>
             <ul>
-                <li><code class="schema-type">Event</code></li>
-                <li><code class="schema-type">Artist/ Agent</code></li>
-                <li><code class="schema-type">Organisation</code></li>
-                <li><code class="schema-type">Place</code></li>
-                <li><code class="schema-type">CreativeWork</code></li>
+                <li>Item</li>
             </ul>
         </section>
         <?php

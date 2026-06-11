@@ -41,7 +41,8 @@ main, footer {
     margin-bottom: 0.3rem;
   }
 }
-ul li code {
+ul li code,
+footer code {
   display:inline-block;
   padding: 0.25rem 0.5rem;
   border: 2px solid var(--light-border);

@@ -23,7 +23,7 @@ class BaseEndpointTemplate extends AbstractTemplate
 
     public function render_content():void {
         ?>
-        <h1><?php echo \get_bloginfo('name'); ?> &mdash; Base du plugiciels UID</h1>
+        <h1>UID</h1>
         <section>
             <h2>Entitées supportées et structurées pour l'ontologie d'Artsdata</h2>
             <ul class="list-schema-type">
