@@ -33,9 +33,11 @@ class MediaAdapter extends AbstractSchemaAdapter
 
     }
 
-    public function transform(): array
+    public function transform(bool $isSchemaRoot = false): array
     {
-        $schema = $this->build_base_schema($this->post);
+        $context = parent::transform($isSchemaRoot);
+        $schema = array_merge($context, $this->build_base_schema($this->post, $isSchemaRoot));
+
         $has_post_thumbnail = \has_post_thumbnail($this->post);
         if($has_post_thumbnail) {
             $featured_image_id = \get_post_thumbnail_id($this->post->ID);
@@ -61,7 +63,7 @@ class MediaAdapter extends AbstractSchemaAdapter
      * @param \WP_Post $post
      * @return array
      */
-    protected function build_base_schema(\WP_Post $post): array
+    protected function build_base_schema(\WP_Post $post, bool $isSchemaRoot = false): array
     {
         return [
             '@type' => $this->schemaType,

@@ -38,9 +38,9 @@ class DefaultTemplate extends AbstractTemplate
             <div class="schema-container">
                 <div>
                     <button onclick="copyCodeHandler(this)">Copier</button>
-                    <a href="<?php echo $this->json_endpoint_url; ?>" class="btn" title="json">json</a>
+                    <a href="<?php echo $this->json_endpoint_url; ?>" class="btn" title="json">Format JSON</a>
                 </div>
-                <pre><code id="schemaJsonLd"><?php echo json_encode($this->entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?></code></pre>
+                <pre><code id="schemaJsonLd"><?php echo json_encode($this->entity->transform(true), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?></code></pre>
             </div>
         </section>
         <script>

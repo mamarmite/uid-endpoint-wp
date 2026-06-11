@@ -37,10 +37,10 @@ class ArtistAdapter extends AbstractSchemaAdapter
     }
 
 
-    public function transform(): array
+    public function transform(bool $isSchemaRoot = false): array
     {
-        parent::transform();
-        $schema = $this->build_base_schema($this->post);
+        $context = parent::transform($isSchemaRoot);
+        $schema = array_merge($context, $this->build_base_schema($this->post, $isSchemaRoot));
 
         $this->add_to_schema($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
         $this->add_to_schema($schema, 'description', \get_the_excerpt($this->post));

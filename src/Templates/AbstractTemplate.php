@@ -4,6 +4,7 @@ namespace Mamarmite\UIDEndpoint\Templates;
 
 use Mamarmite\UIDEndpoint\Adapters\AdapterFactory;
 use Mamarmite\UIDEndpoint\Adapters\SchemaAdapterInterface;
+use Mamarmite\UIDEndpoint\UID;
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');
@@ -43,25 +44,16 @@ abstract class AbstractTemplate
             <head>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <title>/<?php echo MAMARMITE_UID_BASE_ENDPOINT; ?>/ <?php echo \get_the_title() . ' | ' . \get_bloginfo('name'); ?></title>
+                <title><?php echo MAMARMITE_UID_PLUGIN_NAME; ?> <?php echo \get_the_title() . ' | ' . \get_bloginfo('name'); ?></title>
                 <link href="<?php echo MAMARMITE_UID_ENDPOINT_BASE_URL."assets/styles/"; ?>uid-main.css" rel="stylesheet" />
                 <?php $this->render_head(); ?>
-                <style>
-                    a.btn {
-                        padding: 0.5em 0.8em;
-                    }
-                    pre {
-                        white-space: pre-wrap;
-                        overflow-wrap: break-word;
-                    }
-                </style>
             </head>
             <body>
                 <main>
                     <?php $this->render_content(); ?>
                 </main>
                 <footer>
-                    <?php echo MAMARMITE_UID_DOMAIN ."/".  MAMARMITE_UID_BASE_ENDPOINT; ?>
+                    <?php echo MAMARMITE_UID_PREFIX; ?>&Nopf;
                 </footer>
                 <?php $this->render_footer(); ?>
             </body>

@@ -39,12 +39,8 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
         $this->allow_list = !empty($schema_allow_list) ? $schema_allow_list : $this->default_allow_list ;
     }
 
-    public function transform(): array {
-        return [];
-    }
-
-    public function sub_entity_transform():array {
-        return $this->transform();//default as if we need to be full for subentity.
+    public function transform(bool $isSchemaRoot = false): array {
+        return $isSchemaRoot ? $this->build_schema_context() : [];
     }
 
     /**
@@ -144,12 +140,25 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
     }
 
     /**
+     * Add the context to the base
+     *
+     * @param \WP_Post $post
+     * @return array
+     */
+    protected function build_schema_context($context=MAMARMITE_UID_CONTEXT): array
+    {
+        return [
+            '@context' => $context,
+        ];
+    }
+
+    /**
      * Build base schema structure
      *
      * @param \WP_Post $post
      * @return array
      */
-    protected function build_base_schema(\WP_Post $post): array
+    protected function build_base_schema(\WP_Post $post, bool $isSchemaRoot = false): array
     {
         $name = $this->get_field($this->post->ID, 'name', $this->post->post_title);
         return [

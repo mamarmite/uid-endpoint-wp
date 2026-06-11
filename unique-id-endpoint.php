@@ -21,22 +21,28 @@ if ( ! defined( 'ABSPATH' ) ) {
     die( 'Invalid request.' );
 }
 
+define("MAMARMITE_UID_PLUGIN_NAME", "Identifiant unique et pérenne" );
 define("MAMARMITE_UID_ENDPOINT_BASE_PATH", \plugin_dir_path( __FILE__ ) );
 define("MAMARMITE_UID_ENDPOINT_BASE_URL", \plugin_dir_url( __FILE__ ) );
 define("MAMARMITE_UID_ADD_PROTOCOLE", true);
 define("MAMARMITE_UID_PROTOCOLE", "http://");//make that dynamic with wp url ?
 define("MAMARMITE_UID_DOMAIN", "topo.art");
 define("MAMARMITE_UID_BASE_ENDPOINT", "r");
+define("MAMARMITE_UID_PREFIX", "http://topo.art/r/t");
 
 define("MAMARMITE_UID_PLUGIN_BASE_ENDPOINT", "uid");
 define("MAMARMITE_UID_PLUGIN_PREVIEW_ENDPOINT", "preview");
 define("MAMARMITE_UID_PLUGIN_LDJSON_ENDPOINT", "ldjson");
+define("MAMARMITE_UID_PLUGIN_LIST_ENDPOINT", "list");
 
 define("MAMARMITE_UID_QUERY_VAR", "uid");
 
 define("MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT", "__uid_endpoint_index__");
 define("MAMARMITE_UID_PREVIEW_QUERYVARS_ENDPOINT", "__uid_endpoint_preview__");
 define("MAMARMITE_UID_LDJSON_QUERYVARS_ENDPOINT", "__uid_endpoint_json__");
+define("MAMARMITE_UID_LIST_QUERYVARS_ENDPOINT", "__uid_endpoint_list__");
+
+define("MAMARMITE_UID_CONTEXT", "http://schema.org");
 
 require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 

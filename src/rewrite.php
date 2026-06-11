@@ -15,20 +15,28 @@ function add_uid_endpoint()
     // Index endpoint
     \add_rewrite_rule(
         '^'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'?$',
-        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT, // Use a special value to detect empty case
+        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT,
         'top'
     );
 
     // PREVIEW endpoint
     \add_rewrite_rule(
         '^'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/'.MAMARMITE_UID_PLUGIN_PREVIEW_ENDPOINT.'?$',//'?([^/]+)/$'
-        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_PREVIEW_QUERYVARS_ENDPOINT,//.'&'.MAMARMITE_UID_QUERY_VAR.'=$matches[1]'
+        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_PREVIEW_QUERYVARS_ENDPOINT,
         'top'
     );
+
     // LDJSON endpoint
     \add_rewrite_rule(
         '^'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/'.MAMARMITE_UID_PLUGIN_LDJSON_ENDPOINT.'?$',//'?([^/]+)/$'
-        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_LDJSON_QUERYVARS_ENDPOINT,//.'&'.MAMARMITE_UID_QUERY_VAR.'=$matches[1]'
+        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_LDJSON_QUERYVARS_ENDPOINT,
+        'top'
+    );
+
+    // LIST endpoint
+    \add_rewrite_rule(
+        '^'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/'.MAMARMITE_UID_PLUGIN_LIST_ENDPOINT.'?$',//'?([^/]+)/$'
+        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_LIST_QUERYVARS_ENDPOINT,
         'top'
     );
 }

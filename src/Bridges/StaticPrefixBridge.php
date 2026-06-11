@@ -8,21 +8,19 @@ if (!defined('ABSPATH')) {
 
 class StaticPrefixBridge extends AbstractBridge
 {
-    protected $_prefix = "http://topo.art/r/t";
+    protected $_prefix = MAMARMITE_UID_PREFIX;
     protected array $from = [];
     protected array $to = [];
 
     function __construct() {
         $this->from = [
             'organization' => $this->_prefix,
-            'artiste' =>  $this->_prefix,
-            'place' =>  $this->_prefix,
-
-            'event' =>  $this->_prefix,
-            'programmation' =>  $this->_prefix,
-
-            'creative_work' =>  $this->_prefix,
-            'production' =>  $this->_prefix,
+            'artiste' => $this->_prefix,
+            'place' => $this->_prefix,
+            'event' => $this->_prefix,
+            'programmation' => $this->_prefix,
+            'creative_work' => $this->_prefix,
+            'production' => $this->_prefix,
         ];
         parent::__construct();
     }

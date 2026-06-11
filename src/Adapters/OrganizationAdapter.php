@@ -29,9 +29,10 @@ class OrganizationAdapter extends AbstractSchemaAdapter
         parent::__construct($post, $schema_allow_list);
     }
 
-    public function transform(): array
+    public function transform(bool $isSchemaRoot = false): array
     {
-        $schema = $this->build_base_schema($this->post);
+        $context = parent::transform($isSchemaRoot);
+        $schema = array_merge($context, $this->build_base_schema($this->post, $isSchemaRoot));
 
         $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
         $this->add_to_schema($schema, 'description', \get_the_excerpt($this->post->ID));

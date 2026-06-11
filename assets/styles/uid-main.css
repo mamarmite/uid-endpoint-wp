@@ -31,3 +31,37 @@ main, footer {
   border-radius: var(--default-border-radius);
   background-color: var(--light);
 }
+.list-schema-type {
+  padding: 0;
+  margin: 0;
+
+  li {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0.3rem;
+  }
+}
+ul li code {
+  display:inline-block;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--light-border);
+  border-radius: var(--default-border-radius);
+  background-color: var(--light);
+}
+
+
+a.btn {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--light-border);
+  border-radius: var(--default-border-radius);
+  background-color: transparent;
+  text-decoration: underline dotted;
+}
+a.btn:hover {
+  text-decoration: underline;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}

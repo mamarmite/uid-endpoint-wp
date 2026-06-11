@@ -34,7 +34,6 @@ class ComposerStaticInit4c067d48502f2631b931bbe67a396508
         'd0c351bc506384b02f681163e7b05e09' => __DIR__ . '/../..' . '/src/handlers.php',
         '341735ac5f4dc159bfcbb4815c3d3984' => __DIR__ . '/../..' . '/src/rewrite.php',
         '327060568bdee209c29804fdd1f41726' => __DIR__ . '/../..' . '/src/actions.php',
-        '6f1ee204478e397444710e0939023c0e' => __DIR__ . '/../..' . '/src/routes.php',
     );
 
     public static $prefixLengthsPsr4 = array (

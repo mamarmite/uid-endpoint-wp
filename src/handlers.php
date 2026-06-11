@@ -27,6 +27,14 @@ function handle_entity_endpoint_request(): void
             exit;
         }
 
+        // Index endpoint
+        if ($plugin_endpoint === MAMARMITE_UID_LIST_QUERYVARS_ENDPOINT) {
+            //render target entity
+            $baseTemplate = new BaseEndpointTemplate(null);
+            $baseTemplate->render();
+            exit;
+        }
+
         // PREVIEW
         if ($plugin_endpoint === MAMARMITE_UID_PREVIEW_QUERYVARS_ENDPOINT) {
 
