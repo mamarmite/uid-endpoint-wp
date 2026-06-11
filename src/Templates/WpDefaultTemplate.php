@@ -2,7 +2,6 @@
 
 namespace Mamarmite\UIDEndpoint\Templates;
 
-
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
@@ -37,9 +36,7 @@ class WpDefaultTemplate extends AbstractTemplate
         //handling by wp template.
     }
 
-    public function render_footer():void
-    {
-    }
+    public function render_footer():void {}
 }
 
 ?>

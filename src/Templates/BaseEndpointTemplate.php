@@ -7,7 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     die( 'Invalid request.' );
 }
 
-
 class BaseEndpointTemplate extends AbstractTemplate
 {
     /**

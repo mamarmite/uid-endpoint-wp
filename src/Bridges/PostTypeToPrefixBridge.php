@@ -2,8 +2,6 @@
 
 namespace Mamarmite\UIDEndpoint\Bridges;
 
-use Mamarmite\UIDEndpoint\Bridges\AbstractBridge;
-
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }

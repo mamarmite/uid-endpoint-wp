@@ -1,7 +1,6 @@
 <?php
 namespace Mamarmite\UIDEndpoint;
 
-
 use Mamarmite\UIDEndpoint\Templates\DefaultTemplate;
 use Mamarmite\UIDEndpoint\Templates\BaseEndpointTemplate;
 use Mamarmite\UIDEndpoint\Templates\JsonTemplate;

@@ -1,7 +1,6 @@
 <?php
 namespace Mamarmite\UIDEndpoint\Adapters;
 
-
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }

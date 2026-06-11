@@ -7,8 +7,6 @@ if (!defined('ABSPATH')) {
 
 //Routes indexes values
 
-$MAIN_INDEX_ROOT_VALUE = "__uids_base_endpoint__";
-
 class AbstractRoute {
 
     public $name;

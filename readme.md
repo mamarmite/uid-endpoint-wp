@@ -15,10 +15,7 @@ J'ai besoin d'ajouter un paramètre pour l'url de redirection et forme du uid se
 ```apacheconf
 # BEGIN Mamarmite UID
 RewriteEngine On
-RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP:X-Forwarded-Proto} !=https
-RewriteCond %{HTTP:X-Forwarded-SSL} !=on
-RewriteRule ^r/([^/.]+)/?$ https://topo.art/uid/jsonld?uid=http://topo.art/r/$1 [R=303,NE,L]
+RewriteRule ^r/([^/.]+)/?$ https://stg.topo.art/uid/ldjson?uid=http://topo.art/r/$1 [R=303,NE,L]
 # END Mamarmite UID
 ```
 

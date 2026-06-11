@@ -1,8 +1,8 @@
 <?php
 
 namespace Mamarmite\UIDEndpoint\Adapters;
+
 use DateInterval;
-use Mamarmite\UIDEndpoint\Adapters\AbstractSchemaAdapter;
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');

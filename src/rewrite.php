@@ -49,7 +49,6 @@ function add_entity_id_query_vars($vars) {
 }
 \add_filter('query_vars',  __NAMESPACE__.'\\add_entity_id_query_vars');
 
-
 /**
  * On plugin activation, we flush the rewrite rule to apply ours.
  * @return void

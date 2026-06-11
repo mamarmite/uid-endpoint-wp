@@ -2,7 +2,6 @@
 namespace Mamarmite\UIDEndpoint;
 
 use Mamarmite\UIDEndpoint\Bridges\AbstractBridge;
-use Mamarmite\UIDEndpoint\Bridges\PostTypeToPrefixBridge;
 use Mamarmite\UIDEndpoint\Bridges\StaticPrefixBridge;
 
 if (!defined('ABSPATH')) {

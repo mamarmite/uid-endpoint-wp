@@ -2,8 +2,6 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
-use \Mamarmite\UIDEndpoint\Adapters\AbstractSchemaAdapter;
-
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
