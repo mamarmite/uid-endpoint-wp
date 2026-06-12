@@ -15,10 +15,8 @@ class AdapterFactory
         'organization' => OrganizationAdapter::class,
         'artiste' => ArtistAdapter::class,
         'place' => PlaceAdapter::class,
-
         'event' => EventAdapter::class,
         'programmation' => EventAdapter::class,
-
         'creative_work' => CreativeWorkAdapter::class,
         'production' => CreativeWorkAdapter::class,
     ];
@@ -55,6 +53,10 @@ class AdapterFactory
             return array_key_exists($post->post_type, static::$adapters);
         }
         return false;
+    }
+
+    public static function get_supported_post_type(): array {
+        return array_keys(static::$adapters);
     }
 
     /**

@@ -292,4 +292,5 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
         }
         return $allow;
     }
+
 }

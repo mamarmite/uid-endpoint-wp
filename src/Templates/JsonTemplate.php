@@ -26,7 +26,7 @@ class JsonTemplate extends AbstractTemplate
     }
 
     public function render():void {
-        echo \wp_json_encode($this->entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        echo \wp_json_encode($this->entity->transform(true), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     public function render_head():void {

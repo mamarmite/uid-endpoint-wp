@@ -24,7 +24,7 @@ function print_schema_jsonld_head()
                 ?>
                 <link rel="canonical-jsonld" href="<?php echo $json_endpoint_url; ?>" type="json" />
                 <script type="application/ld+json" class="unique-id-endpoint">
-                    <?php echo \wp_json_encode($entity->transform(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
+                    <?php echo \wp_json_encode($entity->transform(true), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>
                 </script>
                 <?php
             }

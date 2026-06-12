@@ -26,7 +26,7 @@ class BaseEndpointTemplate extends AbstractTemplate
         <h1>UID</h1>
         <section>
             <h2>Entitées supportées et structurées pour l'ontologie d'Artsdata</h2>
-            <ul class="list-schema-type">
+            <ul class="list-no-style">
                 <li><code class="schema-type">Event</code></li>
                 <li><code class="schema-type">Artist/ Agent</code></li>
                 <li><code class="schema-type">Organisation</code></li>

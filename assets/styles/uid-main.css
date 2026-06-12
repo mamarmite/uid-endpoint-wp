@@ -1,6 +1,7 @@
 :root {
   --light: #FAFAFA;
   --light-border: #F5F5F5;
+  --light-border-1: #F2F3F2;
   --dark: #AFAFAF;
   --default-border-radius: 0.5rem;
 }
@@ -31,7 +32,8 @@ main, footer {
   border-radius: var(--default-border-radius);
   background-color: var(--light);
 }
-.list-schema-type {
+
+.list-no-style {
   padding: 0;
   margin: 0;
 
@@ -41,6 +43,7 @@ main, footer {
     margin-bottom: 0.3rem;
   }
 }
+
 ul li code,
 footer code {
   display:inline-block;
@@ -62,7 +65,25 @@ a.btn {
 a.btn:hover {
   text-decoration: underline;
 }
+
 pre {
   white-space: pre-wrap;
   overflow-wrap: break-word;
+}
+
+.entity-data:has(script:target) {
+  padding: 0.25rem 0.25rem;
+  border: 2px solid var(--dark);
+  border-radius: calc(var(--default-border-radius) * 1.4);
+  border-left-color: var(--dark);
+  background-color: transparent;
+}
+
+.entity-data .fixed {
+  width: 9em;
+}
+
+
+.text-center {
+  text-align: center;
 }
