@@ -73,6 +73,7 @@ abstract class AbstractTemplate
                 <main>
                     <?php $this->render_content(); ?>
                 </main>
+                <hr>
                 <section>
                     <?php $this->render_footer(); ?>
                 </section>
