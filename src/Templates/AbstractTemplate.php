@@ -66,7 +66,7 @@ abstract class AbstractTemplate
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <title><?php echo MAMARMITE_UID_PLUGIN_NAME; ?> <?php echo \get_the_title() . ' | ' . \get_bloginfo('name'); ?></title>
-                <link href="<?php echo MAMARMITE_UID_ENDPOINT_BASE_URL."assets/styles/"; ?>uid-main.css?v=7" rel="stylesheet" />
+                <link href="<?php echo MAMARMITE_UID_ENDPOINT_BASE_URL."assets/styles/"; ?>uid-main.css?v=8" rel="stylesheet" />
                 <?php $this->render_head(); ?>
             </head>
             <body>
@@ -77,7 +77,7 @@ abstract class AbstractTemplate
                     <?php $this->render_footer(); ?>
                 </section>
                 <footer>
-                    <?php echo MAMARMITE_UID_PLUGIN_NAME; ?> &mdash; <?php echo \get_bloginfo('name'); ?> <code><?php echo MAMARMITE_UID_PREFIX; ?>&Nopf;</code>
+                    <a href="<?php echo get_home_url() . '/' . MAMARMITE_UID_PLUGIN_BASE_ENDPOINT . '/'; ?>" title="" target="_self"><?php echo MAMARMITE_UID_PLUGIN_NAME; ?></a> &mdash; <?php echo \get_bloginfo('name'); ?> <code><?php echo MAMARMITE_UID_PREFIX; ?>&Nopf;</code>
                 </footer>
             </body>
         </html>

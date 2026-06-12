@@ -52,7 +52,12 @@ footer code {
   border-radius: var(--default-border-radius);
   background-color: var(--light);
 }
-
+a {
+  text-decoration: underline dotted;
+}
+a:hover {
+  text-decoration: underline;
+}
 
 a.btn {
   display: inline-block;
@@ -60,11 +65,8 @@ a.btn {
   border: 2px solid var(--light-border);
   border-radius: var(--default-border-radius);
   background-color: transparent;
-  text-decoration: underline dotted;
 }
-a.btn:hover {
-  text-decoration: underline;
-}
+
 
 pre {
   white-space: pre-wrap;
