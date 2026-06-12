@@ -39,6 +39,13 @@ function add_uid_endpoint()
         'index.php?uid_plugin_endpoint='.MAMARMITE_UID_LIST_QUERYVARS_ENDPOINT,
         'top'
     );
+
+    // LIST endpoint
+    \add_rewrite_rule(
+        '^'.MAMARMITE_UID_PLUGIN_BASE_ENDPOINT.'/'.MAMARMITE_UID_PLUGIN_LISTJSON_ENDPOINT.'?$',//'?([^/]+)/$'
+        'index.php?uid_plugin_endpoint='.MAMARMITE_UID_LISTJSON_QUERYVARS_ENDPOINT,
+        'top'
+    );
 }
 \add_action('init', __NAMESPACE__.'\\add_uid_endpoint');
 

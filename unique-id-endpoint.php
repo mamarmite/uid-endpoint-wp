@@ -34,6 +34,7 @@ define("MAMARMITE_UID_PLUGIN_BASE_ENDPOINT", "uid");
 define("MAMARMITE_UID_PLUGIN_PREVIEW_ENDPOINT", "preview");
 define("MAMARMITE_UID_PLUGIN_LDJSON_ENDPOINT", "ldjson");
 define("MAMARMITE_UID_PLUGIN_LIST_ENDPOINT", "list");
+define("MAMARMITE_UID_PLUGIN_LISTJSON_ENDPOINT", "list.json");
 
 define("MAMARMITE_UID_QUERY_VAR", "uid");
 
@@ -41,6 +42,7 @@ define("MAMARMITE_UID_BASE_QUERYVARS_ENDPOINT", "__uid_endpoint_index__");
 define("MAMARMITE_UID_PREVIEW_QUERYVARS_ENDPOINT", "__uid_endpoint_preview__");
 define("MAMARMITE_UID_LDJSON_QUERYVARS_ENDPOINT", "__uid_endpoint_json__");
 define("MAMARMITE_UID_LIST_QUERYVARS_ENDPOINT", "__uid_endpoint_list__");
+define("MAMARMITE_UID_LISTJSON_QUERYVARS_ENDPOINT", "__uid_endpoint_list_json__");
 
 define("MAMARMITE_UID_CONTEXT", "http://schema.org");
 

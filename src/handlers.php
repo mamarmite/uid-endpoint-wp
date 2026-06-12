@@ -1,6 +1,7 @@
 <?php
 namespace Mamarmite\UIDEndpoint;
 
+use Mamarmite\UIDEndpoint\Templates\ArchiveJsonTemplate;
 use Mamarmite\UIDEndpoint\Templates\ArchiveTemplate;
 use Mamarmite\UIDEndpoint\Templates\DefaultTemplate;
 use Mamarmite\UIDEndpoint\Templates\BaseEndpointTemplate;
@@ -28,11 +29,20 @@ function handle_entity_endpoint_request(): void
             exit;
         }
 
-        // Index endpoint
+        // List endpoint
         if ($plugin_endpoint === MAMARMITE_UID_LIST_QUERYVARS_ENDPOINT) {
             //render target entity
             $archiveTemplate = new ArchiveTemplate(null);
             $archiveTemplate->render();
+            exit;
+        }
+
+        // List endpoint
+        if ($plugin_endpoint === MAMARMITE_UID_LISTJSON_QUERYVARS_ENDPOINT) {
+            //render target entity
+            $archiveJsonTemplate = new ArchiveJsonTemplate(null);
+            $archiveJsonTemplate->change_headers();
+            $archiveJsonTemplate->render();
             exit;
         }
 

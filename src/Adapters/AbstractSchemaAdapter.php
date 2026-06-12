@@ -148,7 +148,7 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
     protected function build_schema_context($context=MAMARMITE_UID_CONTEXT): array
     {
         return [
-            '@context' => $context,
+            '@context' => $context
         ];
     }
 
