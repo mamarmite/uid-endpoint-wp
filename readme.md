@@ -15,8 +15,10 @@ Il faut ajouter des configurations de rewrite pour le serveur afin d'assurer la 
 ## Apache
 ```apacheconf
 # BEGIN Mamarmite UID remplacer : [DOMAIN] par le domain du site web et [DOMAIN_UID] par le domaine de votre identifiant pérenne.
+<IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteRule ^r/([^/.]+)/?$ https://[DOMAIN]/uid/ldjson?uid=http://[DOMAIN_UID]/r/$1 [R=303,NE,L]
+</IfModule>
 # END Mamarmite UID
 ```
 
