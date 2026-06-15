@@ -6,7 +6,7 @@
  * Version: 0.3.2
  * Author: Marc-André Martin
  * Author URI: https://mamarmite.com
- * Requires PHP: 8.2
+ * Requires PHP: 8.1
  * Requires at least: 6
  * Text Domain: uidendpoint
  *
