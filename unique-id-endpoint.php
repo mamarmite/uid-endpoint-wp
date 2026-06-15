@@ -3,7 +3,7 @@
  * Plugin Name: Unique ID endpoint
  * Description: Add unique id (UID) endpoint to a wordpress installation.
  * Plugin URI: https://mamarmite.com
- * Version: 0.3.2
+ * Version: 0.3.3
  * Author: Marc-André Martin
  * Author URI: https://mamarmite.com
  * Requires PHP: 8.1
