@@ -1,0 +1,576 @@
+{
+    "key": "group_schema_event",
+    "title": "Schema Evenement",
+    "fields": [
+        {
+            "key": "field_68e594386c67f",
+            "label": "Type",
+            "name": "type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Event": "Event"
+            },
+            "default_value": "Event",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_69174e41e252c",
+            "label": "Date et heure du début",
+            "name": "start_date",
+            "aria-label": "",
+            "type": "date_time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "Y-m-d H:i:s",
+            "return_format": "Y-m-d H:i:s",
+            "first_day": 1,
+            "default_to_current_date": 0,
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_69174e6ae252d",
+            "label": "Date et heure de fin",
+            "name": "end_date",
+            "aria-label": "",
+            "type": "date_time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "Y-m-d H:i:s",
+            "return_format": "Y-m-d H:i:s",
+            "first_day": 1,
+            "default_to_current_date": 0,
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_69178b1e9c060",
+            "label": "Fuseau horaire",
+            "name": "timezone",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "America\/Montreal": "Montréal"
+            },
+            "default_value": "America\/Montreal",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_68e598126c681",
+            "label": "Nom alternatif",
+            "name": "alternate_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_68e5947c6c680",
+            "label": "Type aditionnel",
+            "name": "additional_type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Event": "Event",
+                "EventSeries": "Event Series",
+                "Class": "Classes",
+                "TalkEvent": "Talk",
+                "PerformingArtsEvent": "Performance",
+                "RehearsalEvent": "Public Rehearsal",
+                "CircusPerformance": "Circus Performance",
+                "ComedyPerformance": "Comedy Performance",
+                "DancePerformance": "Dance Performance",
+                "MusicalTheatrePerformance": "Musical Theatre Performance",
+                "OperaPerformance": "Opera Performance",
+                "MusicPerformance": "Concert",
+                "SpokenWordPerformance": "Spoken Word Performance",
+                "TheatrePerformance": "Theatre Performance",
+                "StorytellingPerformance": "Storytelling Performance",
+                "VarietyPerformance": "Variety Performance",
+                "PerformanceArt": "Performance Art",
+                "Festival": "Festival",
+                "ChildrensEvent": "Children's Event",
+                "ExhibitionEvent": "Exhibition",
+                "ResidencyEvent": "Residency",
+                "ScreeningEvent": "Screening",
+                "SocialEvent": "Social Event",
+                "WorkshopEvent": "Workshop",
+                "MasterclassEvent": "Masterclass",
+                "PostshowTalk": "Postshow Talk",
+                "PreshowTalk": "Preshow Talk",
+                "PowWow": "Powwow",
+                "Competition": "Competition",
+                "Convention": "Convention",
+                "SocialDance": "Social Dance",
+                "AwardsEvent": "Awards Event",
+                "LiveFilmConcert": "Live Film Concert",
+                "FestivalSeries": "Festival Series",
+                "SaleEvent": "Sale"
+            },
+            "default_value": "ExhibitionEvent",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_68e5990e6c682",
+            "label": "Status",
+            "name": "event_status",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "EventCancelled": "Annulé",
+                "EventMovedOnline": "Changé à en ligne seulement",
+                "EventPostponed": "Reporté",
+                "EventRescheduled": "Reprogrammé",
+                "EventScheduled": "Programmé"
+            },
+            "default_value": "EventScheduled",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_68e599d56c683",
+            "label": "Mode de présence",
+            "name": "event_attendance_mode",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "OfflineEventAttendanceMode": "Présentiel",
+                "OnlineEventAttendanceMode": "En ligne",
+                "MixedEventAttendanceMode": "Présentiel et en ligne"
+            },
+            "default_value": "OfflineEventAttendanceMode",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_68e59a766c685",
+            "label": "Organisateur",
+            "name": "organizer",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "organization"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_68e59a9f6c686",
+            "label": "Oeuvre(s) associé(s)",
+            "name": "work_featured",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "production"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_68e59b1f6c688",
+            "label": "Lieu(x)",
+            "name": "location",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "place"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_68e59b476c689",
+            "label": "Horaire",
+            "name": "event_schedule",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_68e59b716c68a",
+                    "label": "Date de début",
+                    "name": "start_date",
+                    "aria-label": "",
+                    "type": "date_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "Y-m-d",
+                    "return_format": "Y-m-d",
+                    "first_day": 1,
+                    "default_to_current_date": 0,
+                    "allow_in_bindings": 0
+                },
+                {
+                    "key": "field_68e59bdb6c68c",
+                    "label": "Heure de début",
+                    "name": "start_time",
+                    "aria-label": "",
+                    "type": "time_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "H:i:s",
+                    "return_format": "H:i:s",
+                    "allow_in_bindings": 0
+                },
+                {
+                    "key": "field_68e59bc66c68b",
+                    "label": "Date de fin",
+                    "name": "end_date",
+                    "aria-label": "",
+                    "type": "date_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "Y-m-d",
+                    "return_format": "Y-m-d",
+                    "first_day": 1,
+                    "default_to_current_date": 0,
+                    "allow_in_bindings": 0
+                },
+                {
+                    "key": "field_68e59bfb6c68d",
+                    "label": "Heure de fin",
+                    "name": "end_time",
+                    "aria-label": "",
+                    "type": "time_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "H:i:s",
+                    "return_format": "H:i:s",
+                    "allow_in_bindings": 0
+                },
+                {
+                    "key": "field_68e59c576c68f",
+                    "label": "Par jour",
+                    "name": "by_day",
+                    "aria-label": "",
+                    "type": "checkbox",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "http:\/\/schema.org\/Monday": "Lundi",
+                        "http:\/\/schema.org\/Tuesday": "Mardi",
+                        "http:\/\/schema.org\/Wednesday": "Mercredi",
+                        "http:\/\/schema.org\/Thursday": "Jeudi",
+                        "http:\/\/schema.org\/Friday": "Vendredi",
+                        "http:\/\/schema.org\/Saturday": "Samedi",
+                        "http:\/\/schema.org\/Sunday": "Dimanche"
+                    },
+                    "default_value": [],
+                    "return_format": "value",
+                    "allow_custom": 0,
+                    "allow_in_bindings": 0,
+                    "layout": "vertical",
+                    "toggle": 0,
+                    "save_custom": 0,
+                    "custom_choice_button_text": "Ajouter un nouveau choix"
+                }
+            ]
+        },
+        {
+            "key": "field_68e59af26c687",
+            "label": "Est accessible gratuitement ?",
+            "name": "is_accessible_for_free",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Oui",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_6a2186a24c850",
+            "label": "Artiste \/ performer",
+            "name": "performer",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "artiste"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_6a218bee0cb7f",
+            "label": "Artiste \/ contributeur",
+            "name": "contributor",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "artiste"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "programmation"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1780583428
+}

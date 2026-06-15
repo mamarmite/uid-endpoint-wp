@@ -16,7 +16,8 @@
     "files": [
       "src/handlers.php",
       "src/rewrite.php",
-      "src/actions.php"
+      "src/actions.php",
+      "src/filters.php"
     ],
     "psr-4": {
       "Mamarmite\\UIDEndpoint\\": "src/"
