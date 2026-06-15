@@ -1,17 +1,18 @@
 # UID for WordPress
-Version 0.5.0 pour topo.art #wordpress.
 
-Ajouter des identifiants uniques à des publications (post) wordpress selon un type prédéterminé grâce au CPT.
+Ajout d'identifiants pérennes et uniques à des publications (post) wordpress selon un type du context `schema.org` prédéterminé grâce à leur CPT.
 
 # Dépendances
-- ACF (checkup d'installation à faire).
+- ACF
 
 # Schemas
 Les schémas sont le travail de [Capacoa](https://capacoa.ca/fr/). J'ai adapté et généré les outils grâce au travail sémantique de Capacoa.
 Le répertoire contenant les [schémas de travail et générés par ce plugin](https://github.com/mamarmite/topo.art-schemas) a été ajouté en parallèle. Mais il y a présent dans l'historique de ce répertoire.
 
 # Redirection 303
-J'ai besoin d'ajouter un paramètre pour l'url de redirection et forme du uid selon la structure interne.
+Il faut ajouter des configurations de rewrite pour le serveur afin d'assurer la redirection 303.
+
+## Apache
 ```apacheconf
 # BEGIN Mamarmite UID remplacer : [DOMAIN] par le domain du site web et [DOMAIN_UID] par le domaine de votre identifiant pérenne.
 RewriteEngine On
@@ -21,7 +22,7 @@ RewriteRule ^r/([^/.]+)/?$ https://[DOMAIN]/uid/ldjson?uid=http://[DOMAIN_UID]/r
 
 La vérification pour la redirection `303` se fait seulement sur un `/r/` sur la base du domain sans la vérification du port de connexion : `80` ou `443`. Donc les deux fonctionnent.
 
-# Terminaisons basés sur le `DOMAIN`
+# Terminaisons du plugiciel basées sur le `DOMAIN` de l'installation.
 | Terminaison  | Description                                                                                                            | Paramètre d'url | Nécessaire? | Public cible |
 |:-------------|:-----------------------------------------------------------------------------------------------------------------------|:---------------:|:-----------:|:------------:|
 | `/uid`       | Base du plugiciel, une index actif seulement pour les humains.                                                         |        -        |      -      |    humain    | 
@@ -87,11 +88,11 @@ Il n'y a pas de :
 - [ ] Confirmer le format `JSON` contenu dans la terminaison `/list.json`
 
 # Améliorations
-- [ ] Automatisation de l'installation avec un flush des rewrites des permalink
+- [ ] Automatisation de l'installation avec un flush des rewrites des permalink, vérification qu'ACF est installé.
 - [ ] Sauvegarder les UID complet dans un meta directement dans la BD.
 - [ ] Internationalisation des textes, présentement en français seulement.
 - [ ] Ajustement suite aux premiers moissonnages.
 
 # Idées / Backlog
-- [ ] Ajouter un pourcentage de complétion des schémas dans la table wordpress directement (et dans la vue `/list`)
-- [ ] Sélection des groupes de propriétés compatibles via une section paramètres du plugiciel.
+- [ ] Ajouter un pourcentage de complétion des schémas par entité dans la table wordpress directement (et dans la vue `/list`)
+- [ ] Sélection des groupes de propriétés (ACF) compatibles via une section paramètres dans le plugiciel.
