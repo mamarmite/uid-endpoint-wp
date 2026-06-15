@@ -25,10 +25,10 @@ La vérification pour la redirection `303` se fait seulement sur un `/r/` sur la
 # Terminaisons du plugiciel basées sur le `DOMAIN` de l'installation.
 | Terminaison  | Description                                                                                                            | Paramètre d'url | Nécessaire? | Public cible |
 |:-------------|:-----------------------------------------------------------------------------------------------------------------------|:---------------:|:-----------:|:------------:|
-| `/uid`       | Base du plugiciel, une index actif seulement pour les humains.                                                         |        -        |      -      |    humain    | 
-| `/list`      | Toutes les entités en mode lecture pour les humains (avec des liens vers la page de prévisualisation et version `json` |        -        |      -      |    humain    | 
+| `/uid`       | Base du plugiciel, une index actif seulement pour les humains.                                                         |        -        |      -      |    Humain    | 
+| `/list`      | Toutes les entités en mode lecture pour les humains (avec des liens vers la page de prévisualisation et version `json` |        -        |      -      |    Humain    | 
 | `/list.json` | Toutes les entités en mode `json`                                                                                      |        -        |      -      |   Machine    |
-| `/preview`   | Prévisualisation d'un schemas                                                                                          |       uid       |     Oui     |    humain    |
+| `/preview`   | Prévisualisation d'un schemas                                                                                          |       uid       |     Oui     |    Humain    |
 | `/ldjson`    | Prévisualisation d'un schemas en format `json`                                                                        |       uid       |     Oui     |   Machine    |
 
 ## `/list`
