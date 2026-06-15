@@ -8,7 +8,7 @@
  * Author URI: https://mamarmite.com
  * Requires PHP: 8.1
  * Requires at least: 6
- * Text Domain: uidendpoint
+ * Text Domain: mamarmite_uid_endpoint
  *
  * @package UIDEndpoint
  * @category Core
@@ -19,6 +19,26 @@ namespace Mamarmite\UIDEndpoint;
 
 if ( ! defined( 'ABSPATH' ) ) {
     die( 'Invalid request.' );
+}
+
+
+// ACF Installed Wall.
+\add_action( 'plugins_loaded', __NAMESPACE__.'\\load_uid_files_if_acf_installed' );
+
+function load_uid_files_if_acf_installed() {
+    if ( ! class_exists( 'ACF' ) ) {
+        \add_action( 'admin_notices', __NAMESPACE__.'\\mamarmite_uid_endpoint_no_acf_notice' );
+        \deactivate_plugins( plugin_basename( __FILE__ ) );
+        return;
+    }
+
+    require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+}
+
+function mamarmite_uid_endpoint_no_acf_notice() {
+    echo '<div class="notice notice-error"><p>';
+    echo esc_html__( 'Unique ID endpoint requiert Advanced Custom Fields actif.', 'mamarmite_uid_endpoint' );
+    echo '</p></div>';
 }
 
 define("MAMARMITE_UID_PLUGIN_NAME", "Identifiant unique et pérenne" );
@@ -45,9 +65,3 @@ define("MAMARMITE_UID_LIST_QUERYVARS_ENDPOINT", "__uid_endpoint_list__");
 define("MAMARMITE_UID_LISTJSON_QUERYVARS_ENDPOINT", "__uid_endpoint_list_json__");
 
 define("MAMARMITE_UID_CONTEXT", "http://schema.org");
-
-require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
-
-//preview = pour voir le json comme humain
-//jsonld = pour avoir le retour en entête json
-//base? avec le redirect 303 qui mène vers le jsonld.
