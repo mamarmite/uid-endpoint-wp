@@ -32,6 +32,7 @@ class EventAdapter extends AbstractSchemaAdapter
             "eventAttendanceMode" => true,
             "isAccessibleForFree" => true,
             "mainEntityOfPage" => true,
+            "additionalType" => true,
             "eventSchedule" => [
                 "all"
             ],
@@ -81,12 +82,12 @@ class EventAdapter extends AbstractSchemaAdapter
         if (!empty($start_date_str)) {
             $start_date = new \DateTimeImmutable($start_date_str, $timezone);
             $start_date_utc = $start_date->setTimezone(new \DateTimeZone('UTC'));
-            $this->add_to_schema($schema, 'startDate', $start_date_utc->format("c"));
+            $this->add_to_schema($schema, 'startDate', $start_date_utc->format($date_format));
         }
         if (!empty($end_date_str)) {
             $end_date = new \DateTimeImmutable($end_date_str, $timezone);
             $end_date_utc = $end_date->setTimezone(new \DateTimeZone('UTC'));
-            $this->add_to_schema($schema, 'endDate', $end_date_utc->format("c"));
+            $this->add_to_schema($schema, 'endDate', $end_date_utc->format($date_format));
         }
 
         $this->add_to_schema($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
