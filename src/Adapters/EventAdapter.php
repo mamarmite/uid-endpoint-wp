@@ -94,11 +94,11 @@ class EventAdapter extends AbstractSchemaAdapter
         $this->add_to_schema($schema, 'description', \get_the_excerpt($this->post->ID));
         $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
         //$this->add_to_schema($schema, 'image', $this->get_field($this->post->ID, 'image'));
-        $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
+        $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'), "http://kg.artsdata.ca/resource/");
         $this->add_to_schema($schema, 'keywords', $this->get_field($this->post->ID, 'keywords'));
-        $this->add_to_schema($schema, 'eventStatus', $this->get_field($this->post->ID, 'event_status', 'https://schema.org/EventScheduled'));
+        $this->add_to_schema($schema, 'eventStatus', $this->get_field($this->post->ID, 'event_status', 'EventScheduled'), "https://schema.org/");
         $this->add_to_schema($schema, 'inLanguage', $this->current_language);
-        $this->add_to_schema($schema, 'eventAttendanceMode', $this->get_field($this->post->ID, 'event_attendance_mode'));
+        $this->add_to_schema($schema, 'eventAttendanceMode', $this->get_field($this->post->ID, 'event_attendance_mode'), "https://schema.org/");
         $this->add_to_schema($schema, 'isAccessibleForFree', $this->get_field($this->post->ID, 'is_accessible_for_free'));
 
         // Event Schedule

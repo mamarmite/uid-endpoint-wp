@@ -174,12 +174,13 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
      * @param array $schema
      * @param string $key
      * @param mixed $value
+     * @param mixed $prefix
      * @return void
      */
-    protected function add_to_schema(array &$schema, string $key, $value): void
+    protected function add_to_schema(array &$schema, string $key, $value, string $prefix = ""): void
     {
         if (!empty($value) && array_key_exists($key, $this->allow_list)) {
-            $schema[$key] = $value;
+            $schema[$key] = ($prefix && gettype($value) == "string") ? $prefix.$value : $value;
         }
     }
 
