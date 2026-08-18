@@ -221,8 +221,8 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
         $img = [];
         $has_post_thumbnail = \has_post_thumbnail($this->post);
         if($has_post_thumbnail){
-            $mediaAdapter = new MediaAdapter($this->post, $allow_list);
-            $img = $mediaAdapter->transform();
+            $imageAdapter = new ImageAdapter($this->post, $allow_list);
+            $img = $imageAdapter->transform();
         }
         return $img;
     }
