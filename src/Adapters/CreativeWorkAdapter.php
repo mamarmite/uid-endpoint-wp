@@ -47,11 +47,11 @@ class CreativeWorkAdapter extends AbstractSchemaAdapter
 
         $this->add_to_schema($schema, 'alternateName', $this->get_field($this->post->ID, 'alternate_name'));
         $this->add_to_schema($schema, 'description', $this->get_field($this->post->ID, 'description', \get_the_excerpt($this->post->ID)));
-        $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
+        $this->add_to_schema($schema, 'url', $this->get_field($this->post->ID, 'url'));
         $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
         $this->add_to_schema($schema, 'inLanguage', $this->current_language);
         $this->add_to_schema($schema, 'disambiguatingDescription', $this->get_field($this->post->ID, 'disambiguating_description'));
-        $this->add_to_schema($schema, 'mainEntityOfPage', $this->get_field($this->post->ID, 'main_entity_of_page'));
+        $this->add_to_schema($schema, 'mainEntityOfPage', get_permalink($this->post->ID));
 
         // Creators
         if (array_key_exists('creator', $this->allow_list)) {
