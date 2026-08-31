@@ -3,6 +3,9 @@
 namespace Mamarmite\UIDEndpoint\Adapters;
 
 use DateInterval;
+use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
+use Mamarmite\UIDEndpoint\Blueprints\EventBlueprint;
+use const Mamarmite\UIDEndpoint\CLIENT_CONTEXT_DEFAULT;
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');
@@ -18,46 +21,9 @@ class EventAdapter extends AbstractSchemaAdapter
     protected string $schemaGroupKey = 'group_schema_event';
     protected string $prefix = "e";
 
-    function __construct(\WP_Post $post, $schema_allow_list=[])
+    function __construct(\WP_Post $post, Blueprint $blueprint = null)
     {
-        $this->default_allow_list = [
-            "startDate" => true,
-            "endDate" => true,
-            "alternateName" => true,
-            "description" => true,
-            "url" => true,
-            "keywords" => true,
-            "eventStatus" => true,
-            "inLanguage" => true,
-            "eventAttendanceMode" => true,
-            "isAccessibleForFree" => true,
-            "mainEntityOfPage" => true,
-            "additionalType" => true,
-            "eventSchedule" => [
-                "all"
-            ],
-            "location" => [
-                "all"
-            ],
-            "organizer" => [
-                "all"
-            ],
-            "workFeatured" => [
-                "all"
-            ],
-            "image" => [
-                "all"
-            ],
-            "performer" => [
-                "alternateName" => true,
-                "sameAs" => true,
-            ],
-            "contributor" => [
-                "alternateName" => true,
-                "sameAs" => true,
-            ]
-        ];
-        parent::__construct($post, $schema_allow_list);
+        parent::__construct($post, $blueprint ?? new EventBlueprint());
     }
 
     public function transform(bool $isSchemaRoot = false): array
@@ -246,7 +212,7 @@ class EventAdapter extends AbstractSchemaAdapter
         return $organizers;
     }
 
-    protected function build_artist(int $post_id, $field_name="performer"): array
+    protected function build_artist(int $post_id, $field_name="performer", string $context = "default"): array
     {
         $return = [];
         $artists = $this->get_field($post_id, $field_name, []);
@@ -254,7 +220,9 @@ class EventAdapter extends AbstractSchemaAdapter
         if (is_array($artists)) {
             foreach ($artists as $artist) {
                 if ($artist) {
-                    $override_allow_list = is_array($this->allow_list[$field_name]) ? $this->allow_list[$field_name] : [];
+
+                    $allow_list_from_context = $this->allow_list[$context];
+                    $override_allow_list = is_array($allow_list_from_context[$field_name]) ? $allow_list_from_context[$field_name] : [];
                     $artistAdapter = new ArtistAdapter($artist, $override_allow_list);
                     $return[] = $artistAdapter->transform();
                 }

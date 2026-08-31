@@ -2,6 +2,10 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
+use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
+use Mamarmite\UIDEndpoint\Blueprints\PlaceBlueprint;
+use const Mamarmite\UIDEndpoint\CLIENT_CONTEXT_DEFAULT;
+
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
@@ -15,19 +19,9 @@ class PlaceAdapter extends AbstractSchemaAdapter
     protected string $schemaGroupKey = 'group_schema_place';
     protected string $prefix = "p";
 
-    function __construct(\WP_Post $post, $schema_allow_list=[])
+    function __construct(\WP_Post $post, Blueprint $blueprint = null)
     {
-        $this->default_allow_list = [
-            "alternateName" => true,
-            "description" => true,
-            "url" => true,
-            "inLanguage" => true,
-            "additionalType" => true,
-            "address" => true,
-            "sameAs" => true,
-            "image" => true
-        ];
-        parent::__construct($post, $schema_allow_list);
+        parent::__construct($post, $blueprint ?? new PlaceBlueprint());
     }
 
     public function transform(bool $isSchemaRoot = false): array

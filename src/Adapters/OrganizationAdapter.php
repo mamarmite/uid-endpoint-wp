@@ -2,6 +2,10 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
+use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
+use Mamarmite\UIDEndpoint\Blueprints\OrganisationBlueprint;
+use const Mamarmite\UIDEndpoint\CLIENT_CONTEXT_DEFAULT;
+
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
@@ -15,18 +19,9 @@ class OrganizationAdapter extends AbstractSchemaAdapter
     protected string $schemaGroupKey = 'group_schema_organisation';
     protected string $prefix = "o";
 
-    function __construct(\WP_Post $post, $schema_allow_list=[])
+    function __construct(\WP_Post $post, Blueprint $blueprint = null)
     {
-        $this->default_allow_list = [
-            "alternateName" => true,
-            "description" => true,
-            "url" => true,
-            "inLanguage" => true,
-            "additionalType" => true,
-            "sameAs" => true,
-            "image" => true
-        ];
-        parent::__construct($post, $schema_allow_list);
+        parent::__construct($post, $blueprint ?? new OrganisationBlueprint());
     }
 
     public function transform(bool $isSchemaRoot = false): array

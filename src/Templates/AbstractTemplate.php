@@ -95,7 +95,7 @@ abstract class AbstractTemplate
 
     public function create_schema():array {
         if ($this->post !== null) {
-            return AdapterFactory::transfrom($this->post);
+            return AdapterFactory::transform($this->post);
         }
         return [];
     }

@@ -2,6 +2,10 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
+use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
+use Mamarmite\UIDEndpoint\Blueprints\MediaBlueprint;
+use const Mamarmite\UIDEndpoint\CLIENT_CONTEXT_DEFAULT;
+
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
@@ -18,19 +22,10 @@ class MediaAdapter extends AbstractSchemaAdapter
 
     public $default_usage_info_url = "https://kg.artsdata.ca/doc/image-policy";
 
-    function __construct(\WP_Post $post, $schema_allow_list=[]) {
-        $this->default_allow_list = [
-            "url" => true,
-            "usageInfo" => true,
-            "disambiguatingDescription" => true,
-            "description" => true,
-            "sdDatePublished" => true,
-            "inLanguage" => true,
-        ];
-        parent::__construct($post, $schema_allow_list);
+    function __construct(\WP_Post $post, Blueprint $blueprint = null) {
+        parent::__construct($post, $blueprint ?? new MediaBlueprint());
         $this->post = $post;
         $this->post_type = get_post_type_object($post->post_type);
-
     }
 
     public function transform(bool $isSchemaRoot = false): array

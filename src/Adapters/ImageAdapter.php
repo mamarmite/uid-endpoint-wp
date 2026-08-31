@@ -2,6 +2,9 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
+use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
+use Mamarmite\UIDEndpoint\Blueprints\MediaBlueprint;
+
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
@@ -12,8 +15,8 @@ if (!defined('ABSPATH')) {
 class ImageAdapter extends MediaAdapter
 {
     protected string $schemaType = 'ImageObject';
-    function __construct(\WP_Post $post, $schema_allow_list=[]) {
-        parent::__construct($post, $schema_allow_list);
+    function __construct(\WP_Post $post, Blueprint $blueprint = null) {
+        parent::__construct($post, $blueprint ?? new MediaBlueprint());
     }
 }
 //ImageObject

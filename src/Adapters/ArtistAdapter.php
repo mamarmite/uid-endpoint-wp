@@ -2,6 +2,10 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
+use Mamarmite\UIDEndpoint\Blueprints\ArtistBlueprint;
+use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
+use const Mamarmite\UIDEndpoint\CLIENT_CONTEXT_DEFAULT;
+
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
@@ -19,21 +23,9 @@ class ArtistAdapter extends AbstractSchemaAdapter
 
     protected string $schema_type_label = 'Artiste';
 
-    function __construct(\WP_Post $post, $schema_allow_list=[])
+    function __construct(\WP_Post $post, Blueprint $blueprint = null)
     {
-        $this->default_allow_list = [
-            "alternateName" => true,
-            "url" => true,
-            "additionalType" => true,
-            "inLanguage" => true,
-            "disambiguatingDescription" => true,
-            "mainEntityOfPage" => true,
-            "sameAs" => true,
-            "hasOccupation" => true,
-            "address" => true,
-            "image" => true
-        ];
-        parent::__construct($post, $schema_allow_list);
+        parent::__construct($post, $blueprint ?? new ArtistBlueprint());
     }
 
 

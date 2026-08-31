@@ -37,7 +37,7 @@ class AdapterFactory
         return null;
     }
 
-    public static function transfrom(\WP_Post $post): array
+    public static function transform(\WP_Post $post): array
     {
         $schemaAdapter = self::create($post);
         return $schemaAdapter->transform();

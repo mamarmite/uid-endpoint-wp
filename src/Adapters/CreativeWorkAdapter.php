@@ -2,6 +2,9 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
+use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
+use Mamarmite\UIDEndpoint\Blueprints\CreativeWorkBlueprint;
+
 if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
@@ -15,29 +18,10 @@ class CreativeWorkAdapter extends AbstractSchemaAdapter
     protected string $schemaGroupKey = 'group_schema_creative_work';
     protected string $prefix = "c";
 
-    function __construct(\WP_Post $post, $schema_allow_list=[])
+
+    function __construct(\WP_Post $post, Blueprint $blueprint = null)
     {
-        $this->default_allow_list = [
-            "alternateName" => true,
-            "description" => true,
-            "url" => true,
-            "inLanguage" => true,
-            "additionalType" => true,
-            "disambiguatingDescription" => true,
-            "mainEntityOfPage" => true,
-            "creator" => [
-                "alternateName" => true,
-                //"url" => true,
-                //"additionalType" => true,
-                "sameAs" => true,
-            ],
-            "image" => [//all except the usageInfo
-                "url" => true,
-                "disambiguatingDescription" => true,
-                "sdDatePublished" => true,
-            ]
-        ];
-        parent::__construct($post, $schema_allow_list);
+        parent::__construct($post, $blueprint ?? new CreativeWorkBlueprint());
     }
 
     public function transform(bool $isSchemaRoot = false): array

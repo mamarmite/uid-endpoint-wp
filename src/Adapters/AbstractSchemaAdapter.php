@@ -2,6 +2,7 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
+use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
 use Mamarmite\UIDEndpoint\UID;
 
 if (!defined('ABSPATH')) {
@@ -22,21 +23,29 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
     protected array $default_allow_list = [];
     protected array $allow_list;
 
+    protected Blueprint $default_blueprint;
+
     protected string $current_language;
+
+    protected Blueprint $blueprint;
+    protected string $blueprint_class;
 
     public $uid;
     public \WP_Post $post;
     public \WP_Post_Type $post_type;
 
-    function __construct(\WP_Post $post, $schema_allow_list=[]) {
+    function __construct(\WP_Post $post, Blueprint $blueprint) {
         $this->post = $post;
         $this->post_type = get_post_type_object($post->post_type);
         $this->uid = new UID($post);
 
         $current_language = preg_split('/_/', get_locale());
         $this->current_language = $current_language ? $current_language[0] : get_locale();
+        $this->blueprint = $blueprint;
+        $this->default_blueprint = $blueprint;
 
-        $this->allow_list = !empty($schema_allow_list) ? $schema_allow_list : $this->default_allow_list ;
+        $this->allow_list = $this->blueprint->allow_list();
+        //$this->allow_list = !empty($schema_allow_list) ? $schema_allow_list : ["default" => $this->default_allow_list];
     }
 
     public function transform(bool $isSchemaRoot = false): array {
@@ -174,12 +183,14 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
      * @param array $schema
      * @param string $key
      * @param mixed $value
+     * @param mixed $context enum type that change the allow list.
      * @param mixed $prefix
      * @return void
      */
-    protected function add_to_schema(array &$schema, string $key, $value, string $prefix = ""): void
+    protected function add_to_schema(array &$schema, string $key, $value, string $context = "default", string $prefix = ""): void
     {
-        if (!empty($value) && array_key_exists($key, $this->allow_list)) {
+        $allow_list_from_context = $this->blueprint->allow_list($context);//$this->allow_list[$context];
+        if (!empty($value) && array_key_exists($key, $allow_list_from_context)) {
             $schema[$key] = ($prefix && gettype($value) == "string") ? $prefix.$value : $value;
         }
     }

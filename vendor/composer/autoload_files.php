@@ -34,4 +34,5 @@ return array(
     '341735ac5f4dc159bfcbb4815c3d3984' => $baseDir . '/src/rewrite.php',
     '327060568bdee209c29804fdd1f41726' => $baseDir . '/src/actions.php',
     'bb6737154f3684580457cc8b1df49bfd' => $baseDir . '/src/filters.php',
+    'be1ce1e1ba7034f7fa62cab8fde00e51' => $baseDir . '/src/contexts.php',
 );
