@@ -3,6 +3,7 @@
 namespace Mamarmite\UIDEndpoint\Adapters;
 
 use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
+use Mamarmite\UIDEndpoint\Blueprints\MediaBlueprint;
 use Mamarmite\UIDEndpoint\UID;
 
 if (!defined('ABSPATH')) {
@@ -233,7 +234,7 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
         $img = [];
         $has_post_thumbnail = \has_post_thumbnail($this->post);
         if($has_post_thumbnail){
-            $imageAdapter = new ImageAdapter($this->post, $allow_list);
+            $imageAdapter = new ImageAdapter($this->post, new MediaBlueprint($allow_list));
             $img = $imageAdapter->transform();
         }
         return $img;

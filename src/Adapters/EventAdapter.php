@@ -3,6 +3,7 @@
 namespace Mamarmite\UIDEndpoint\Adapters;
 
 use DateInterval;
+use Mamarmite\UIDEndpoint\Blueprints\ArtistBlueprint;
 use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
 use Mamarmite\UIDEndpoint\Blueprints\EventBlueprint;
 use const Mamarmite\UIDEndpoint\CLIENT_CONTEXT_DEFAULT;
@@ -212,7 +213,7 @@ class EventAdapter extends AbstractSchemaAdapter
         return $organizers;
     }
 
-    protected function build_artist(int $post_id, $field_name="performer", string $context = "default"): array
+    protected function build_artist(int $post_id, $field_name="performer", string $context = CLIENT_CONTEXT_DEFAULT): array
     {
         $return = [];
         $artists = $this->get_field($post_id, $field_name, []);
@@ -220,10 +221,8 @@ class EventAdapter extends AbstractSchemaAdapter
         if (is_array($artists)) {
             foreach ($artists as $artist) {
                 if ($artist) {
-
-                    $allow_list_from_context = $this->allow_list[$context];
-                    $override_allow_list = is_array($allow_list_from_context[$field_name]) ? $allow_list_from_context[$field_name] : [];
-                    $artistAdapter = new ArtistAdapter($artist, $override_allow_list);
+                    $sub_entity_fields = $this->blueprint->get_embed_fields($field_name, $context);
+                    $artistAdapter = new ArtistAdapter($artist, new ArtistBlueprint($sub_entity_fields));
                     $return[] = $artistAdapter->transform();
                 }
             }

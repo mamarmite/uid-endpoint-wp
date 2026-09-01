@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 class OrganisationBlueprint extends Blueprint {
     function __construct($fields = []) {
-        parent::__construct([
+        $this->default_fields = [
             "alternateName" => true,
             "description" => true,
             "url" => true,
@@ -15,6 +15,11 @@ class OrganisationBlueprint extends Blueprint {
             "additionalType" => true,
             "sameAs" => true,
             "image" => true
-        ]);
+        ];
+
+        if (!empty($fields) && $fields !== ["all"]) {
+            return parent::__construct($fields);
+        }
+        parent::__construct($this->default_fields);
     }
 }

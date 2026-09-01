@@ -2,8 +2,10 @@
 
 namespace Mamarmite\UIDEndpoint\Adapters;
 
+use Mamarmite\UIDEndpoint\Blueprints\ArtistBlueprint;
 use Mamarmite\UIDEndpoint\Blueprints\Blueprint;
 use Mamarmite\UIDEndpoint\Blueprints\CreativeWorkBlueprint;
+use const Mamarmite\UIDEndpoint\CLIENT_CONTEXT_DEFAULT;
 
 if (!defined('ABSPATH')) {
     die('Invalid request.');
@@ -60,12 +62,13 @@ class CreativeWorkAdapter extends AbstractSchemaAdapter
     {
         $creators = [];
         $creatorPosts = $this->get_field($post_id, 'creators', []);
-
+        $context = CLIENT_CONTEXT_DEFAULT;
         if (is_array($creatorPosts)) {
             foreach ($creatorPosts as $creator) {
                 if ($creator) {
-                    $override_allow_list = is_array($this->allow_list["creator"]) ? $this->allow_list["creator"] : [];
-                    $artistAdapter = new ArtistAdapter($creator, $override_allow_list);
+                    $sub_entity_fields = $this->blueprint->get_embed_fields("creator", $context);
+                    $artistAdapter = new ArtistAdapter($creator, new ArtistBlueprint($sub_entity_fields));
+
                     $creators[] = $artistAdapter->transform();
                 }
             }

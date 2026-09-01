@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 class ArtistBlueprint extends Blueprint {
     function __construct($fields = []) {
-        parent::__construct([
+        $this->default_fields = [
             "alternateName" => true,
             "url" => true,
             "additionalType" => true,
@@ -18,6 +18,11 @@ class ArtistBlueprint extends Blueprint {
             "hasOccupation" => true,
             "address" => true,
             "image" => true
-        ]);
+        ];
+
+        if (!empty($fields) && $fields !== ["all"]) {
+            return parent::__construct($fields);
+        }
+        parent::__construct($this->default_fields);
     }
 }
