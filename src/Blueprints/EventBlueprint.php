@@ -48,6 +48,6 @@ class EventBlueprint extends Blueprint {
         if (!empty($fields) && $fields !== ["all"]) {
             return parent::__construct($fields);
         }
-        parent::__construct($this->default_fields);
+        return parent::__construct($this->default_fields);
     }
 }
