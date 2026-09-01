@@ -188,7 +188,7 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
      * @param mixed $prefix
      * @return void
      */
-    protected function add_to_schema(array &$schema, string $key, $value, string $context = "default", string $prefix = ""): void
+    protected function add_to_schema(array &$schema, string $key, $value, string $prefix = "", string $context = "default"): void
     {
         $allow_list_from_context = $this->blueprint->allow_list($context);//$this->allow_list[$context];
         if (!empty($value) && array_key_exists($key, $allow_list_from_context)) {

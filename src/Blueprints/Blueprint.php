@@ -28,7 +28,7 @@ class Blueprint {
     }
 
     public function allow_list(string $context = CLIENT_CONTEXT_DEFAULT): array {
-        return $this->fields[$context];
+        return $this->fields[$context] ?? [];
     }
 
     public function get_embed_fields(string $sub_entity, string $context = CLIENT_CONTEXT_DEFAULT, ): array {
