@@ -5,25 +5,19 @@ if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
 
-class PlaceBlueprint extends Blueprint {
+class AddressBlueprint extends Blueprint {
     function __construct($fields = []) {
         $this->default_fields = [
-            "alternateName" => true,
-            "description" => true,
-            "url" => true,
-            "inLanguage" => true,
-            "additionalType" => true,
-            "address" => [
-                "all"
-            ],
-            "sameAs" => true,
-            "image" => true
+            "streetAddress" => true,
+            "addressLocality" => true,
+            "addressRegion" => true,
+            "postalCode" => true,
+            "addressCountry" => true
         ];
 
         if (!empty($fields) && $fields !== ["all"]) {
             return parent::__construct($fields);
         }
-
         return parent::__construct($this->default_fields);
     }
 }

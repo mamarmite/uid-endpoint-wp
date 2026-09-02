@@ -191,7 +191,6 @@ class EventAdapter extends AbstractSchemaAdapter
                 }
             }
         }
-
         return $locations;
     }
 

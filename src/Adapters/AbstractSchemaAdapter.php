@@ -116,6 +116,7 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
 
         return false;
     }
+
     /**
      * Get target field from groups field key sets in Adapter.
      *
@@ -205,23 +206,8 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
      */
     protected function build_address(int $post_id, string $field_prefix = 'address'): ?array
     {
-        $street = $this->get_field($post_id, $field_prefix . '_street_address');
-        $locality = $this->get_field($post_id, $field_prefix . '_address_locality');
-
-        if (empty($street) && empty($locality)) {
-            return null;
-        }
-
-        $address = [];//'@type' => 'PostalAddress',
-
-        $this->add_to_schema($address, '@type', $this->get_field($post_id, $field_prefix . '_type'));
-        $this->add_to_schema($address, 'streetAddress', $street);
-        $this->add_to_schema($address, 'addressLocality', $locality);
-        $this->add_to_schema($address, 'addressRegion', $this->get_field($post_id, $field_prefix . '_address_region'));
-        $this->add_to_schema($address, 'postalCode', $this->get_field($post_id, $field_prefix . '_postal_code'));
-        $this->add_to_schema($address, 'addressCountry', $this->get_field($post_id, $field_prefix . '_address_country'));
-
-        return $address;
+        $AddressAdapter = new AddressAdapter($this->post);
+        return $AddressAdapter->transform(false);
     }
 
     /**
@@ -233,7 +219,7 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
     {
         $img = [];
         $has_post_thumbnail = \has_post_thumbnail($this->post);
-        if($has_post_thumbnail){
+        if($has_post_thumbnail) {
             $imageAdapter = new ImageAdapter($this->post, new MediaBlueprint($allow_list));
             $img = $imageAdapter->transform();
         }
