@@ -33,9 +33,9 @@ jobs:
       - name: Create zip
         run: |
           cd build
-          zip -r ../mamarmite-uid-endpoint.zip mamarmite-uid-endpoint
+          zip -r ../mamarmite-uid-endpoint-${{ github.ref_name }}.zip mamarmite-uid-endpoint
 
       - name: Attach zip to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: mamarmite-uid-endpoint.zip
+          files: mamarmite-uid-endpoint-${{ github.ref_name }}.zip
