@@ -29,7 +29,7 @@ class OrganizationAdapter extends AbstractSchemaAdapter
         $context = parent::transform($isSchemaRoot);
         $schema = array_merge($context, $this->build_base_schema($this->post, $isSchemaRoot));
 
-        $this->add_to_schema($schema, 'url', get_permalink($this->post->ID));
+        $this->add_to_schema($schema, 'url', $this->get_field($this->post->ID, 'url'));//mainEntityOfPage : get_permalink($this->post->ID)
         $this->add_to_schema($schema, 'description', \get_the_excerpt($this->post->ID));
         $this->add_to_schema($schema, 'additionalType', $this->get_field($this->post->ID, 'additional_type'));
 
