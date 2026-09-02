@@ -85,7 +85,7 @@
             "name": "url",
             "aria-label": "",
             "type": "url",
-            "instructions": "Url de l'oeuvre directement.",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -135,7 +135,7 @@
             "name": "main_entity_of_page",
             "aria-label": "",
             "type": "url",
-            "instructions": "Sera ajoutée automatiquement.",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -167,5 +167,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763055379
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1788385075
 }
