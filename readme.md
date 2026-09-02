@@ -80,14 +80,7 @@ Il n'y a pas de :
 - Encapsuler le plugiciel en mode prototype dans une version intelligible et assez versatile pour devenir un plugiciel complet.
 
 # À faire
-- [x] `UID` sous forme d'url (identifiant pérenne version 1)
-- [x] Page de preview pour 
-- [x] Ajouter la redirection 303 au niveau serveur web (apache pour la version 1) automatiquement (présentement en mode manuel).
-  - [x] Protection des terminaisons du plugiciel, surtout pour la redirection 303.
-- [x] Ajout de la terminaison `/jsonld` pour avoir un accès au jsonld brute avant l'`UID` via une redirection 303.
-- [x] Ajout de la terminaison pour lecture humaine de toutes les entités.
-- [x] Ajout de la terminaison pour toutes les entités en mode json.
-- [ ] Confirmer le format `JSON` contenu dans la terminaison `/list.json`
+- :party:
 
 # Améliorations
 - [ ] Automatisation de l'installation avec un flush des rewrites des permalink, vérification qu'ACF est installé.
