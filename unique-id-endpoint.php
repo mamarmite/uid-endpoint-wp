@@ -21,19 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
     die( 'Invalid request.' );
 }
 
-
-// ACF Installed Wall.
-\add_action( 'plugins_loaded', __NAMESPACE__.'\\load_uid_files_if_acf_installed' );
-
 function load_uid_files_if_acf_installed() {
     if ( ! class_exists( 'ACF' ) ) {
         \add_action( 'admin_notices', __NAMESPACE__.'\\mamarmite_uid_endpoint_no_acf_notice' );
         \deactivate_plugins( plugin_basename( __FILE__ ) );
         return;
     }
-
     require_once \plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 }
+// ACF Installed Wall.
+\add_action( 'plugins_loaded', __NAMESPACE__.'\\load_uid_files_if_acf_installed' );
+
 
 function mamarmite_uid_endpoint_no_acf_notice() {
     echo '<div class="notice notice-error"><p>';

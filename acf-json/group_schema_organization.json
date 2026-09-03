@@ -29,7 +29,7 @@
             "name": "additional_type",
             "aria-label": "",
             "type": "select",
-            "instructions": "",
+            "instructions": "La valeur du type additionnel ajoute automatiquement l'URL vers le Knownledge graph d'Artsdata.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -134,5 +134,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788385094
+    "modified": 1788460301
 }

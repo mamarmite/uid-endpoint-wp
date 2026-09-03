@@ -57,7 +57,7 @@
             "name": "additional_type",
             "aria-label": "",
             "type": "select",
-            "instructions": "",
+            "instructions": "L'URL complète vers le type est générée automatiquement par le système.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -169,5 +169,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788385075
+    "modified": 1788460550
 }
