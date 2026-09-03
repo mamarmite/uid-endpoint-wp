@@ -488,38 +488,6 @@
             "ui_off_text": ""
         },
         {
-            "key": "field_6a2186a24c850",
-            "label": "Artiste \/ performer",
-            "name": "performer",
-            "aria-label": "",
-            "type": "relationship",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "post_type": [
-                "artiste"
-            ],
-            "post_status": "",
-            "taxonomy": "",
-            "filters": [
-                "search",
-                "post_type",
-                "taxonomy"
-            ],
-            "return_format": "object",
-            "min": "",
-            "max": "",
-            "allow_in_bindings": 0,
-            "elements": "",
-            "bidirectional": 0,
-            "bidirectional_target": []
-        },
-        {
             "key": "field_6a218bee0cb7f",
             "label": "Artiste \/ contributeur",
             "name": "contributor",
@@ -573,5 +541,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788385045
+    "modified": 1788461055
 }
