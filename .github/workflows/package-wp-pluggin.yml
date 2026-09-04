@@ -4,13 +4,20 @@ on:
   push:
     tags:
       - 'v*'
+  release:
+    types: [published]
 
 permissions:
   contents: write
 
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: startsWith(github.ref_name, 'v')
     steps:
       - uses: actions/checkout@v4
 
