@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class MediaAdapter
+ * Class AddressAdapter
  */
 class AddressAdapter extends AbstractSchemaAdapter
 {

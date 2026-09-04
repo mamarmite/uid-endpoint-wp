@@ -35,4 +35,26 @@ class Blueprint {
         return $this->fields[$context][$sub_entity] ?? [];
     }
 
+    public function context_exists(string $context): bool {
+        return array_key_exists($context, $this->fields) && is_array($this->fields[$context]);
+    }
+
+    public function field_exists(string $field, string $context = CLIENT_CONTEXT_DEFAULT): bool {
+        return array_key_exists($field, $this->fields[$context]);
+    }
+
+    public function field_exists_in_context(string $field, string $context = CLIENT_CONTEXT_DEFAULT): bool {
+        return $this->context_exists($context) && $this->field_exists($field, $context);
+    }
+
+    public function is_allowed(string $field, string $context = CLIENT_CONTEXT_DEFAULT): bool {
+        if ($this->field_exists_in_context($field, $context)) {
+            $field_value = $this->fields[$context][$field];
+            return $field_value === true
+                || (is_array($field_value) && !empty($field_value));
+            //$field_value can be equal to ["all"] or to a sub array with subEntity properties.
+        }
+        return false;
+    }
+
 }

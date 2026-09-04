@@ -12,7 +12,6 @@ if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
 
-
 /**
  * Class EventAdapter
  */
@@ -109,168 +108,115 @@ class EventAdapter extends AbstractSchemaAdapter
         if (!empty($image)) {
             $schema['image'] = $image;
         }
-
         return $schema;
     }
 
-    protected function build_event_schedule(int $post_id): ?array
+    protected function build_event_schedule(int $post_id, string $context = CLIENT_CONTEXT_DEFAULT): ?array
     {
-        try {
-            $schedule_field = "event_schedule";
-            $schedule_prefix = $schedule_field."_";
+        $schedule = [];
+        //if the key is in the allow list from context.
+        if ($this->blueprint->is_allowed('eventSchedule', $context)) {
 
-            $start_date = $this->get_field($post_id, $schedule_prefix.'start_date');
-            $end_date = $this->get_field($post_id, $schedule_prefix.'end_date');
+            $scheduleAdapter = new ScheduleAdapter($this->post);
+            $schedule[] = $scheduleAdapter->transform();
 
-            $start_time = $this->get_field($post_id, $schedule_prefix.'start_time');
-            $end_time = $this->get_field($post_id, $schedule_prefix.'end_time');
-
-            if (empty($start_date) || empty($end_date) || empty($start_time) || empty($end_time)) {
-                return null;
-            }
-
-            $start_date_obj = new \DateTime($start_date);
-            $end_date_obj = new \DateTime($end_date);
-            $date_delta = $end_date_obj->diff($start_date_obj);
-
-            $schedule = [
-                '@type' => 'Schedule',
-                'startDate' => $start_date,
-                'endDate' => $end_date,
-                'startTime' => $start_time,
-                'endTime' => $end_time,
-            ];
-
-            //change date to DateTime with date + time + tz
-            //setup iso foramt
-            //demand TZ or default UTC-5
-            //create interval with both datetime
-            //convert interval to ISO 8601
-
-            $date_interval = 0;
-
-            $this->add_to_schema($schedule, 'startTime', $start_time);
-            $this->add_to_schema($schedule, 'endTime', $end_time);
-            $this->add_to_schema($schedule, 'repeatFrequency', $this->interval_to_ISO8601($date_delta));
-            $this->add_to_schema($schedule, 'startTime', $this->get_field($post_id, $schedule_prefix.'start_time'));
-            $this->add_to_schema($schedule, 'endTime', $this->get_field($post_id, $schedule_prefix.'end_time'));
-            $this->add_to_schema($schedule, 'scheduleTimezone', $this->get_field($post_id, $schedule_prefix.'schedule_timezone'));
-
-            $byDay = $this->get_field($post_id, $schedule_prefix.'by_day', []);
-            if (!empty($byDay) && is_array($byDay)) {
-                $schedule['byDay'] = $byDay;
-            }
-
-            return $schedule;
-        } catch (\Exception $e) {
-            echo $e->getMessage();
         }
-        return null;
+        return $schedule;
     }
 
-    protected function build_location(int $post_id): array
+    protected function build_location(int $post_id, string $context = CLIENT_CONTEXT_DEFAULT): array
     {
         $locations = [];
 
-        // Physical location
-        $placeIds = $this->get_field($post_id, 'location');
-        if ($placeIds) {
-            if (is_array($placeIds)) {
-                foreach ($placeIds as $placeId) {
-                    $place = get_post($placeId);
+        //if the key is in the allow list from context.
+        if ($this->blueprint->is_allowed('location', $context)) {
+
+            // Physical location
+            $placeIds = $this->get_field($post_id, 'location');
+
+            if ($placeIds) {
+                if (is_array($placeIds)) {
+                    foreach ($placeIds as $placeId) {
+                        $place = get_post($placeId);
+                        if ($place) {
+                            $placeAdapter = new PlaceAdapter($place);
+                            $locations[] = $placeAdapter->transform();
+                        }
+                    }
+                } else {
+                    $place = get_post($placeIds);
                     if ($place) {
                         $placeAdapter = new PlaceAdapter($place);
                         $locations[] = $placeAdapter->transform();
                     }
-                }
-            } else {
-                $place = get_post($placeIds);
-                if ($place) {
-                    $placeAdapter = new PlaceAdapter($place);
-                    $locations[] = $placeAdapter->transform();
                 }
             }
         }
         return $locations;
     }
 
-    protected function build_organizer(int $post_id): array
+    protected function build_organizer(int $post_id, string $context = CLIENT_CONTEXT_DEFAULT): array
     {
         $organizers = [];
-        $organizerIds = $this->get_field($post_id, 'organizer', []);
+        //if the key is in the allow list from context.
+        if ($this->blueprint->is_allowed('organizer', $context)) {
 
-        if (is_array($organizerIds)) {
-            foreach ($organizerIds as $organizerId) {
-                $org = get_post($organizerId);
-                if ($org) {
-                    $orgAdapter = new OrganizationAdapter($org);
-                    $organizers[] = $orgAdapter->transform();
+            $organizerIds = $this->get_field($post_id, 'organizer', []);
+
+            if (is_array($organizerIds)) {
+                foreach ($organizerIds as $organizerId) {
+                    $org = get_post($organizerId);
+                    if ($org) {
+                        $orgAdapter = new OrganizationAdapter($org);
+                        $organizers[] = $orgAdapter->transform();
+                    }
                 }
             }
         }
-
         return $organizers;
     }
 
-    protected function build_artist(int $post_id, $field_name="performer", string $context = CLIENT_CONTEXT_DEFAULT): array
+    protected function build_artist(int $post_id, $field_name="contributor", string $context = CLIENT_CONTEXT_DEFAULT): array
     {
         $return = [];
-        $artists = $this->get_field($post_id, $field_name, []);
-
-        if (is_array($artists)) {
-            foreach ($artists as $artist) {
-                if ($artist) {
-                    $sub_entity_fields = $this->blueprint->get_embed_fields($field_name, $context);
-                    $artistAdapter = new ArtistAdapter($artist, new ArtistBlueprint($sub_entity_fields));
-                    $return[] = $artistAdapter->transform();
+        //if the key is in the allow list from context.
+        if ($this->blueprint->is_allowed($field_name, $context)) {
+            $artists = $this->get_field($post_id, $field_name, []);
+            if (is_array($artists)) {
+                foreach ($artists as $artistId) {
+                    $artist = get_post($artistId);
+                    if ($artist) {
+                        $sub_entity_fields = $this->blueprint->get_embed_fields($field_name, $context);
+                        $artistAdapter = new ArtistAdapter($artist, new ArtistBlueprint($sub_entity_fields));
+                        $return[] = $artistAdapter->transform();
+                    }
                 }
             }
         }
         return $return;
     }
 
-    protected function build_work_featured(int $post_id): array
+    protected function build_work_featured(int $post_id, string $context = CLIENT_CONTEXT_DEFAULT): array
     {
         $works = [];
-        $workIds = $this->get_field($post_id, 'work_featured', []);
 
-        if (is_array($workIds)) {
-            foreach ($workIds as $workId) {
-                $work = get_post($workId);
-                if ($work) {
-                    $workAdapter = new CreativeWorkAdapter($work);
-                    $works[] = $workAdapter->transform();
+        $allow_list_from_context = $this->blueprint->allow_list($context);
+        //if the key is in the allow list from context.
+        if ($this->blueprint->is_allowed("work_featured", $context)) {
+
+            $workIds = $this->get_field($post_id, 'work_featured', []);
+
+            if (is_array($workIds)) {
+                foreach ($workIds as $workId) {
+                    $work = get_post($workId);
+                    if ($work) {
+                        $workAdapter = new CreativeWorkAdapter($work);
+                        $works[] = $workAdapter->transform();
+                    }
                 }
             }
         }
-
         return $works;
-    }
-
-    protected function interval_to_ISO8601(DateInterval $date_interval): string {
-        $result = 'P';
-
-        // Date part
-        if ($date_interval->y) $result .= $date_interval->y . 'Y';
-        if ($date_interval->m) $result .= $date_interval->m . 'M';
-        if ($date_interval->d) $result .= $date_interval->d . 'D';
-
-        // Time part
-        $timePart = '';
-        if ($date_interval->h) $timePart .= $date_interval->h . 'H';
-        if ($date_interval->i) $timePart .= $date_interval->i . 'M';
-        if ($date_interval->s) $timePart .= $date_interval->s . 'S';
-
-        if ($timePart) {
-            $result .= 'T' . $timePart;
-        }
-
-        // If everything is zero, return the minimum
-        if ($result === 'P') {
-            $result = 'PT0S';
-        }
-
-        return $result;
     }
 }
 

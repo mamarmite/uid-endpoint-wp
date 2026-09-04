@@ -10,6 +10,8 @@ class EventBlueprint extends Blueprint {
         $this->default_fields = [
             "startDate" => true,
             "endDate" => true,
+            "startTime" => true,
+            "endTime" => true,
             "alternateName" => true,
             "description" => true,
             "url" => true,
@@ -34,10 +36,6 @@ class EventBlueprint extends Blueprint {
             ],
             "image" => [
                 "all"
-            ],
-            "performer" => [
-                "alternateName" => true,
-                "sameAs" => true,
             ],
             "contributor" => [
                 "alternateName" => true,
