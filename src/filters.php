@@ -5,6 +5,11 @@ if (!defined('ABSPATH')) {
     die('Invalid request.');
 }
 
+/**
+ * Plugin is now a path to acf to save its json.
+ * @param $paths
+ * @return mixed
+ */
 function add_uids_to_acf_load_point( $paths ) {
     //we keep all other load point, but add ours.
     // Append the new path and return it.
@@ -15,7 +20,11 @@ function add_uids_to_acf_load_point( $paths ) {
 }
 add_filter( 'acf/settings/load_json', __NAMESPACE__.'\\add_uids_to_acf_load_point' );
 
-
+/**
+ * Save json into the plugin (only dev)
+ * @param $path
+ * @return string
+ */
 function add_uids_to_acf_save_point($path) {
     // Save inside a folder named 'acf-json' in your plugin root
     return MAMARMITE_UID_ENDPOINT_BASE_PATH . 'acf-json';
