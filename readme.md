@@ -27,14 +27,14 @@ La vérification pour la redirection `303` se fait seulement sur un `/r/` sur la
 # Terminaisons du plugiciel basées sur le `DOMAIN` de l'installation.
 | Terminaison  | Description                                                                                                            | Paramètre d'url | Nécessaire? | Public cible |
 |:-------------|:-----------------------------------------------------------------------------------------------------------------------|:---------------:|:-----------:|:------------:|
-| `/uid`       | Base du plugiciel, une index actif seulement pour les humains.                                                         |        -        |      -      |    Humain    | 
+| `/uid`       | Base du plugiciel, un index actif seulement pour les humains.                                                          |        -        |      -      |    Humain    | 
 | `/list`      | Toutes les entités en mode lecture pour les humains (avec des liens vers la page de prévisualisation et version `json` |        -        |      -      |    Humain    | 
 | `/list.json` | Toutes les entités en mode `json`                                                                                      |        -        |      -      |   Machine    |
 | `/preview`   | Prévisualisation d'un schemas                                                                                          |       uid       |     Oui     |    Humain    |
-| `/ldjson`    | Prévisualisation d'un schemas en format `json`                                                                        |       uid       |     Oui     |   Machine    |
+| `/ldjson`    | Prévisualisation d'un schemas en format `json`                                                                         |       uid       |     Oui     |   Machine    |
 
 ## `/list`
-Principalement pour avoir prévisualiser les entités sur le site par un humain.
+Principalement pour prévisualiser les entités sur le site par un humain.
 
 Contient :
 - Une liste de toutes les entités
@@ -75,15 +75,16 @@ Il n'y a pas de :
 
 # Défis du mandat
 
-- Ajouter les UID à des données déjà existante dans un système.
-- Ajouter des ENDPOINT pour le json+ld pratique pour l'utilisateur, les robots et le Robot moisonneur d'Artsdata.
+- Ajouter les UID à des données déjà existantes dans un système.
+- Ajouter des ENDPOINT pour le json+ld pratique pour l'utilisateur, les robots et le Robot moissonneur d'Artsdata.
 - Encapsuler le plugiciel en mode prototype dans une version intelligible et assez versatile pour devenir un plugiciel complet.
 
 # À faire
 - :party:
 
 # Améliorations
-- [ ] Automatisation de l'installation avec un flush des rewrites des permalink, vérification qu'ACF est installé.
+- [ ] Automatisation de l'installation avec un flush des rewrites des permalink, 
+- [x] Automatisation de l'installation vérification qu'ACF est installé et actif.
 - [ ] Sauvegarder les UID complet dans un meta directement dans la BD.
 - [ ] Internationalisation des textes, présentement en français seulement.
 - [ ] Ajustement suite aux premiers moissonnages.
