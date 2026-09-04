@@ -69,7 +69,8 @@ class EventAdapter extends AbstractSchemaAdapter
 
         // Event Schedule
         $schedule = $this->build_event_schedule($this->post->ID);
-        if ($schedule) {
+        echo var_dump($schedule);
+        if (!empty($schedule)) {
             $schema['eventSchedule'] = $schedule;
         }
 
@@ -118,8 +119,7 @@ class EventAdapter extends AbstractSchemaAdapter
         if ($this->blueprint->is_allowed('eventSchedule', $context)) {
 
             $scheduleAdapter = new ScheduleAdapter($this->post);
-            $schedule[] = $scheduleAdapter->transform();
-
+            $schedule = $scheduleAdapter->transform();
         }
         return $schedule;
     }
