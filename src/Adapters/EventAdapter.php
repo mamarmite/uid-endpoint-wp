@@ -69,7 +69,6 @@ class EventAdapter extends AbstractSchemaAdapter
 
         // Event Schedule
         $schedule = $this->build_event_schedule($this->post->ID);
-        echo var_dump($schedule);
         if (!empty($schedule)) {
             $schema['eventSchedule'] = $schedule;
         }
