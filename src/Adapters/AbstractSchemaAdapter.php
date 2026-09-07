@@ -171,7 +171,7 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
      */
     protected function build_base_schema(\WP_Post $post, bool $isSchemaRoot = false): array
     {
-        $name = $this->get_field($this->post->ID, 'name', $this->post->post_title);
+        $name = $this->get_field($this->post->ID, 'name', \wp_strip_all_tags($this->post->post_title));
         return [
             '@type' => $this->schemaType,
             '@id' => $this->uid->full(),
