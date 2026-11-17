@@ -23,6 +23,22 @@ class PlaceAdapter extends AbstractSchemaAdapter
     {
         parent::__construct($post, $blueprint ?? new PlaceBlueprint());
     }
+    /**
+     * Build base schema structure
+     *
+     * @param \WP_Post $post
+     * @return array
+     */
+    protected function build_base_schema(\WP_Post $post, bool $isSchemaRoot = false): array
+    {
+        $name = $this->get_field($this->post->ID, 'name', \wp_strip_all_tags($this->post->post_title));
+        $type = $this->get_field($this->post->ID, 'type', $this->schemaType);
+        return [
+            '@type' => $type,
+            '@id' => $this->uid->full(),
+            'name' => $name,
+        ];
+    }
 
     public function transform(bool $isSchemaRoot = false): array
     {
