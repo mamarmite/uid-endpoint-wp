@@ -72,34 +72,6 @@
             "allow_in_bindings": 0
         },
         {
-            "key": "field_69178b1e9c060",
-            "label": "Fuseau horaire",
-            "name": "timezone",
-            "aria-label": "",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "America\/Montreal": "Montréal"
-            },
-            "default_value": "America\/Montreal",
-            "return_format": "value",
-            "multiple": 0,
-            "allow_null": 0,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ajax": 0,
-            "placeholder": "",
-            "create_options": 0,
-            "save_options": 0
-        },
-        {
             "key": "field_68e598126c681",
             "label": "Nom alternatif",
             "name": "alternate_name",
@@ -355,7 +327,36 @@
                 "id": ""
             },
             "layout": "block",
-            "sub_fields": [
+            "sub_fields":
+            [
+              {
+                "key": "field_69178b1e9c060",
+                "label": "Fuseau horaire",
+                "name": "schedule_timezone",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "choices": {
+                  "America/Toronto": "Est du Canada (Montréal, Toronto, Québec, etc)"
+                },
+                "default_value": "America/Toronto",
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+              },
               {
                 "key": "field_68e59b716c68a",
                 "label": "Date de début",
@@ -366,7 +367,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                  "width": "25",
+                  "width": "33",
                   "class": "",
                   "id": ""
                 },
@@ -386,32 +387,12 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                  "width": "25",
+                  "width": "33",
                   "class": "",
                   "id": ""
                 },
                 "display_format": "H:i:s",
                 "return_format": "H:i:s",
-                "allow_in_bindings": 0
-              },
-              {
-                "key": "field_68e59bc66c68b",
-                "label": "Date de fin",
-                "name": "end_date",
-                "aria-label": "",
-                "type": "date_picker",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                  "width": "25",
-                  "class": "",
-                  "id": ""
-                },
-                "display_format": "Y-m-d",
-                "return_format": "Y-m-d",
-                "first_day": 1,
-                "default_to_current_date": 0,
                 "allow_in_bindings": 0
               },
               {
@@ -424,7 +405,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                  "width": "25",
+                  "width": "34",
                   "class": "",
                   "id": ""
                 },
@@ -485,6 +466,114 @@
                   "id": ""
                 },
                 "default_value": 1,
+                "min": 1,
+                "max": "",
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_6900a1b2c3d09",
+                "label": "Fin de la série",
+                "name": "series_end",
+                "aria-label": "",
+                "type": "button_group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "!=",
+                      "value": "none"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "choices": {
+                  "date": "Date de fin",
+                  "count": "Nombre d'occurrences"
+                },
+                "default_value": "date",
+                "return_format": "value",
+                "allow_null": 0,
+                "layout": "horizontal",
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_68e59bc66c68b",
+                "label": "Date de fin",
+                "name": "end_date",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "none"
+                    }
+                  ],
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "!=",
+                      "value": "none"
+                    },
+                    {
+                      "field": "field_6900a1b2c3d09",
+                      "operator": "==",
+                      "value": "date"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "50",
+                  "class": "",
+                  "id": ""
+                },
+                "display_format": "Y-m-d",
+                "return_format": "Y-m-d",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_6900a1b2c3d06",
+                "label": "Nombre d'occurrences",
+                "name": "repeat_count",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "Nombre total de représentations (repeatCount).",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "!=",
+                      "value": "none"
+                    },
+                    {
+                      "field": "field_6900a1b2c3d09",
+                      "operator": "==",
+                      "value": "count"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "50",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
                 "min": 1,
                 "max": "",
                 "step": 1,
@@ -716,37 +805,6 @@
                 "custom_choice_button_text": "Ajouter un nouveau choix"
               },
               {
-                "key": "field_6900a1b2c3d06",
-                "label": "Nombre d'occurrences",
-                "name": "repeat_count",
-                "aria-label": "",
-                "type": "number",
-                "instructions": "Optionnel. Alternative à la date de fin (repeatCount).",
-                "required": 0,
-                "conditional_logic": [
-                  [
-                    {
-                      "field": "field_6900a1b2c3d01",
-                      "operator": "!=",
-                      "value": "none"
-                    }
-                  ]
-                ],
-                "wrapper": {
-                  "width": "50",
-                  "class": "",
-                  "id": ""
-                },
-                "default_value": "",
-                "min": 1,
-                "max": "",
-                "step": 1,
-                "placeholder": "",
-                "prepend": "",
-                "append": "",
-                "allow_in_bindings": 0
-              },
-              {
                 "key": "field_6900a1b2c3d07",
                 "label": "Dates exclues",
                 "name": "except_dates",
@@ -876,5 +934,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1794943353
+    "modified": 1794947235
 }
