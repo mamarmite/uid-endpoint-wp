@@ -81,6 +81,14 @@ Il n'y a pas de :
 
 # À faire
 - [ ] Restraindre le startDate de l'horaire pour qu'il fonctionne avec les jours de la semaine sélectionné dans l'horaire.
+- [ ] Enlevé l'adresse de façon absolue, lorsque le type de lieux est : Virtuel
+- [ ] Ajouter le type `Course` au Événements
+  - [ ] Ajouter le `hasParticipationOffer` to the event (restreindre seulement pour les types `Course` ?)
+- [ ] Ajouter un support pour les `Offer` dans les événements (pour être le plus versatile)
+  - [ ] Ajouter le group de champs ACF pour le schéma de type : `Offer`
+  - [ ] Ajouter l'adapteur pour `Offer`
+  - [ ] Ajouter le blueprint pour `Offer` aussi avec le schéma plafond.
+  - [ ] documenter le schéma plafond dans le répo. des schémas.
 
 # Améliorations
 - [ ] Automatisation de l'installation avec un flush des rewrites des permalink, 
