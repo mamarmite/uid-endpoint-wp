@@ -66,16 +66,57 @@ class ScheduleAdapter extends AbstractSchemaAdapter
 
         $this->add_to_schema($schedule, 'startDate', $start_date);
         $this->add_to_schema($schedule, 'endDate', $end_date);
-        $this->add_to_schema($schedule, 'startTime', $this->get_field($post_id, $schedule_prefix.'start_time'));
-        $this->add_to_schema($schedule, 'endTime', $this->get_field($post_id, $schedule_prefix.'end_time'));
-        $this->add_to_schema($schedule, 'repeatFrequency', DateHelper::interval_to_ISO8601($date_delta));
+        $this->add_to_schema($schedule, 'startTime', $start_time);
+        $this->add_to_schema($schedule, 'endTime', $end_time);
+        $this->add_to_schema($schedule, 'duration', $this->schedule_iso_duration($start_time, $end_time));
         $this->add_to_schema($schedule, 'scheduleTimezone', $this->get_field($post_id, $schedule_prefix.'schedule_timezone'));
 
-        $byDay = $this->get_field($post_id, $schedule_prefix.'by_day', []);
-        if (!empty($byDay) && is_array($byDay)) {
-            $this->add_to_schema($schedule, 'byDay', $byDay);
+
+        $repeat_frequency = $this->get_field($post_id, $schedule_prefix.'repeat_frequency');
+
+        if (in_array($repeat_frequency, ['D', 'W', 'M', 'Y'], true)) {
+
+            $interval = max(1, (int)($row['repeat_interval'] ?? 1));
+            //$this->add_to_schema($schedule, 'repeatFrequency', DateHelper::interval_to_ISO8601($date_delta));
+            $this->add_to_schema($schedule, 'repeatFrequency', "P{$interval}{$repeat_frequency}");
+
+            $by_day = $this->get_field($post_id, $schedule_prefix.'by_day');
+            if ($repeat_frequency !== 'D' && !empty($by_day) && is_array($by_day)) {
+                $this->add_to_schema($schedule, 'byDay', $by_day);
+            }
+
+            if (in_array($repeat_frequency, ['M', 'Y'], true)) {
+                $this->add_to_schema($schedule, 'byMonthWeek', $this->get_field($post_id, $schedule_prefix.'by_month_week'));
+                $this->add_to_schema($schedule, 'byMonthDay', $this->get_field($post_id, $schedule_prefix.'by_month_day'));
+                $this->add_to_schema($schedule, 'byMonth', $this->get_field($post_id, $schedule_prefix.'by_month'));
+            }
         }
+
+        $this->add_to_schema($schedule, 'repeatCount', intval($this->get_field($post_id, $schedule_prefix.'repeat_count')));
+
+        //need acf pro it's param as a repeater.
+        $this->add_to_schema($schedule, 'exceptDate', $this->get_field($post_id, $schedule_prefix.'except_date'));
 
         return $schedule;
     }
+
+    /** Les checkbox ACF renvoient des chaînes : schema.org attend des Integer. */
+    function schedule_ints(array $values): array
+    {
+        $ints = array_map('intval', $values);
+        sort($ints);
+        return $ints;
+    }
+
+    function schedule_iso_duration(string $start, string $end): string
+    {
+        $diff = (int)((strtotime($end) - strtotime($start)) / 60);
+        if ($diff <= 0) {
+            $diff += 1440; // l'occurrence se termine après minuit
+        }
+        $h = intdiv($diff, 60);
+        $m = $diff % 60;
+        return 'PT' . ($h ? "{$h}H" : '') . ($m ? "{$m}M" : '');
+    }
+
 }

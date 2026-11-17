@@ -12,9 +12,15 @@ class ScheduleBlueprint extends Blueprint {
             "endDate" => true,
             "startTime" => true,
             "endTime" => true,
-            "by_day" => true,
+            "byDay" => true,
             "repeatFrequency" => true,
-            "scheduleTimezone" => true
+            "scheduleTimezone" => true,
+            "duration" => true,
+            "byMonthWeek" => true,
+            "byMonthDay" => true,
+            "byMonth" => true,
+            "repeatCount" => true,
+            "exceptDate" => true,
         ];
 
         if (!empty($fields) && $fields !== ["all"]) {

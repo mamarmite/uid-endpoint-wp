@@ -356,114 +356,449 @@
             },
             "layout": "block",
             "sub_fields": [
-                {
-                    "key": "field_68e59b716c68a",
-                    "label": "Date de début",
-                    "name": "start_date",
+              {
+                "key": "field_68e59b716c68a",
+                "label": "Date de début",
+                "name": "start_date",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "25",
+                  "class": "",
+                  "id": ""
+                },
+                "display_format": "Y-m-d",
+                "return_format": "Y-m-d",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_68e59bdb6c68c",
+                "label": "Heure de début",
+                "name": "start_time",
+                "aria-label": "",
+                "type": "time_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "25",
+                  "class": "",
+                  "id": ""
+                },
+                "display_format": "H:i:s",
+                "return_format": "H:i:s",
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_68e59bc66c68b",
+                "label": "Date de fin",
+                "name": "end_date",
+                "aria-label": "",
+                "type": "date_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "25",
+                  "class": "",
+                  "id": ""
+                },
+                "display_format": "Y-m-d",
+                "return_format": "Y-m-d",
+                "first_day": 1,
+                "default_to_current_date": 0,
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_68e59bfb6c68d",
+                "label": "Heure de fin",
+                "name": "end_time",
+                "aria-label": "",
+                "type": "time_picker",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "25",
+                  "class": "",
+                  "id": ""
+                },
+                "display_format": "H:i:s",
+                "return_format": "H:i:s",
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_6900a1b2c3d01",
+                "label": "Fréquence de répétition",
+                "name": "repeat_frequency",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                  "width": "50",
+                  "class": "",
+                  "id": ""
+                },
+                "choices": {
+                  "none": "Aucune (occurrence unique ou plage continue)",
+                  "D": "Quotidienne",
+                  "W": "Hebdomadaire",
+                  "M": "Mensuelle",
+                  "Y": "Annuelle"
+                },
+                "default_value": "none",
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_6900a1b2c3d02",
+                "label": "Intervalle",
+                "name": "repeat_interval",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "1 = chaque période, 2 = une période sur deux, etc.",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "!=",
+                      "value": "none"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "50",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": 1,
+                "min": 1,
+                "max": "",
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_68e59c576c68f",
+                "label": "Par jour",
+                "name": "by_day",
+                "aria-label": "",
+                "type": "checkbox",
+                "instructions": "Jours de la semaine (byDay).",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "W"
+                    }
+                  ],
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "M"
+                    }
+                  ],
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "Y"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "choices": {
+                  "https://schema.org/Monday": "Lundi",
+                  "https://schema.org/Tuesday": "Mardi",
+                  "https://schema.org/Wednesday": "Mercredi",
+                  "https://schema.org/Thursday": "Jeudi",
+                  "https://schema.org/Friday": "Vendredi",
+                  "https://schema.org/Saturday": "Samedi",
+                  "https://schema.org/Sunday": "Dimanche"
+                },
+                "default_value": [],
+                "return_format": "value",
+                "allow_custom": 0,
+                "allow_in_bindings": 0,
+                "layout": "horizontal",
+                "toggle": 0,
+                "save_custom": 0,
+                "custom_choice_button_text": "Ajouter un nouveau choix"
+              },
+              {
+                "key": "field_6900a1b2c3d03",
+                "label": "Semaine du mois",
+                "name": "by_month_week",
+                "aria-label": "",
+                "type": "checkbox",
+                "instructions": "À combiner avec « Par jour » : ex. 2e semaine + Mardi = 2e mardi du mois (byMonthWeek).",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "M"
+                    }
+                  ],
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "Y"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "choices": {
+                  "1": "1re semaine",
+                  "2": "2e semaine",
+                  "3": "3e semaine",
+                  "4": "4e semaine",
+                  "5": "5e semaine"
+                },
+                "default_value": [],
+                "return_format": "value",
+                "allow_custom": 0,
+                "allow_in_bindings": 0,
+                "layout": "horizontal",
+                "toggle": 0,
+                "save_custom": 0,
+                "custom_choice_button_text": "Ajouter un nouveau choix"
+              },
+              {
+                "key": "field_6900a1b2c3d04",
+                "label": "Jour du mois",
+                "name": "by_month_day",
+                "aria-label": "",
+                "type": "checkbox",
+                "instructions": "Jours du mois (byMonthDay).",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "M"
+                    }
+                  ],
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "Y"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "choices": {
+                  "1": "1",
+                  "2": "2",
+                  "3": "3",
+                  "4": "4",
+                  "5": "5",
+                  "6": "6",
+                  "7": "7",
+                  "8": "8",
+                  "9": "9",
+                  "10": "10",
+                  "11": "11",
+                  "12": "12",
+                  "13": "13",
+                  "14": "14",
+                  "15": "15",
+                  "16": "16",
+                  "17": "17",
+                  "18": "18",
+                  "19": "19",
+                  "20": "20",
+                  "21": "21",
+                  "22": "22",
+                  "23": "23",
+                  "24": "24",
+                  "25": "25",
+                  "26": "26",
+                  "27": "27",
+                  "28": "28",
+                  "29": "29",
+                  "30": "30",
+                  "31": "31"
+                },
+                "default_value": [],
+                "return_format": "value",
+                "allow_custom": 0,
+                "allow_in_bindings": 0,
+                "layout": "horizontal",
+                "toggle": 0,
+                "save_custom": 0,
+                "custom_choice_button_text": "Ajouter un nouveau choix"
+              },
+              {
+                "key": "field_6900a1b2c3d05",
+                "label": "Par mois",
+                "name": "by_month",
+                "aria-label": "",
+                "type": "checkbox",
+                "instructions": "Mois de l'année (byMonth).",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "M"
+                    }
+                  ],
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "==",
+                      "value": "Y"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "choices": {
+                  "1": "Janvier",
+                  "2": "Février",
+                  "3": "Mars",
+                  "4": "Avril",
+                  "5": "Mai",
+                  "6": "Juin",
+                  "7": "Juillet",
+                  "8": "Août",
+                  "9": "Septembre",
+                  "10": "Octobre",
+                  "11": "Novembre",
+                  "12": "Décembre"
+                },
+                "default_value": [],
+                "return_format": "value",
+                "allow_custom": 0,
+                "allow_in_bindings": 0,
+                "layout": "horizontal",
+                "toggle": 0,
+                "save_custom": 0,
+                "custom_choice_button_text": "Ajouter un nouveau choix"
+              },
+              {
+                "key": "field_6900a1b2c3d06",
+                "label": "Nombre d'occurrences",
+                "name": "repeat_count",
+                "aria-label": "",
+                "type": "number",
+                "instructions": "Optionnel. Alternative à la date de fin (repeatCount).",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "!=",
+                      "value": "none"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "50",
+                  "class": "",
+                  "id": ""
+                },
+                "default_value": "",
+                "min": 1,
+                "max": "",
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "allow_in_bindings": 0
+              },
+              {
+                "key": "field_6900a1b2c3d07",
+                "label": "Dates exclues",
+                "name": "except_dates",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Représentations annulées (exceptDate).",
+                "required": 0,
+                "conditional_logic": [
+                  [
+                    {
+                      "field": "field_6900a1b2c3d01",
+                      "operator": "!=",
+                      "value": "none"
+                    }
+                  ]
+                ],
+                "wrapper": {
+                  "width": "",
+                  "class": "",
+                  "id": ""
+                },
+                "layout": "table",
+                "pagination": 0,
+                "min": 0,
+                "max": 0,
+                "collapsed": "",
+                "button_label": "Ajouter une date exclue",
+                "rows_per_page": 20,
+                "sub_fields": [
+                  {
+                    "key": "field_6900a1b2c3d08",
+                    "label": "Date",
+                    "name": "except_date",
                     "aria-label": "",
                     "type": "date_picker",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
+                      "width": "",
+                      "class": "",
+                      "id": ""
                     },
                     "display_format": "Y-m-d",
                     "return_format": "Y-m-d",
                     "first_day": 1,
                     "default_to_current_date": 0,
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_68e59bdb6c68c",
-                    "label": "Heure de début",
-                    "name": "start_time",
-                    "aria-label": "",
-                    "type": "time_picker",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "display_format": "H:i:s",
-                    "return_format": "H:i:s",
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_68e59bc66c68b",
-                    "label": "Date de fin",
-                    "name": "end_date",
-                    "aria-label": "",
-                    "type": "date_picker",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "display_format": "Y-m-d",
-                    "return_format": "Y-m-d",
-                    "first_day": 1,
-                    "default_to_current_date": 0,
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_68e59bfb6c68d",
-                    "label": "Heure de fin",
-                    "name": "end_time",
-                    "aria-label": "",
-                    "type": "time_picker",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "display_format": "H:i:s",
-                    "return_format": "H:i:s",
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_68e59c576c68f",
-                    "label": "Par jour",
-                    "name": "by_day",
-                    "aria-label": "",
-                    "type": "checkbox",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "http:\/\/schema.org\/Monday": "Lundi",
-                        "http:\/\/schema.org\/Tuesday": "Mardi",
-                        "http:\/\/schema.org\/Wednesday": "Mercredi",
-                        "http:\/\/schema.org\/Thursday": "Jeudi",
-                        "http:\/\/schema.org\/Friday": "Vendredi",
-                        "http:\/\/schema.org\/Saturday": "Samedi",
-                        "http:\/\/schema.org\/Sunday": "Dimanche"
-                    },
-                    "default_value": [],
-                    "return_format": "value",
-                    "allow_custom": 0,
                     "allow_in_bindings": 0,
-                    "layout": "vertical",
-                    "toggle": 0,
-                    "save_custom": 0,
-                    "custom_choice_button_text": "Ajouter un nouveau choix"
-                }
+                    "parent_repeater": "field_6900a1b2c3d07"
+                  }
+                ]
+              }
             ]
         },
         {
@@ -541,5 +876,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788461055
+    "modified": 1794943353
 }
