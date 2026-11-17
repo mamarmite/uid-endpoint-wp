@@ -80,14 +80,15 @@ Il n'y a pas de :
 - Encapsuler le plugiciel en mode prototype dans une version intelligible et assez versatile pour devenir un plugiciel complet.
 
 # À faire
-- :party:
+- [ ] Restraindre le startDate de l'horaire pour qu'il fonctionne avec les jours de la semaine sélectionné dans l'horaire.
 
 # Améliorations
 - [ ] Automatisation de l'installation avec un flush des rewrites des permalink, 
 - [x] Automatisation de l'installation vérification qu'ACF est installé et actif.
 - [ ] Sauvegarder les UID complet dans un meta directement dans la BD.
 - [ ] Internationalisation des textes, présentement en français seulement.
-- [ ] Ajustement suite aux premiers moissonnages.
+- [x] Ajustement suite aux premiers moissonnages.
+- [x] Gestion de l'horaire avec des fréquences plus complète.
 
 # Idées / Backlog
 - [ ] Ajouter un pourcentage de complétion des schémas par entité dans la table wordpress directement (et dans la vue `/list`)
