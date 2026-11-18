@@ -75,8 +75,9 @@ class ScheduleAdapter extends AbstractSchemaAdapter
         $repeat_frequency = $this->get_field($post_id, $schedule_prefix.'repeat_frequency');
 
         if (in_array($repeat_frequency, ['D', 'W', 'M', 'Y'], true)) {
+            $repeat_interval = $this->get_field($post_id, $schedule_prefix.'repeat_interval');
+            $interval = max(1, (int)($repeat_interval ?? 1));
 
-            $interval = max(1, (int)($row['repeat_interval'] ?? 1));
             //$this->add_to_schema($schedule, 'repeatFrequency', DateHelper::interval_to_ISO8601($date_delta));
             $this->add_to_schema($schedule, 'repeatFrequency', "P{$interval}{$repeat_frequency}");
 
