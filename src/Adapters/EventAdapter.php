@@ -199,12 +199,10 @@ class EventAdapter extends AbstractSchemaAdapter
     {
         $works = [];
 
-        $allow_list_from_context = $this->blueprint->allow_list($context);
         //if the key is in the allow list from context.
-        if ($this->blueprint->is_allowed("work_featured", $context)) {
+        if ($this->blueprint->is_allowed("workFeatured", $context)) {
 
             $workIds = $this->get_field($post_id, 'work_featured', []);
-
             if (is_array($workIds)) {
                 foreach ($workIds as $workId) {
                     $work = get_post($workId);
