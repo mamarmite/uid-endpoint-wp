@@ -37,6 +37,15 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
 
     function __construct(\WP_Post $post, Blueprint $blueprint) {
         $this->post = $post;
+
+        if (!post_type_exists($post->post_type)) {
+            $this->log(sprintf(
+                'Le type « %s » du post #%d n\'est pas enregistré. Vérifier le load path ACF JSON (acf/settings/load_json) ou le moment de l\'appel (avant init ?).',
+                $post->post_type,
+                $post->ID
+            ));
+            return;
+        }
         $this->post_type = get_post_type_object($post->post_type);
         $this->uid = new UID($post);
 
@@ -290,6 +299,12 @@ abstract class AbstractSchemaAdapter implements SchemaAdapterInterface
             }
         }
         return $allow;
+    }
+
+    private function log(string $message): void {
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log(sprintf('[%s] %s', static::class, $message));
+        }
     }
 
 }
